@@ -1,0 +1,33 @@
+:host{
+    header{
+        background-color: #F26101;
+    
+        i{
+            color: #F26101;
+        }
+
+        h2{
+            font-size: calc(2vmin + 15px);
+            color: #272727e4;
+        }
+
+        p{
+            font-size: 0.8rem;
+        }
+        
+        ul{
+            list-style-type: none;
+            color: #272727e4;
+            transform: translateY(8px);
+
+            a{
+                text-decoration: none;
+                color: #000;
+            }
+        }
+
+
+    }
+
+    
+}
