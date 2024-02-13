@@ -1,0 +1,40 @@
+:host{
+
+    .box-img{
+        position: relative;
+        height: 450px;
+        width: 300px;
+
+        img{
+            object-fit: cover;
+        }
+    }
+
+    .box-invite{
+        transform: translateY(-25px);
+
+        p{
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: calc(2vmax + 20px);
+
+            i{
+                font-size: 1.8rem;
+                color: #F26101;
+            }
+        }
+
+        .text-icon{
+            display: flex;
+            align-items: center;
+        }
+
+        span{
+            font-size: 1.2rem;
+        }
+
+        button{
+            margin: 20px 0;
+        }
+    }
+}

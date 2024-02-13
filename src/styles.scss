@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-@import "scss/index"
+@import "scss/index";
+
+
+button{
+    width: 144px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 2px 5px 12px #F26101;
+    transition: .4s ease;
+
+    &.btnPrimary{
+        background-color: #F26101;
+        color: #FFF;
+
+        &:hover{
+            background-color: #c74f00;
+        }
+    }
+}

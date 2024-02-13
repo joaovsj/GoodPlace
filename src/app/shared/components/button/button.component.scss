@@ -1,0 +1,13 @@
+:host{
+    button{
+        width: 144px;
+        height: 40px;
+        border: none;
+        border-radius: 4px;
+
+        &.primary{
+            background-color: #F26101;
+            color: #FFF;
+        }
+    }    
+}
