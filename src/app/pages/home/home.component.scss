@@ -4,9 +4,33 @@
         position: relative;
         height: 450px;
         width: 300px;
+        box-shadow: 5px 5px 14px rgba(0,0,0,0.3);
 
         img{
             object-fit: cover;
+        }
+
+        &::before{
+            content: '';
+            display: block;
+            height: 250px;
+            width: 250px;
+            background-color: #304269;
+            position: absolute;
+            transform: translate(-8%, -8%);
+        }
+
+        &::after{
+            content: '';
+            display: block;
+            height: 50px;
+            width: 50px;
+            background-color: #F26101;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: translate(25%, 25%);
+            z-index: -1;
         }
     }
 
