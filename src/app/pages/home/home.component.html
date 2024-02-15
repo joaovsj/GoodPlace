@@ -61,19 +61,18 @@
         </div>
     </section>
 
-    <section class="container d-flex flex-column gap-5 w-100 p-5 presence">
+    <section class="container d-flex flex-column gap-5 w-100 py-5 presence">
         <div class="col">
             <h3 class="text-center text-white">Conheça nossa presença na vida das pessoas!</h3>
         </div>
         <div class="col-8 mx-auto my-5 d-flex justify-content-around">
 
             @for(item of comments(); track item){
-                <div class="card-person d-flex flex-column bg-light align-items-center justify-content-center px-1 py-4 rounded-3">
+                <div class="card-person d-flex flex-column bg-light align-items-center justify-content-center px-3 py-4 rounded-3">
                     <div class="img mb-3">
                         <img ngSrc="{{ item.src }}" fill alt="">
                     </div>
-                    <p class="text-center text-muted">"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, sapiente."</p>
-
+                    <p class="text-center text-muted">"{{ item.description }}"</p>
                     <span>{{ item.person.name }}</span>
                     <span class="fst-italic opacity-50">{{ item.person.job }}</span>
                 </div>

@@ -121,14 +121,15 @@
     }
 
     .presence{
-        height: 70vh;
+        // height: vh;
         background-color: #304269;
         border-radius: 12px;
-        margin-top: 20vh;
+        margin: 20vh auto;
         color: #061c37;
 
         .card-person{   
-            width: 210px;
+            width: 225px;
+            max-height: 350px;
             box-shadow: 0px 4px 4px rgba(0,0,0,0.3);
 
             .img{
