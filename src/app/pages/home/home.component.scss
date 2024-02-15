@@ -146,7 +146,7 @@
             }
 
             p{
-                font-size: .9rem;
+                font-size: .8rem;
                 position: relative;
 
                 &::after{
@@ -162,8 +162,24 @@
             }
 
             span{
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
         }
     }
+
+    .last-message{
+        span{
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+
+            i{
+                font-size: 1.2rem;
+                transform: translateY(2px);
+                color: #F26101;
+            }
+        }
+    }
+    
+    
 }
