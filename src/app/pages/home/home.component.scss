@@ -36,11 +36,13 @@
 
     .box-invite{
         transform: translateY(-25px);
+        // line-height: 45px;
 
         p{
             font-family: "Poppins", sans-serif;
             font-weight: 500;
             font-size: calc(2vmax + 20px);
+            line-height: 60px;
 
             i{
                 font-size: 1.8rem;
