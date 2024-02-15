@@ -1,12 +1,15 @@
 import { Component, signal } from '@angular/core';
-import { HeaderComponent } from '../../shared/components/header/header.component';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ButtonComponent } from '../../shared/components/button/button.component';
+
+// Components
+import { HeaderComponent } from '../../shared/components/header/header.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, NgOptimizedImage, ButtonComponent],
+  imports: [CommonModule, HeaderComponent, NgOptimizedImage, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -33,8 +36,8 @@ export class HomeComponent {
       src: "assets/img/comment-three.jpg",
       description: "Se quiser saber sobre algum lugar, pesquise aqui à respeito e te garanto que vai se sentir muito mais seguro quando for a sua vez de viajar. ",
       person: {
-        name: "Eshiley",
-        job: "CEO Dantas"
+        name: "Ramiro Fonseca",
+        job: "Secretário Defensoria Pública"
       }
     },
     
