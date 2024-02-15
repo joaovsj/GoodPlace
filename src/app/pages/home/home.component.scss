@@ -76,9 +76,9 @@
         margin: 5vh 0;
 
         .box-card{
-            height: 260px;
+            height: 260px;  
             width: 250px;
-            border-radius: 8px;
+            border-radius: 8px !important;
             box-shadow: 0px 4px 4px rgba(0,0,0,0.3);
             margin: 10px;
             
@@ -120,15 +120,37 @@
 
     }
 
+    .presence{
+        height: 70vh;
+        background-color: #304269;
+        border-radius: 12px;
+        margin-top: 20vh;
+        color: #061c37;
 
+        .card-person{   
+            width: 210px;
+            box-shadow: 0px 4px 4px rgba(0,0,0,0.3);
 
+            .img{
+                position: relative;
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                background-color: tomato;
+                overflow: hidden;
 
+                img{
+                    object-fit: cover;
+                }
+            }
 
+            p{
+                font-size: .9rem;
+            }
 
-
-
-
-
-
-
+            span{
+                font-size: 1rem;
+            }
+        }
+    }
 }
