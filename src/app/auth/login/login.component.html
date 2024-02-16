@@ -7,7 +7,7 @@
     </div>
 
     <div class="col d-flex flex-column align-items-center justify-content-center second">
-        <div class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form">
+        <div class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
             <span class="circle"></span><h2 class="mb-2 fw-bold">Login</h2>
             <div>
                 <input type="email" class="form-control" placeholder="E-mail">
@@ -18,7 +18,7 @@
             <div>
                 <button class="w-100 btnPrimary">Entrar</button>
             </div>
-            <a href="" class="text-end">Não tem cadastro?</a>
+            <a routerLink="/register" class="text-end">Não tem cadastro?</a>
         </div>
     </div>
 </div>

@@ -1,1 +1,30 @@
-<p>signup works!</p>
+<div class="container-fluid d-flex p-0">
+    <div class="col d-flex flex-column align-items-center justify-content-center box-img" style="height: 100vh;">
+        <div class="box-invite p-4 text-white">
+            <h1 class="mb-4 fw-bold">Hora de conhecer <br> novos lugares...</h1>
+            <p class="fs-5">Entre na sua conta e tenha acesso a milhares <br> de informações para suas <span class="fw-bold">viagens.</span></p>
+        </div>
+    </div>
+
+    <div class="col d-flex flex-column align-items-center justify-content-center second">
+        <div class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
+            <span class="circle"></span><h2 class="mb-2 fw-bold">Cadastre-se</h2>
+            <div>
+                <input type="text" class="form-control" placeholder="Nome">
+            </div>
+            <div>
+                <input type="email" class="form-control" placeholder="E-mail">
+            </div>
+            <div>
+                <input type="password" class="form-control" placeholder="Senha">
+            </div>
+            <div>
+                <input type="password" class="form-control" placeholder="Senha">
+            </div>
+            <div>
+                <button class="w-100 btnPrimary">Entrar</button>
+            </div>
+            <a routerLink="/login" class="text-end">Já possui uma conta?</a>
+        </div>
+    </div>
+</div>
