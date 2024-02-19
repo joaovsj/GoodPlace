@@ -1,0 +1,16 @@
+:host{
+
+    .boxCards{
+        background-color: #f26101dd;
+    }
+
+    .myCard{
+        .box-img{
+            position: relative;
+
+            img{
+                object-fit: cover;
+            }
+        }
+    }
+}
