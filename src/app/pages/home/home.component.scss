@@ -38,6 +38,10 @@
         transform: translateY(-25px);
         // line-height: 45px;
 
+        a{
+            text-decoration: none;
+        }
+
         p{
             font-family: "Poppins", sans-serif;
             font-weight: 500;
@@ -180,6 +184,10 @@
                 transform: translateY(2px);
                 color: #F26101;
             }
+        }
+
+        a{
+            text-decoration: none;
         }
     }
     

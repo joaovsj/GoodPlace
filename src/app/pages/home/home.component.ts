@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 // Components
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -9,7 +10,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, NgOptimizedImage, FooterComponent],
+  imports: [CommonModule, HeaderComponent, NgOptimizedImage, FooterComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
