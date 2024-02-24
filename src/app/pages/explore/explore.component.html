@@ -16,8 +16,13 @@
                 </div>
             </form>
         </div>
-       
-        <app-places />
+    
 
+        @if(filterSearch.value.category === "places"){
+            <app-places />    
+        } @else {
+            <app-people />
+        }
+        
     </div>
 <app-footer />
