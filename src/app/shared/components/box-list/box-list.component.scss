@@ -1,0 +1,17 @@
+:host{
+    .myCard{
+        .box-img{
+            position: relative;
+
+            img{
+                object-fit: cover;
+            }
+        }
+
+        .box-details{
+            ul li{
+                color: #304269;
+            }
+        }
+    }
+}
