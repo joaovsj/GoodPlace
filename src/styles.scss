@@ -19,10 +19,20 @@ button{
         }
     }
 
+
     &.btnSecondary{
         background-color: #304269;
         // box-shadow: 2px 1px 5px #000;
         color: #FFF;
+    }
+
+    &.btnTertiary{
+        background-color: #FFFFFF;
+        color: #000;
+
+        &:hover{
+            background-color: #e8e7e7;
+        }
     }
 }
 
