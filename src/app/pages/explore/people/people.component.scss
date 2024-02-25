@@ -1,4 +1,10 @@
 :host{
+
+    .all-content{
+        opacity: 0;
+        pointer-events: none;
+    }
+
     .boxCards{
         background-color: #f26101dd;
         min-height: 70vh;
