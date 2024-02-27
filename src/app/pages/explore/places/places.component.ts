@@ -4,11 +4,12 @@ import { Component } from '@angular/core';
 // Components
 import { BoxListComponent } from '../../../shared/components/box-list/box-list.component';
 import { DescriptionComponent } from '../../../shared/components/description/description.component';
+import { BoxCommentComponent } from '../../../shared/components/box-comment/box-comment.component';
 
 @Component({
   selector: 'app-places',
   standalone: true,
-  imports: [BoxListComponent, DescriptionComponent],
+  imports: [BoxListComponent, DescriptionComponent, BoxCommentComponent],
   templateUrl: './places.component.html',
   styleUrl: './places.component.scss',
   animations: [
