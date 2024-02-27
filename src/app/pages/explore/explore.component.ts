@@ -24,7 +24,7 @@ export class ExploreComponent{
 
 
   public filterSearch = this.#fb.group({
-    category: ['people', Validators.required],
+    category: ['places', Validators.required],
     description: ['']
   })
 
