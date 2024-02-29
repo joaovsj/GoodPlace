@@ -21,5 +21,9 @@ export const routes: Routes = [
     {
         path: 'person/comment',
         loadComponent: () => import('./pages/person/comment/comment.component').then(p => p.CommentComponent)
+    },
+    {
+        path: 'person/profile',
+        loadComponent: () => import('./pages/person/profile/profile.component').then(p => p.ProfileComponent)
     }
 ];
