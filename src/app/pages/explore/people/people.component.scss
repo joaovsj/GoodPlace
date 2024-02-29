@@ -10,22 +10,4 @@
         min-height: 70vh;
     }
 
-    .post{
-        .details{
-            strong{
-                color: #f26101dd;
-            }
-        }
-
-        .box-img::after{
-            content: '';
-            display: block;
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            z-index: 999 !important;
-            background-color: tomato;
-            // background-color: rgba(0,0,0,0.9);
-        } 
-    }
 }
