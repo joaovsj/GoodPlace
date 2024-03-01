@@ -48,9 +48,32 @@
             </div>
 
             <div class="col d-flex flex-column gap-3">
-                <button class="btnSecondary shadow">Novo Post</button>
+                <button class="btnSecondary shadow" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal">
+                    Novo Post
+                </button>
                 <button class="">Finalizar cadastro</button>
             </div>
         </div>
     </div>
+
+
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+    <div class="modal-dialog d-flex justify-content-center">
+      <div class="modal-content shadow p-5 mt-5 rounded-3" style="width: 45vw">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4 fw-bolder" id="exampleModalLabel">Novo Post</h1>
+          <span></span>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- ... -->
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+    
 <app-footer />

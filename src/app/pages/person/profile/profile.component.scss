@@ -10,4 +10,27 @@
             object-fit: cover;
         }
     }
+
+
+    .modal-dialog{
+        .modal-content{
+            .modal-header{
+                h1{
+                    position: relative;
+                    z-index: 2;
+                }
+                span{
+                    position: absolute;
+                    display: block;
+                    height: 20px;
+                    width: 20px;
+                    z-index: 1;
+                    transform: translate(-40%, -28%);
+                    border-radius: 50%;
+                    background-color: #f26101;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
 }
