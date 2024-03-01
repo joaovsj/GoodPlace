@@ -20,6 +20,6 @@ import { RouterLink } from '@angular/router';
     ])
   ]
 })
-export class LoginComponent {
+export default class LoginComponent {
 
 }

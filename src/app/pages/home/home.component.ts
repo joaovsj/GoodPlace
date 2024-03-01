@@ -15,7 +15,7 @@ import { FooterComponent } from '@components/footer/footer.component';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export default class HomeComponent {
 
   public comments = signal([
     {

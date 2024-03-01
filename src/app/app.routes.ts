@@ -3,27 +3,22 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () => import('./pages/home/home.component').then(p=> p.HomeComponent)
+        loadComponent: () => import('./pages/home/home.component')
     },
     {
         path: 'login',
-        loadComponent: () => import('./auth/login/login.component').then(p=> p.LoginComponent)
+        loadComponent: () => import('./auth/login/login.component')
     },
     {
         path: 'register',
-        loadComponent: () => import('./auth/signup/signup.component').then(p => p.SignupComponent)
+        loadComponent: () => import('./auth/signup/signup.component')
     },
     {
         path: 'explore', 
-        // loadChildren: () => import('./pages/explore/explore.routes').then((route) => route.exploreRoutes)
-        loadComponent: () => import('./pages/explore/explore.component').then(p => p.ExploreComponent)
+        loadComponent: () => import('./pages/explore/explore.component')
     },
     {
-        path: 'person/comment',
-        loadComponent: () => import('./pages/person/comment/comment.component').then(p => p.CommentComponent)
+        path: 'person',
+        loadChildren: () => import('./pages/person/person.routes').then(rout => rout.personRoutes)
     },
-    {
-        path: 'person/profile',
-        loadComponent: () => import('./pages/person/profile/profile.component').then(p => p.ProfileComponent)
-    }
 ];

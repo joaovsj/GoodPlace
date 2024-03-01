@@ -23,6 +23,6 @@ import { BoxPostComponent } from '@components/box-post/box-post.component';
     ])
   ]
 })
-export class PeopleComponent {
+export default class PeopleComponent {
 
 }

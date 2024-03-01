@@ -24,6 +24,6 @@ import { BoxCommentComponent }  from '@components/box-comment/box-comment.compon
     ])
   ]
 })
-export class PlacesComponent {
+export default  class PlacesComponent {
 
 }
