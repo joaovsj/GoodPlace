@@ -1,10 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 // Components
-import { BoxListComponent } from '../../../shared/components/box-list/box-list.component';
-import { DescriptionComponent } from '../../../shared/components/description/description.component';
-import { BoxCommentComponent } from '../../../shared/components/box-comment/box-comment.component';
+import { BoxListComponent }     from '@components/box-list/box-list.component';
+import { DescriptionComponent } from '@components/description/description.component';
+import { BoxCommentComponent }  from '@components/box-comment/box-comment.component';
 
 @Component({
   selector: 'app-places',
@@ -12,6 +12,7 @@ import { BoxCommentComponent } from '../../../shared/components/box-comment/box-
   imports: [BoxListComponent, DescriptionComponent, BoxCommentComponent],
   templateUrl: './places.component.html',
   styleUrl: './places.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('visibility', [
       state('visible', style({

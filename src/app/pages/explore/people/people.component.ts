@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { BoxListComponent } from '../../../shared/components/box-list/box-list.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BoxPostComponent } from '../../../shared/components/box-post/box-post.component';
+
+// Components
+import { BoxListComponent } from '@components/box-list/box-list.component';
+import { BoxPostComponent } from '@components/box-post/box-post.component';
 
 @Component({
   selector: 'app-people',
@@ -9,6 +11,7 @@ import { BoxPostComponent } from '../../../shared/components/box-post/box-post.c
   imports: [BoxListComponent, BoxPostComponent],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('visibility', [
       state('visible', style({
