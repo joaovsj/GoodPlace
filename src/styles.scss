@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "scss/index";
 
-
 button{
     width: 144px;
     height: 40px;
@@ -56,6 +55,10 @@ select{
     border: 1px solid #F26101 !important;
 } 
 
-.color-primary{
+.background-primary{
     background-color: #F26101;
+}
+
+.color-primary{
+    color: #F26101;
 }
