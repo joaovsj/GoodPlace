@@ -3,7 +3,7 @@
         <div class="row " style="margin-top: 15vh;">
             <div class="col">
                 <ul class="list-group">
-                    <li class="list-group-item">Lugares Visitados: 15</li>
+                    <li class="list-group-item">Lugares Visitados: 15 {{ finalizeRegister() }}  </li>
                     <li class="list-group-item">Meus comentários: 60</li>
                     <li class="list-group-item">
                         <ul class="vstack gap-1 m-0 p-0" style="list-style-type: none;">
@@ -17,6 +17,28 @@
                             </li>
                         </ul>
                     </li>
+                    
+                    @if(finalizeRegister()){
+                        <div class="container-fluid p-0 gap-1 d-flex flex-wrap my-2" [@register]>
+                            <div class="col-4">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Ícone</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                  </select>                  
+                            </div>
+                            <div class="col">
+                                <input type="text" name="vaue" id="value" class="form-control" placeholder="Valor...">
+                            </div>
+                            <div class="col-12">
+                                <button class="w-100 btnSecondary">Finalizar</button>
+                            </div>
+                            
+                        </div>
+                    }
+
+
                     <li class="list-group-item text-muted">Data de cadastro: 18/02/2024</li>
                 </ul>
             </div>
@@ -54,11 +76,12 @@
                         data-bs-target="#exampleModal">
                     Novo Post
                 </button>
-                <button class="">Finalizar cadastro</button>
+                <button class="" (click)="finalize()">
+                    {{ finalizeRegister() == true ?  'Cancelar' : 'Finalizar Cadastro'}} 
+                </button>
             </div>
         </div>
     </div>
-
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

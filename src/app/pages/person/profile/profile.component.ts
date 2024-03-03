@@ -22,12 +22,26 @@ import { FooterComponent } from '@components/footer/footer.component';
         style({opacity: 1, transform: "translateX(0)"}),
         animate('.2s ease', style({opacity: 0, transform: "translateX(-80px)"}))
       ])      
-    ])
+    ]), 
 
+    trigger('register', [
+      transition(':enter', [
+        style({opacity: 0, transform: "translateY(-20px)"}),
+        animate('.5s ease', style({opacity: 1, transform: 'translateY(0)'}))
+      ]), 
+      transition(':leave', [
+        style({opacity: 1, transform: "translateY(0)"}),
+        animate('.2s ease', style({opacity: 0, transform: "translateY(-20px)"}))
+      ])      
+    ]), 
+    
   ]
 })
 export class ProfileComponent {
   
+
+  public finalizeRegister = signal<boolean>(false);
+
   public stepForm = signal<string>('step-1'); // Step of the Form
   public stepBar = signal<number>(1)          // step of the bar in bottom
   
@@ -39,6 +53,11 @@ export class ProfileComponent {
     this.stepBar.update((oldValue) => {
       return oldValue + 1
     })
+  }
+
+
+  public finalize(){  
+    this.finalizeRegister.update(oldValue => !oldValue)
   }
 
 }
