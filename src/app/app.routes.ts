@@ -21,4 +21,8 @@ export const routes: Routes = [
         path: 'person',
         loadChildren: () => import('./pages/person/person.routes').then(rout => rout.personRoutes)
     },
+    {
+        path: '**', 
+        loadComponent: () => import('./pages/not-found/not-found.component')
+    }
 ];

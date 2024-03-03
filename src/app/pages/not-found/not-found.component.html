@@ -1,1 +1,26 @@
-<p>not-found works!</p>
+
+<app-header />
+
+<main class="container rounded-3 d-flex justify-content-center bg-danger p-0 shadow overflow-hidden">
+    <div class="col-6 position-relative bg-danger h-100 rounded-start overflow-hidden">
+        <img src="assets/img/desert.jpg" alt="Página não encontrada" class="img-fluid h-100 object-fit-cover w-100">
+    </div>
+    <div class="col-6 bg-light p-5 d-flex flex-column justify-content-center position-relative">
+        <span class="position-absolute top-0 end-0 m-4 fs-4 fw-bold">404</span>
+        
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-column">    
+                <h2 class="mb-3 display-4 fw-bolder">Oops!</h2>
+                <p class="mb-5 fw-bold">Página não encontrada...</p>
+                <p>Aqui você não fica perdido, que tal voltar a explorar lugares incríveis e ver o que as pessoas estão dizendo?</p>
+            </div>
+            <a routerLink="/">
+                <button class="btnSecondary shadow mt-3">Explorar</button>    
+            </a>
+            
+        </div>
+        
+    </div>
+</main>
+
+<app-footer />
