@@ -18,7 +18,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/explore/explore.component')
     },
     {
-        path: 'person',
+        path: 'profile',
         loadChildren: () => import('./pages/person/person.routes').then(rout => rout.personRoutes)
     },
     {

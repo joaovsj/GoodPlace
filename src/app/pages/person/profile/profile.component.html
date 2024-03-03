@@ -61,27 +61,33 @@
 
 
   <!-- Modal -->
-  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog d-flex justify-content-center">
       <div class="modal-content shadow p-5 mt-5 rounded-3" style="width: 45vw">
         <div class="modal-header">
-          <h1 class="modal-title fs-4 fw-bolder" id="exampleModalLabel">Novo Post   {{ step() }} </h1>
+          <h1 class="modal-title fs-4 fw-bolder" id="exampleModalLabel">Novo Post </h1>
           <span></span>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body p-4" style="width: 38vw;">
+        <div class="modal-body p-5" style="width: 38vw;">
+
+
+          
+
           <div class="col position-relative">
             <form class="d-flex position-relative gap-2">
-                @switch (step()) {
+
+
+                @switch (stepForm()) {
                     @case('step-1'){
                         <div class="w-100 box-step" [@state]>
                             <div class="d-flex justify-content-between">
                                 <p class="mb-3">Nos conte aonde você foi!</p>
-                                <p>1/4</p>
+                                <p>{{ stepBar() }}/4</p>
                             </div>
                             <div class="d-flex gap-2">
                                 <input type="text" class="form-control" placeholder="Nome...">
-                                <button class="btnSecondary" type="button" (click)="this.step.set('step-2')">Avançar</button>
+                                <button class="btnSecondary" type="button" (click)="nextStep('step-2')">Avançar</button>
                             </div>                   
                         </div>
                     }
@@ -89,12 +95,24 @@
                     @case('step-2'){
                         <div class="w-100 box-step" [@state]>
                             <div class="d-flex justify-content-between">
-                                <p class="mb-3">Passo 2</p>
-                                <p>1/4</p>
+                                <p class="mb-3">Esse local já é cadastrado?</p>
+                                <p>{{ stepBar() }}/4</p>
                             </div>
-                            <div class="d-flex gap-2">
-                                <input type="text" class="form-control" placeholder="Nome...">
-                                <button class="btnSecondary" type="button" (click)="this.step.set('step-3')">Avançar</button>
+                            <div class="d-flex gap-2 align-items-end">
+                               <div class="d-flex flex-column flex-grow-1 gap-2 ms-3">
+                                    
+                                <div class="d-flex gap-1">
+                                    <input type="radio" name="alreadyRegistered" id="sim">
+                                    <label for="sim">Sim</label>
+                                </div>
+
+                                <div class="d-flex gap-1">
+                                    <input type="radio" name="alreadyRegistered" id="nao">
+                                    <label for="nao">Não</label>
+                                </div>
+                            </div>
+                                
+                                <button class="btnSecondary" type="button" (click)="nextStep('step-3')">Avançar</button>
                             </div>                   
                         </div>
                     }
@@ -103,15 +121,31 @@
                         <div class="w-100 box-step" [@state]>
                             <div class="d-flex justify-content-between">
                                 <p class="mb-3">Passo 3</p>
-                                <p>1/4</p>
+                                <p>{{ stepBar() }}/4</p>
                             </div>
                             <div class="d-flex gap-2">
                                 <input type="text" class="form-control" placeholder="Nome...">
-                                <button class="btnSecondary" type="button" (click)="this.step.set('step-final')">Avançar</button>
+                                <button class="btnSecondary" type="button" (click)="nextStep('step-final')">Avançar</button>
+                            </div>                   
+                        </div>
+                    }
+                    @case('step-final'){
+                        <div class="w-100 box-step" [@state]>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-3">Passo 4</p>
+                                <p>{{ stepBar() }}/4</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <input type="text" class="form-control" placeholder="Nome...">
+                                <button class="btnSecondary" type="button" (click)="nextStep('step-final')">Avançar</button>
                             </div>                   
                         </div>
                     }
                 }
+
+
+
+ 
             </form>
           </div> <!--  close col of form-->
 
@@ -120,19 +154,13 @@
                 <span class="bars background-primary flex-grow-1"></span>
                 <span 
                     class="bars flex-grow-1" 
-                    [ngClass]="{ 'background-primary': 
-                    step() === 'step-2', 'bg-dark-subtle': 
-                    step() !== 'step-2'}"></span>
+                    [ngClass]="{ 'background-primary': stepBar() > 1, 'bg-dark-subtle': stepBar() === 1}"></span>
                 <span 
                     class="bars flex-grow-1" 
-                    [ngClass]="{ 'background-primary': 
-                    step() === 'step-3', 'bg-dark-subtle': 
-                    step() !== 'step-3'}"></span>
+                    [ngClass]="{ 'background-primary': stepBar() > 2, 'bg-dark-subtle': stepBar() <= 2}"></span>
                 <span 
-                    class="bars flex-grow-1" 
-                    [ngClass]="{ 'background-primary': 
-                    step() === 'step-final', 'bg-dark-subtle': 
-                    step() !== 'step-final'}"></span>
+                    class="bars flex-grow-1"
+                    [ngClass]="{ 'background-primary': stepBar() > 3, 'bg-dark-subtle': stepBar() <= 3}"></span>
             </div>
           </div>
 
@@ -143,6 +171,6 @@
 
       </div>
     </div>
-  <!-- </div> -->
+  </div>
     
 <app-footer />

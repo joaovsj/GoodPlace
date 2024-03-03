@@ -28,6 +28,17 @@ import { FooterComponent } from '@components/footer/footer.component';
 })
 export class ProfileComponent {
   
-  public step = signal<string>('step-1');
+  public stepForm = signal<string>('step-1'); // Step of the Form
+  public stepBar = signal<number>(1)          // step of the bar in bottom
   
+
+  public nextStep(step: string){
+
+    this.stepForm.set(step);
+    
+    this.stepBar.update((oldValue) => {
+      return oldValue + 1
+    })
+  }
+
 }
