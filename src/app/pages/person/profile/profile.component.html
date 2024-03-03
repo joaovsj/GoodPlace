@@ -70,17 +70,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-4" style="width: 38vw;">
-
-
-          
-
           <div class="col position-relative">
-          
-            
-
             <form class="d-flex position-relative gap-2">
-
-
                 @switch (step()) {
                     @case('step-1'){
                         <div class="w-100 box-step" [@state]>
@@ -121,12 +112,7 @@
                         </div>
                     }
                 }
-
-
- 
             </form>
-
-     
           </div> <!--  close col of form-->
 
           <div class="col">
@@ -148,7 +134,7 @@
                     step() === 'step-final', 'bg-dark-subtle': 
                     step() !== 'step-final'}"></span>
             </div>
-        </div>
+          </div>
 
 
 
