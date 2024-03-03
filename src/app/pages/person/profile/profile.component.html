@@ -132,9 +132,21 @@
           <div class="col">
             <div class="d-flex mt-4 gap-1">
                 <span class="bars background-primary flex-grow-1"></span>
-                <span class="bars bg-dark-subtle flex-grow-1"></span>
-                <span class="bars bg-dark-subtle flex-grow-1"></span>
-                <span class="bars bg-dark-subtle flex-grow-1"></span>
+                <span 
+                    class="bars flex-grow-1" 
+                    [ngClass]="{ 'background-primary': 
+                    step() === 'step-2', 'bg-dark-subtle': 
+                    step() !== 'step-2'}"></span>
+                <span 
+                    class="bars flex-grow-1" 
+                    [ngClass]="{ 'background-primary': 
+                    step() === 'step-3', 'bg-dark-subtle': 
+                    step() !== 'step-3'}"></span>
+                <span 
+                    class="bars flex-grow-1" 
+                    [ngClass]="{ 'background-primary': 
+                    step() === 'step-final', 'bg-dark-subtle': 
+                    step() !== 'step-final'}"></span>
             </div>
         </div>
 
