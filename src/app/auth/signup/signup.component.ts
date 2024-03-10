@@ -25,39 +25,32 @@ import { AuthService } from '@services/auth.service';
     ])
   ]
 })
-export default class SignupComponent implements OnInit{
+export default class SignupComponent{
   
   #authService = inject(AuthService);
   
   public postUser(){
 
-
     const user = {
-        "name": "joao",
-        "email": "joao@gmail.com",
-        "password": "12345",
-        "password_confirmation": "12345",
-        "phone": "15 999999999",
-        "social_media": [
-            {
-                "instagram": "joao@instragram",
-                "linkedin": "https://www.linkedin.com/in/joao/",
-                "github": "github.com/joao"
-            }
-        ]
+      "name": "antoin",
+      "email": "antoin@gmail.com",
+      "password": "12345",
+      "password_confirmation": "12345",
+      "phone": "15 999999999",
+      "social_media": [
+          {
+              "instagram": "antoin@instragram",
+              "linkedin": "https://www.linkedin.com/in/antoin/",
+              "github": "github.com/antoin"
+          }
+      ]
     }
 
     return this.#authService.httpPostUser(user).subscribe({
       next: (result) => console.log(result),
       error: (error) => console.log(error)
-    });
+    });      
   }
 
-  ngOnInit(){
-    return this.#authService.teste().subscribe({
-      next: (res) => console.log(res),
-      error: (error) => console.log(error)
-    });
-  }
 
 }

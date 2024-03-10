@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,35 +9,22 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
 
   #http = inject(HttpClient);
-  #url  = signal<string>(environment.API + "/");  
-  
+  #url  = signal<string>(environment.API + "/register");  
+  public headers: HttpHeaders | undefined;
   
   constructor(){
-    console.log(this.#url());
+    this.headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json');
   }
 
   public httpPostUser(user: any): Observable<any>{
-    
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json');
 
-    // console.log(headers);
-    return this.#http.post<any>(this.#url(), { user }, { headers: headers });
-  }
-
-
-  public teste(){
-
-    console.log('aq');
-
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json');
-
-    return this.#http.get<any>("http://localhost:8000/api/")
-    .pipe(
-      tap(res => console.log(res))
+    return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.log(error.error);
+        return throwError(()=> error.error)
+      })
     );
   }
 }
