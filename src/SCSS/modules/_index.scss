@@ -1,4 +1,5 @@
 
+// Pieces of your appplication that will be used in several places
 
 .btnPrimary{
     background-color: #F26101;
@@ -50,4 +51,10 @@
 
 .is-invalid{
     border: 1px solid red !important;
+}
+
+.disabled{
+    background-color: #cfcfcf;
+    box-shadow: none;
+    pointer-events: none;
 }

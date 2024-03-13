@@ -11,22 +11,66 @@
         <form [formGroup]="user" (ngSubmit)="submit()" class="d-flex justify-content-center">
             <div class="w-75 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
                     <span class="circle"></span><h2 class="mb-2 fw-bold">Cadastre-se</h2>
-                
                     <div>
                         <p class="fs-5 p-0 mb-3">Insira seus dados para começar sua caminhada com a gente!</p>
-                        <input type="text" class="form-control is-invalid" placeholder="Nome">
+                        <input 
+                            type="text" class="form-control" 
+                            placeholder="Nome" 
+                            formControlName="name"
+                            [class.is-invalid]="user.get('name')?.dirty && user.get('name')?.invalid"
+                            >
+
+                            @if(user.get('name')?.errors && user.get('name')?.dirty){
+                                <span class="text-danger">O campo nome é obrigatório!</span>
+                            }
+
                     </div>
                     <div>
-                        <input type="email" class="form-control" placeholder="E-mail">
+                        <input 
+                            type="email" class="form-control" 
+                            placeholder="E-mail" 
+                            formControlName="email"
+                            [class.is-invalid]="user.get('email')?.dirty && user.get('email')?.invalid"
+                        >
+                        
+                        @if(user.get('email')?.invalid && user.get('email')?.dirty){
+                            <span class="text-danger">O campo email é obrigatório!</span>
+                        }
+
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="Senha">
+                        <input 
+                            type="password" class="form-control" 
+                            placeholder="Senha" 
+                            formControlName="password"
+                            [class.is-invalid]="user.get('password')?.dirty && user.get('password')?.invalid"    
+                        >
+
+                        @if(user.get('password')?.errors && user.get('password')?.dirty){
+                            <span class="text-danger">O campo senha é obrigatório!</span>
+                        }
+
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="Confirmar Senha">
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            placeholder="Confirmar Senha" 
+                            formControlName="password_confirmation"
+                            [class.is-invalid]="user.get('password_confirmation')?.dirty 
+                            && user.get('password_confirmation')?.invalid"        
+                        >
+
+                        @if(user.get('password_confirmation')?.errors && user.get('password_confirmation')?.dirty){
+                            <span class="text-danger">O campo confirmar senha é obrigatório!</span>
+                        }
+
                     </div>
                     <div>
-                        <button class="w-100 btnPrimary" (click)="postUser()">Cadastrar</button>
+                        <button 
+                            class="w-100 btnPrimary" type="submit"
+                            [class.disabled]="user.invalid" [disabled]="user.invalid"
+                        >Cadastrar</button>
                     </div>
                     <a routerLink="/login" class="text-end">Já possui uma conta?</a>
             </div>

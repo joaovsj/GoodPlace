@@ -1,4 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -11,7 +12,7 @@ import { AuthService } from '@services/auth.service';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +36,7 @@ export default class SignupComponent{
   public user = this.#fb.group({
 
     name: ["", Validators.required],
-    email: ["", Validators.required, Validators.email], 
+    email: ["", Validators.required], 
     password: ["", Validators.required, Validators.min(6), Validators.max(12)], 
     password_confirmation: ["", Validators.required] 
     
@@ -69,7 +70,7 @@ export default class SignupComponent{
 
 
   public submit(){
-    
+    alert('teste');
   }
 
 
