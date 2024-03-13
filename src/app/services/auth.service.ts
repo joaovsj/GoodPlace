@@ -22,8 +22,8 @@ export class AuthService {
 
     return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error.error);
-        return throwError(()=> error.error)
+        // console.log(error.error);
+        return throwError(()=> error.error) 
       })
     );
   }

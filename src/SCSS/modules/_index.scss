@@ -1,0 +1,53 @@
+
+
+.btnPrimary{
+    background-color: #F26101;
+    box-shadow: 2px 5px 12px #F26101;
+    color: #FFF;
+
+    &:hover{
+        background-color: #c74f00;
+    }
+}
+
+
+.btnSecondary{
+    background-color: #365393;
+    // box-shadow: 2px 1px 5px #000;
+    color: #FFF;
+
+    &:hover{
+       background-color: #2c426d;
+       color: #FFF; 
+    }
+}
+
+
+.btnTertiary{
+    background-color: #FFFFFF;
+    color: #000;
+
+    &:hover{
+        background-color: #cbc9c9;
+    }
+}
+
+
+
+
+.form-control:focus, select:focus {
+    border-color: #28a745;
+    border: 1px solid #F26101 !important;
+} 
+
+.background-primary{
+    background-color: #F26101;
+}
+
+.color-primary{
+    color: #F26101;
+}
+
+.is-invalid{
+    border: 1px solid red !important;
+}
