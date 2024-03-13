@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -30,47 +30,32 @@ import { AuthService } from '@services/auth.service';
 export default class SignupComponent{
   
 
-  #fb = inject(FormBuilder);
+  #fb          = inject(FormBuilder);
   #authService = inject(AuthService);
   
-  public user = this.#fb.group({
+  public errors = signal([]);
+  public user   = this.#fb.group({
 
-    name: ["", Validators.required],
-    email: ["", Validators.required], 
-    password: ["", Validators.required, Validators.min(6), Validators.max(12)], 
+    name:                  ["", Validators.required],
+    email:                 ["", Validators.required], 
+    password:              ["", Validators.required, Validators.min(6), Validators.max(12)], 
     password_confirmation: ["", Validators.required] 
     
   });
 
 
-
-
-  public postUser(){
-
-    const user = {
-      "name": "antoin",
-      "email": "antoin@gmail.com",
-      "password": "12345",
-      "password_confirmation": "123",
-      "phone": "15 999999999",
-      "social_media": [
-          {
-              "instagram": "antoin@instragram",
-              "linkedin": "https://www.linkedin.com/in/antoin/",
-              "github": "github.com/antoin"
-          }
-      ]
-    }
-
-    return this.#authService.httpPostUser(user).subscribe({
-      next: (result) => console.log(result),
-      error: (error) => console.log(error)
-    });      
-  }
-
-
   public submit(){
-    alert('teste');
+    return this.#authService.httpPostUser(this.user.value).subscribe({
+      next: (result) => console.log(result),
+      error: (error) => {
+
+        console.log(error)  
+        this.errors.set(error.errors)
+
+        // this.errors = error.errors
+        console.log(this.errors())
+      }
+    });      
   }
 
 

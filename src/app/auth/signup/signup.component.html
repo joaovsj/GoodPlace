@@ -13,6 +13,9 @@
                     <span class="circle"></span><h2 class="mb-2 fw-bold">Cadastre-se</h2>
                     <div>
                         <p class="fs-5 p-0 mb-3">Insira seus dados para começar sua caminhada com a gente!</p>
+
+                        {{ errors() | json }}            
+                        
                         <input 
                             type="text" class="form-control" 
                             placeholder="Nome" 

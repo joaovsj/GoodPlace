@@ -19,10 +19,8 @@ export class AuthService {
   }
 
   public httpPostUser(user: any): Observable<any>{
-
     return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        // console.log(error.error);
         return throwError(()=> error.error) 
       })
     );
