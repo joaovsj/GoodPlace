@@ -14,8 +14,12 @@
                     <div>
                         <p class="fs-5 p-0 mb-3">Insira seus dados para começar sua caminhada com a gente!</p>
 
-                        {{ errors() | json }}            
-                        
+                        @if(allMessages() != ""){
+                            <ul [innerHTML]="allMessages()" class="bg-danger-subtle text-danger py-2 rounded-1"></ul>
+                        }
+
+                        <!-- {{ user.valid }} -->
+
                         <input 
                             type="text" class="form-control" 
                             placeholder="Nome" 
@@ -33,7 +37,7 @@
                             type="email" class="form-control" 
                             placeholder="E-mail" 
                             formControlName="email"
-                            [class.is-invalid]="user.get('email')?.dirty && user.get('email')?.invalid"
+                            [class.is-invalid]="(user.get('email')?.dirty && user.get('email')?.invalid) || (invalidEmail)()"
                         >
                         
                         @if(user.get('email')?.invalid && user.get('email')?.dirty){
@@ -46,8 +50,10 @@
                             type="password" class="form-control" 
                             placeholder="Senha" 
                             formControlName="password"
-                            [class.is-invalid]="user.get('password')?.dirty && user.get('password')?.invalid"    
+                            [class.is-invalid]="(user.get('password')?.dirty && user.get('password')?.invalid) || (invalidPassword)()"    
                         >
+
+                        
 
                         @if(user.get('password')?.errors && user.get('password')?.dirty){
                             <span class="text-danger">O campo senha é obrigatório!</span>
@@ -60,8 +66,7 @@
                             class="form-control" 
                             placeholder="Confirmar Senha" 
                             formControlName="password_confirmation"
-                            [class.is-invalid]="user.get('password_confirmation')?.dirty 
-                            && user.get('password_confirmation')?.invalid"        
+                            [class.is-invalid]="(user.get('password')?.dirty && user.get('password')?.invalid) || (invalidPassword)()"        
                         >
 
                         @if(user.get('password_confirmation')?.errors && user.get('password_confirmation')?.dirty){

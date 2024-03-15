@@ -7,8 +7,6 @@ import { RouterLink } from '@angular/router';
 // Services
 import { AuthService } from '@services/auth.service';
 
-
-
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -29,34 +27,68 @@ import { AuthService } from '@services/auth.service';
 })
 export default class SignupComponent{
   
-
   #fb          = inject(FormBuilder);
-  #authService = inject(AuthService);
-  
-  public errors = signal([]);
+  #authService = inject(AuthService); 
+
   public user   = this.#fb.group({
 
     name:                  ["", Validators.required],
     email:                 ["", Validators.required], 
-    password:              ["", Validators.required, Validators.min(6), Validators.max(12)], 
-    password_confirmation: ["", Validators.required] 
+    password:              ["", Validators.required], 
+    password_confirmation: ["", Validators.required] ,
+    phone:                 [""],
+    social_media:          [""]
     
   });
+  
+  public allMessages     = signal<string>(""); 
+  public invalidEmail    = signal<boolean>(false);
+  public invalidPassword = signal<boolean>(false);
+  // public errors = this.#authService.errorRegister;    
+  
+  public submit(): void | any{
+    if(this.user.valid){
+
+      console.log(this.user.value); 
+
+      return this.#authService.httpPostUser(this.user.value).subscribe({
+        next: (result) => console.log(result),
+        error: (error) => {
+          
+          this.resetErrorsFields();
+
+          if(error.errors.email){
+
+            this.invalidEmail.set(true);
+            this.allMessages.update((oldValue)=> {
+              return oldValue + `<li>${error.errors.email}</li>`
+            });
+                      
+          } 
+          
+          if(error.errors.password){
+
+            this.invalidPassword.set(true);
+            this.allMessages.update((oldValue)=> {
+              return oldValue + `<li>${error.errors.password}</li>`
+            });
+
+          
+          }
 
 
-  public submit(){
-    return this.#authService.httpPostUser(this.user.value).subscribe({
-      next: (result) => console.log(result),
-      error: (error) => {
-
-        console.log(error)  
-        this.errors.set(error.errors)
-
-        // this.errors = error.errors
-        console.log(this.errors())
-      }
-    });      
+          console.log(this.allMessages());
+          // console.log(error.errors);
+        }
+      });      
+    }
   }
 
+
+  private resetErrorsFields(){
+    this.allMessages.set("");
+    this.invalidEmail.set(false);
+    this.invalidPassword.set(false);
+  }
 
 }

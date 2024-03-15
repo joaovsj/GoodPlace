@@ -11,6 +11,12 @@ export class AuthService {
   #http = inject(HttpClient);
   #url  = signal<string>(environment.API + "/register");  
   public headers: HttpHeaders | undefined;
+
+
+  #errorsRegister = signal<[] | any>(null);
+  public get errorRegister(){
+    return this.#errorsRegister.asReadonly();
+  }  
   
   constructor(){
     this.headers = new HttpHeaders()
@@ -21,6 +27,10 @@ export class AuthService {
   public httpPostUser(user: any): Observable<any>{
     return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
+
+        console.log(error.error);
+        
+        this.#errorsRegister.set(error.error.errors);
         return throwError(()=> error.error) 
       })
     );
