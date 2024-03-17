@@ -44,7 +44,7 @@ export default class SignupComponent{
   public allMessages     = signal<string>(""); 
   public invalidEmail    = signal<boolean>(false);
   public invalidPassword = signal<boolean>(false);
-  // public errors = this.#authService.errorRegister;    
+  public errors          = this.#authService.errorRegister;    
   
   public submit(): void | any{
     if(this.user.valid){
@@ -54,33 +54,35 @@ export default class SignupComponent{
       return this.#authService.httpPostUser(this.user.value).subscribe({
         next: (result) => console.log(result),
         error: (error) => {
+          if(this.errors()){
           
-          this.resetErrorsFields();
+            this.resetErrorsFields();
+            const errors = this.errors();
+            
+            if(errors.code == 0){
+              alert('erro ao conectar com o servidor');
+              return;
+            }
 
-          if(error.errors.email){
+            if(error.errors.email){
+              this.invalidEmail.set(true);
+              this.allMessages.update((oldValue)=> {
+                return oldValue + `<li>${error.errors.email}</li>`
+              });
+            } 
 
-            this.invalidEmail.set(true);
-            this.allMessages.update((oldValue)=> {
-              return oldValue + `<li>${error.errors.email}</li>`
-            });
-                      
-          } 
-          
-          if(error.errors.password){
+            if(error.errors.password){
+              this.invalidPassword.set(true);
+              this.allMessages.update((oldValue)=> {
+                return oldValue + `<li>${error.errors.password}</li>`
+              });
+            }
 
-            this.invalidPassword.set(true);
-            this.allMessages.update((oldValue)=> {
-              return oldValue + `<li>${error.errors.password}</li>`
-            });
-
-          
           }
 
-
-          console.log(this.allMessages());
-          // console.log(error.errors);
         }
-      });      
+
+      }); /* close subscribe */       
     }
   }
 
