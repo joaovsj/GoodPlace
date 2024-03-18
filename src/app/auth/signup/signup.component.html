@@ -6,6 +6,7 @@
         </div>
     </div>
 
+
     <div class="col d-flex flex-column align-items-center justify-content-center second">
 
         <form [formGroup]="user" (ngSubmit)="submit()" class="d-flex justify-content-center">
@@ -78,7 +79,15 @@
                         <button 
                             class="w-100 btnPrimary" type="submit"
                             [class.disabled]="user.invalid" [disabled]="user.invalid"
-                        >Cadastrar</button>
+                        >
+                              
+                        @if(spinnerVisible()) {
+                            <span class="spinner-border spinner-border-sm color-white" aria-hidden="true"></span>
+                        } @else {
+                            Cadastrar
+                        }
+
+                    </button>
                     </div>
                     <a routerLink="/login" class="text-end">Já possui uma conta?</a>
             </div>

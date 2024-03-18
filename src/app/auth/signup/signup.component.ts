@@ -4,7 +4,9 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-// Services
+// COMPONENTS
+import { SpinnerComponent } from '@components/spinner/spinner.component';
+// SERVICES
 import { AuthService } from '@services/auth.service';
 
 @Component({
@@ -41,18 +43,23 @@ export default class SignupComponent{
     
   });
   
+  public spinnerVisible  = signal<boolean>(false);
   public allMessages     = signal<string>(""); 
   public invalidEmail    = signal<boolean>(false);
   public invalidPassword = signal<boolean>(false);
   public errors          = this.#authService.errorRegister;    
   
+
+
   public submit(): void | any{
     if(this.user.valid){
 
-      console.log(this.user.value); 
+      
+
+      this.spinnerVisible.set(true);
 
       return this.#authService.httpPostUser(this.user.value).subscribe({
-        next: (result) => console.log(result),
+        next: (result) => this.spinnerVisible.set(false),
         error: (error) => {
           if(this.errors()){
           
@@ -80,7 +87,8 @@ export default class SignupComponent{
 
           }
 
-        }
+          this.spinnerVisible.set(false);
+      }
 
       }); /* close subscribe */       
     }
