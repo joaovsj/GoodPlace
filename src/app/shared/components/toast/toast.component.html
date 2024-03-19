@@ -1,1 +1,16 @@
-<p>toast works!</p>
+<!--toast.component.html-->
+<div *ngIf="showsToast()" class="toast-class success-toast">  
+    <div class="d-flex align-items-center gap-2">    
+        <i class="fa-solid fa-circle-check fs-5"></i>
+        {{ toastMessage() }}  
+    </div> 
+
+    <!--button-->
+    <a
+      class="close-btn" 
+      (click)="showsToast.set(!showsToast())">    
+      <small>      
+        <i class="fa-solid fa-xmark"></i>
+      </small>
+    </a>
+  </div>
