@@ -1,16 +1,25 @@
-<!--toast.component.html-->
-<div *ngIf="showsToast()" class="toast-class success-toast">  
-    <div class="d-flex align-items-center gap-2">    
-        <i class="fa-solid fa-circle-check fs-5"></i>
-        {{ toastMessage() }}  
-    </div> 
 
-    <!--button-->
-    <a
-      class="close-btn" 
-      (click)="showsToast.set(!showsToast())">    
-      <small>      
-        <i class="fa-solid fa-xmark"></i>
-      </small>
-    </a>
+
+@if(showsToast()){
+  <div 
+    class="myToast position-absolute end-0 top-0 d-flex flex-nowrap align-items-center p-3 m-5 gap-2 text-white rounded-2 shadow" 
+    [@init]="'show'"
+    [class]="classActive()"
+    >
+    <i [class]="iconActive()"></i>
+    <p class="m-0 p-0"> {{ message() }}  </p>
+    <button 
+        type="button" 
+        class="position-absolute end-0 p-0 me-3 border-0 bg-transparent" 
+        style="width: min-content;" 
+        (click)="showsToast.set(!this.showsToast())"  
+      >
+      <i class="fa-solid fa-xmark position"></i>
+    </button>
   </div>
+}
+
+
+
+
+   
