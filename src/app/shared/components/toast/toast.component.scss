@@ -3,7 +3,11 @@
     min-width: 320px;    
     min-height: 40px;  
     max-height: 70px;  
+    
+    
+    // For animation
     opacity: 0;
+    transform: translateY(-20px);
   }
 
 

@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, group, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, signal } from '@angular/core';
 
@@ -11,12 +11,14 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, sign
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('init', [
+      // animate(duração, delay, tipo)
       state('show', style({
         opacity: 1,
-        // height: 'min-content'
-      })), // close state
+        transform: 'translateY(0)'
+      })),// close state
 
-      transition('* => show', animate('1s ease'))
+      transition('* => show', animate('2.5s ease')),
+      // transition('show => *', animate('3s ease'))
     ])
   ]
 })
