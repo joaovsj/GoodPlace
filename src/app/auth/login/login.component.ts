@@ -1,6 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+// Services
+import { ToastService } from '@services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -22,4 +25,10 @@ import { RouterLink } from '@angular/router';
 })
 export default class LoginComponent {
 
+  #toast = inject(ToastService);
+
+  login(){
+    this.#toast.info('Toast is on!');
+  }
+  
 }

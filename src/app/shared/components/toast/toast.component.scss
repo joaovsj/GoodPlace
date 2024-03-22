@@ -12,19 +12,25 @@
 
 
   .toastSuccess{
-    background-color: #1ab93a; 
+    color: #FFF;
+    background-color: var(--success); 
   }
 
   .toastDanger{
-    // background-color: red; 
+    color: #FFF;
+    background-color: var(--error); 
   }
 
   .toastWarning{
-    
+    color: black;
+    &>i:first-child{
+      color: var(--warning);
+    }
   }
 
   .toastInfo{
-    
+    color: #FFF;
+    background-color: var(--info); 
   }
 
 

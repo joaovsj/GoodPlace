@@ -1,18 +1,18 @@
 
 
-@if(showsToast()){
+@if(toast.active$ | async){
   <div 
-    class="myToast position-absolute end-0 top-0 d-flex flex-nowrap align-items-center p-3 m-5 gap-2 text-white rounded-2 shadow" 
+    class="myToast position-absolute end-0 top-0 d-flex flex-nowrap align-items-center p-3 m-5 gap-2 rounded-2 shadow" 
     [@init]="'show'"
-    [class]="classActive()"
+    [class]="toast.typeClass$ | async"
     >
-    <i [class]="iconActive()"></i>
-    <p class="m-0 p-0"> {{ message() }}  </p>
+    <i [class]="toast.icon$ | async"></i>
+    <p class="m-0 p-0"> {{ toast.message$ | async }} </p>
     <button 
         type="button" 
         class="position-absolute end-0 p-0 me-3 border-0 bg-transparent" 
         style="width: min-content;" 
-        (click)="showsToast.set(!this.showsToast())"  
+        (click)="dismiss()"  
       >
       <i class="fa-solid fa-xmark position"></i>
     </button>

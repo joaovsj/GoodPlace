@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '@components/spinner/spinner.component';
 // SERVICES
 import { AuthService } from '@services/auth.service';
+import { ToastService } from '@services/toast.service';
 
 @Component({
   selector: 'app-signup',
@@ -31,6 +32,7 @@ export default class SignupComponent{
   
   #fb          = inject(FormBuilder);
   #authService = inject(AuthService); 
+  #toast       = inject(ToastService);
 
   public user   = this.#fb.group({
 
@@ -55,6 +57,7 @@ export default class SignupComponent{
     if(this.user.valid){
 
       
+      this.#toast.success('teste');
 
       this.spinnerVisible.set(true);
 

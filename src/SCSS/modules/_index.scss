@@ -1,4 +1,10 @@
 
+:root{
+    --success: #1ab93a;
+    --error: #F20505;
+    --warning: #e4ca00da;
+    --info: #56ACFF;
+}
 // Pieces of your appplication that will be used in several places
 
 .btnPrimary{
@@ -58,3 +64,4 @@
     box-shadow: none;
     pointer-events: none;
 }
+
