@@ -54,10 +54,8 @@ export default class SignupComponent{
 
 
   public submit(): void | any{
-    if(this.user.valid){
 
-      
-      this.#toast.success('teste');
+    if(this.user.valid){
 
       this.spinnerVisible.set(true);
 
@@ -70,7 +68,9 @@ export default class SignupComponent{
             const errors = this.errors();
             
             if(errors.code == 0){
-              alert('erro ao conectar com o servidor');
+
+              this.#toast.error("Ops... Tivemos um problema ao conectar com o servidor.");
+              this.spinnerVisible.set(false);
               return;
             }
 
@@ -88,6 +88,7 @@ export default class SignupComponent{
               });
             }
 
+      
           }
 
           this.spinnerVisible.set(false);
