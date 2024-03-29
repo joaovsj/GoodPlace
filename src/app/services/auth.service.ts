@@ -9,7 +9,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class AuthService {
 
   #http = inject(HttpClient);
-  #url  = signal<string>(environment.API + "/register");  
+  #url  = signal<string>(environment.API);  
   public headers: HttpHeaders | undefined;
 
   #errorsRegister = signal<[{}] | any>(null);
@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   public register(user: any): Observable<any>{
-    return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
+    return this.#http.post<any>(`${this.#url()}/register`, {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
 
         const code  = error.status;
@@ -44,10 +44,17 @@ export class AuthService {
   }
 
 
+
+  #errorlogin = signal<any>(null);
+  public get errorLogin(){
+    return this.#errorlogin.asReadonly();
+  }
+
   public login(user: object): Observable<any>{
-    return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
+    return this.#http.post<any>(`${this.#url()}/login`, {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
+        
+        this.#errorlogin.set(error.error.errors); 
         return throwError(()=>error);
       })
     );

@@ -7,17 +7,21 @@
     </div>
 
     <div class="col d-flex flex-column align-items-center justify-content-center second">
-        <form [formGroup]="user" class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
+        <form [formGroup]="user" (ngSubmit)="submit()" class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
             <span class="circle"></span><h2 class="mb-2 fw-bold">Login</h2>
             <div>
                 <input 
                     type="email" class="form-control" 
                     placeholder="E-mail" formControlName="email"
-                    [class.is-invalid]="user.get('email')?.dirty && user.get('email')?.invalid"
+                    [class.is-invalid]="user.get('email')?.dirty && user.get('email')?.invalid || (errorMessage())"
                 >
 
-                @if(user.get('email')?.errors && user.get('email')?.dirty){
+                @if(user.get('email')?.errors && user.get('email')?.dirty ){
                     <span class="text-danger">O campo e-mail é obrigatório!</span>
+                }
+
+                @if(errorMessage()) {
+                    <span class="text-danger">{{ errorMessage() }}</span>
                 }
 
             </div>
@@ -35,9 +39,9 @@
             </div>
             <div>
                 <button 
-                    type="button" class="w-100 btnPrimary" 
+                    type="submit" class="w-100 btnPrimary" 
                     [disabled]="user.invalid" [class.disabled]="user.invalid"
-                    (click)="login()"  >Entrar</button>
+                >Entrar</button>
             </div>
             <a routerLink="/register" class="text-end">Não tem cadastro?</a>
         </form>
