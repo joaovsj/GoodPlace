@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 // COMPONENTS
 import { SpinnerComponent } from '@components/spinner/spinner.component';
@@ -33,6 +33,7 @@ export default class SignupComponent{
   #fb          = inject(FormBuilder);
   #authService = inject(AuthService); 
   #toast       = inject(ToastService);
+  #router      = inject(Router);
 
   public user   = this.#fb.group({
 
@@ -60,7 +61,17 @@ export default class SignupComponent{
       this.spinnerVisible.set(true);
 
       return this.#authService.httpPostUser(this.user.value).subscribe({
-        next: (result) => this.spinnerVisible.set(false),
+        next: (result) => { 
+          this.spinnerVisible.set(false)
+          this.resetErrorsFields();
+
+          if(result.status){
+            this.#toast.success('Usuário cadastrado com sucesso!');
+            this.#router.navigate(['/profile']);
+          }
+        
+        
+        },
         error: (error) => {
           if(this.errors()){
           
