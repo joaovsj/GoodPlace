@@ -60,7 +60,7 @@ export default class SignupComponent{
 
       this.spinnerVisible.set(true);
 
-      return this.#authService.httpPostUser(this.user.value).subscribe({
+      return this.#authService.register(this.user.value).subscribe({
         next: (result) => { 
           this.spinnerVisible.set(false)
           this.resetErrorsFields();

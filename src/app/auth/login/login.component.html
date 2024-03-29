@@ -7,18 +7,39 @@
     </div>
 
     <div class="col d-flex flex-column align-items-center justify-content-center second">
-        <div class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
+        <form [formGroup]="user" class="w-50 p-4 d-flex flex-column gap-4 rounded shadow box-form" [@init]="'show'">
             <span class="circle"></span><h2 class="mb-2 fw-bold">Login</h2>
             <div>
-                <input type="email" class="form-control" placeholder="E-mail">
+                <input 
+                    type="email" class="form-control" 
+                    placeholder="E-mail" formControlName="email"
+                    [class.is-invalid]="user.get('email')?.dirty && user.get('email')?.invalid"
+                >
+
+                @if(user.get('email')?.errors && user.get('email')?.dirty){
+                    <span class="text-danger">O campo e-mail é obrigatório!</span>
+                }
+
             </div>
             <div>
-                <input type="email" class="form-control" placeholder="Senha">
+                <input 
+                    type="email" class="form-control" 
+                    placeholder="Senha" formControlName="password"
+                    [class.is-invalid]="user.get('password')?.dirty && user.get('password')?.invalid"
+                >
+
+                @if(user.get('password')?.errors && user.get('password')?.dirty){
+                    <span class="text-danger">O campo senha é obrigatório!</span>
+                }
+
             </div>
             <div>
-                <button type="button" class="w-100 btnPrimary" (click)="login()">Entrar</button>
+                <button 
+                    type="button" class="w-100 btnPrimary" 
+                    [disabled]="user.invalid" [class.disabled]="user.invalid"
+                    (click)="login()"  >Entrar</button>
             </div>
             <a routerLink="/register" class="text-end">Não tem cadastro?</a>
-        </div>
+        </form>
     </div>
 </div>

@@ -23,7 +23,7 @@ export class AuthService {
       .set('Accept', 'application/json');
   }
 
-  public httpPostUser(user: any): Observable<any>{
+  public register(user: any): Observable<any>{
     return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
 
@@ -37,18 +37,21 @@ export class AuthService {
           msg = error.error.errors;
         }
 
-        // const messages = error.errors.errors 
         this.#errorsRegister.set({code: code, messages: msg})
-
-        // if(error.status == 0){
-        //   return throwError(()=> 'Erro ao conectar com o servidor!')   
-        // }
-
-        // console.log(error.error);
-        
-        // this.#errorsRegister.set(error.error.errors);
         return throwError(()=> error.error)
       })
     );
   }
+
+
+  public login(user: object): Observable<any>{
+    return this.#http.post<any>(this.#url(), {...user}, { headers: this.headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.log(error);
+        return throwError(()=>error);
+      })
+    );
+  }
+
+
 }
