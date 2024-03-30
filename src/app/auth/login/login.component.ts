@@ -33,8 +33,11 @@ export default class LoginComponent {
   #authService   = inject(AuthService);
   #router        = inject(Router);
 
+
+
   // public error = this.#authService.errorLogin;
-  public errorMessage = signal<String | null>(null);
+  public errorMessage    = signal<String | null>(null);
+  public spinnerVisible  = signal<boolean>(false);
 
   public user = this.#fb.group({
     email:    ["", Validators.required],
@@ -45,22 +48,30 @@ export default class LoginComponent {
 
     if(this.user.valid){
 
+      this.#toast.clear();
+      this.spinnerVisible.set(true);
 
       this.#authService.login(this.user.value).subscribe({
         next: (result)  => {
 
+          this.spinnerVisible.set(false);
+
           if(result.status == true){
             
             this.user.reset();
+            this.#toast.success('Logado com sucesso!');
             this.#router.navigate(['/profile']);
             return;
           }  
 
           this.#toast.error(result.message);
+          this.user.clearValidators();
           console.log(result)
         
         },
         error: (error)  => {
+
+          this.spinnerVisible.set(false);
 
           this.user.reset();
           let msg = JSON.stringify(error.error.errors.email);

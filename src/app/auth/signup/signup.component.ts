@@ -75,7 +75,7 @@ export default class SignupComponent{
         error: (error) => {
           if(this.errors()){
           
-            this.resetErrorsFields();
+            this.resetErrorsFields(); 
             const errors = this.errors();
             
             if(errors.code == 0){

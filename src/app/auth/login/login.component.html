@@ -41,7 +41,15 @@
                 <button 
                     type="submit" class="w-100 btnPrimary" 
                     [disabled]="user.invalid" [class.disabled]="user.invalid"
-                >Entrar</button>
+                >
+            
+                    @if(spinnerVisible()) {
+                        <span class="spinner-border spinner-border-sm color-white" aria-hidden="true"></span>
+                    } @else {
+                        Cadastrar
+                    }
+
+                </button>
             </div>
             <a routerLink="/register" class="text-end">Não tem cadastro?</a>
         </form>

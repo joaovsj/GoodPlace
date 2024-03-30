@@ -27,7 +27,7 @@ export class ToastComponent{
 
   public toast = inject(ToastService);
 
-  constructor(){}
+  constructor(){ }
   
   dismiss(){
     this.toast.active$.next(false);
