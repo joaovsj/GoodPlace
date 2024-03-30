@@ -1,14 +1,20 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { animate, query, state, style, transition, trigger } from '@angular/animations';
-import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule, NgClass } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+
 // Components
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
 
+// Services
+import { UserService } from '@services/user.service';
+
+
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgClass],
+  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,27 +43,37 @@ import { FooterComponent } from '@components/footer/footer.component';
     
   ]
 })
-export class ProfileComponent {
-  
 
+export class ProfileComponent implements OnInit{
+
+
+  #user  = inject(UserService);
+  #Cookies  = inject(CookieService);
   public finalizeRegister = signal<boolean>(false);
 
-  public stepForm = signal<string>('step-1'); // Step of the Form
-  public stepBar = signal<number>(1)          // step of the bar in bottom
+  public stepForm  = signal<string>('step-1'); // Step of the Form
+  public stepBar   = signal<number>(1)          // step of the bar in bottom
+
   
+  public user = this.#user.userId;
+
+  public ngOnInit(){
+
+    const userId = atob(this.#Cookies.get('id'))
+    this.#user.getUser$(userId).subscribe();  
+  }
 
   public nextStep(step: string){
-
     this.stepForm.set(step);
-    
     this.stepBar.update((oldValue) => {
       return oldValue + 1
     })
   }
-
 
   public finalize(){  
     this.finalizeRegister.update(oldValue => !oldValue)
   }
 
 }
+
+

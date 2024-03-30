@@ -3,7 +3,7 @@
         <div class="row " style="margin-top: 15vh;">
             <div class="col">
                 <ul class="list-group">
-                    <li class="list-group-item">Lugares Visitados: 15 {{ finalizeRegister() }}  </li>
+                    <li class="list-group-item">Lugares Visitados:  {{ user()?.placesVisited }} </li>
                     <li class="list-group-item">Meus comentários: 60</li>
                     <li class="list-group-item">
                         <ul class="vstack gap-1 m-0 p-0" style="list-style-type: none;">
@@ -53,7 +53,7 @@
                                 alt=""
                             >
                         </div>
-                        <h3>Gabriela Antunes Mendes</h3>
+                        <h3>{{ user()?.name }}</h3>
                         <ul class="d-flex p-0 m-0 gap-3" style="list-style-type: none;">
                             <li>
                                 <i class="bi bi-send-fill"></i> &nbsp;15
@@ -65,6 +65,9 @@
                     </div>
                     <div class="p-4" style="min-height: 40vh;">
                         <p>Sem postagens até agora...</p>
+
+                        <p>{{ user() | json }}</p>
+
                     </div>    
                 </main>
             </div>
