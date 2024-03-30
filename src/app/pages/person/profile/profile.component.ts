@@ -47,8 +47,9 @@ import { UserService } from '@services/user.service';
 export class ProfileComponent implements OnInit{
 
 
-  #user  = inject(UserService);
+  #user     = inject(UserService);
   #Cookies  = inject(CookieService);
+
   public finalizeRegister = signal<boolean>(false);
 
   public stepForm  = signal<string>('step-1'); // Step of the Form

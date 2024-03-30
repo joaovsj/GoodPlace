@@ -4,7 +4,10 @@ export interface IUser {
     email: String,
     email_verified_at: null,
     phone: String,
-    placesVisited: number, 
+    
+    placesVisited: number,
+    comments: number,
+
     social_media: [
         {
             github: String,

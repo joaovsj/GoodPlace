@@ -43,4 +43,19 @@
             
         }
     }
+
+    .icons__title{
+        li{
+          span{
+            opacity: 0;
+            pointer-events: none;
+            transition: .4s;
+            font-size: calc(1vmin + 5px);
+          }  
+
+          &:hover > span{
+            opacity: 1;
+          }
+        }
+    }
 }
