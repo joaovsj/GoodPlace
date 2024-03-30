@@ -1,12 +1,15 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 // Services
 import { ToastService } from '@services/toast.service';
 import { AuthService } from '@services/auth.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -32,7 +35,7 @@ export default class LoginComponent {
   #fb            = inject(FormBuilder);
   #authService   = inject(AuthService);
   #router        = inject(Router);
-
+  #cookies       = inject(CookieService);
 
 
   // public error = this.#authService.errorLogin;
@@ -55,14 +58,17 @@ export default class LoginComponent {
       this.#authService.login(this.user.value).subscribe({
         next: (result)  => {
 
-          console.log(result);
           this.spinnerVisible.set(false);
 
           if(result.status == true){
             
             this.user.reset();
+
             this.#toast.success('Logado com sucesso!');
+            this.#cookies.set("id", btoa(result.body.id));
+            this.#cookies.set("token", result.token);
             this.#router.navigate(['/profile']);
+
             return;
           }  
 
@@ -86,9 +92,10 @@ export default class LoginComponent {
       });
 
     }    
+  }
 
+  public setAllCookies(data: any){
 
-    // this.#toast.info('Toast is on!');
   }
   
 }
