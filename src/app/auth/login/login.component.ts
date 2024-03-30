@@ -38,6 +38,7 @@ export default class LoginComponent {
   // public error = this.#authService.errorLogin;
   public errorMessage    = signal<String | null>(null);
   public spinnerVisible  = signal<boolean>(false);
+  public serverIsDown   = this.#authService.serverIsdown;
 
   public user = this.#fb.group({
     email:    ["", Validators.required],
@@ -54,6 +55,7 @@ export default class LoginComponent {
       this.#authService.login(this.user.value).subscribe({
         next: (result)  => {
 
+          console.log(result);
           this.spinnerVisible.set(false);
 
           if(result.status == true){
@@ -72,6 +74,9 @@ export default class LoginComponent {
         error: (error)  => {
 
           this.spinnerVisible.set(false);
+          if(this.serverIsDown()){
+            this.#toast.error("Ops... Tivemos um problema ao conectar com o servidor.");
+          }
 
           this.user.reset();
           let msg = JSON.stringify(error.error.errors.email);

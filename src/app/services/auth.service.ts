@@ -46,15 +46,29 @@ export class AuthService {
 
 
   #errorlogin = signal<any>(null);
+  
   public get errorLogin(){
     return this.#errorlogin.asReadonly();
+  }
+  
+  #serverIsDown = signal<any>(false);
+  public get serverIsdown(){
+    return this.#serverIsDown.asReadonly();
   }
 
   public login(user: object): Observable<any>{
     return this.#http.post<any>(`${this.#url()}/login`, {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        
+
+
+        if(error.ok === false){
+          this.#serverIsDown.set(true);
+        }
+
+        console.log(error.ok);
+      
         this.#errorlogin.set(error.error.errors); 
+        
         return throwError(()=>error);
       })
     );
