@@ -60,8 +60,9 @@ export class AuthService {
     return this.#http.post<any>(`${this.#url()}/login`, {...user}, { headers: this.headers }).pipe(
       catchError((error: HttpErrorResponse) => {
 
-
-        if(error.ok === false){
+        this.#serverIsDown.set(false);
+        
+        if(error.status === 0){
           this.#serverIsDown.set(true);
         }
 
