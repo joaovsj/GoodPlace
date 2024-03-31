@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 
 // Components
@@ -9,12 +9,13 @@ import { FooterComponent } from '@components/footer/footer.component';
 
 // Services
 import { UserService } from '@services/user.service';
+import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule],
+  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,12 +58,14 @@ export class ProfileComponent implements OnInit{
 
   
   public user = this.#user.userId;
+  public dateCreated: any = this.user()?.created_at;
 
   public ngOnInit(){
 
     const userId = atob(this.#Cookies.get('id'))
-    this.#user.getUser$(userId).subscribe();  
+    this.#user.getUser$(userId).subscribe(); 
   }
+
 
   public nextStep(step: string){
     this.stepForm.set(step);

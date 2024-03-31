@@ -4,7 +4,7 @@ export interface IUser {
     email: String,
     email_verified_at: null,
     phone: String,
-    
+
     placesVisited: number,
     comments: number,
 
@@ -15,4 +15,7 @@ export interface IUser {
             instagram: String
         }
     ],
+
+    created_at: String;
+    updated_at: String;
 }
