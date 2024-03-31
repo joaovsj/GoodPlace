@@ -58,4 +58,24 @@
           }
         }
     }
+
+    .box-icon{
+        .circle{
+            content: '';
+            display: block;
+            width: 14px;
+            height: 14px;
+            background-color: var(--primary);       
+            position: absolute;
+            top: 25%;
+            left: 2%;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        img{
+            position: relative;
+            z-index: 999 !important;
+        }
+    }
 }

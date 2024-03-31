@@ -5,12 +5,16 @@
                 <ul class="list-group">
                     <li class="list-group-item">Lugares Visitados:  {{ user()?.placesVisited }} </li>
                     <li class="list-group-item">Meus comentários: {{ user()?.comments }} </li>
-                    <li class="list-group-item">
-                        <ul class="vstack gap-1 m-0 p-0" style="list-style-type: none;">
-                            <li>
-                                <img src="/assets/icons/select/envelope-at.svg" class="me-1"  width="15px" height="100%">
-                                {{ user()?.email }}
-                            </li>
+                    <li class="list-group-item p-0">
+                        <ul class="vstack m-0 p-0 ms-3" style="list-style-type: none;">
+                            <li class="d-flex position-relative align-items-center">
+                                <div class="py-1 px-2 box-icon">
+                                    <span class="circle"></span>
+                                    <img src="/assets/icons/select/envelope-at.svg" width="15px" height="100%">    
+                                </div>
+                                <p class="ms-2">{{ user()?.email }}</p>
+                            </li>  
+                        
                         </ul>
                     </li>
                     
