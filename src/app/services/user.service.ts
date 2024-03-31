@@ -45,4 +45,16 @@ export class UserService {
       })
     );
   }
+
+  #icons = signal(null);
+  public get getIcons(){
+    return this.#icons.asReadonly();
+  }
+
+  public getIcons$(): Observable<any>{
+    return this.#http.get<any>(`${environment.API+"/icons"}`, { headers: this.headers }).pipe(
+      tap((res)=>this.#icons.set(res))
+    );
+  }
+
 }

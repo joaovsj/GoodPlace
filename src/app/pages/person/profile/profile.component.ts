@@ -58,12 +58,25 @@ export class ProfileComponent implements OnInit{
 
   
   public user = this.#user.userId;
+  public icons$ = this.#user.getIcons$();
+  public icon = signal(null);
+
   public dateCreated: any = this.user()?.created_at;
 
   public ngOnInit(){
 
     const userId = atob(this.#Cookies.get('id'))
     this.#user.getUser$(userId).subscribe(); 
+    this.#user.getIcons$().subscribe();
+    
+    this.icons$.subscribe({
+      next: (res) => this.icon.set(res),
+    })
+
+    console.log(this.icons$);
+    console.log(this.icon());
+
+    
   }
 
 
@@ -77,6 +90,7 @@ export class ProfileComponent implements OnInit{
   public finalize(){  
     this.finalizeRegister.update(oldValue => !oldValue)
   }
+
 
 }
 

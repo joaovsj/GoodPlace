@@ -8,38 +8,36 @@
                     <li class="list-group-item">
                         <ul class="vstack gap-1 m-0 p-0" style="list-style-type: none;">
                             <li>
-                                <i class="bi bi-telephone color-primary me-2"></i>
-                                15 99977777
-                            </li>
-                            <li>
-                                <i class="bi bi-envelope color-primary me-2"></i>
-                                gabriel&#64;gmail.com
+                                <img src="/assets/icons/select/envelope-at.svg" class="me-1"  width="15px" height="100%">
+                                {{ user()?.email }}
                             </li>
                         </ul>
                     </li>
                     
                     @if(finalizeRegister()){
-                        <div class="container-fluid p-0 gap-1 d-flex flex-wrap my-2" [@register]>
+                        <form class="container-fluid p-0 gap-1 d-flex flex-wrap my-2" [@register]>
                             <div class="col-4">
                                 <select class="form-select" aria-label="Default select example">
-                                    <option selected>Ícone</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+
+                                    <option selected>Rede</option>
+
+                                    @for (item of icons$ | async; track item) {
+                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                    }
+
                                   </select>                  
                             </div>
                             <div class="col">
-                                <input type="text" name="vaue" id="value" class="form-control" placeholder="Valor...">
+                                <input type="text" name="vaue" id="value" class="form-control" placeholder="Complete aqui...">
                             </div>
                             <div class="col-12">
-                                <button class="w-100 btnSecondary">Finalizar</button>
-                            </div>
-                            
-                        </div>
+                                <button type="submit" class="w-100 btnSecondary">Finalizar</button>
+                            </div>                            
+                        </form>
                     }
 
 
-                    <li class="list-group-item text-muted">Data de cadastro: {{ user()?.created_at | localDate}} </li>
+                    <li class="list-group-item text-muted">Data de cadastro: {{ user()?.created_at | localDate }} </li>
                 </ul>
             </div>
 
@@ -75,9 +73,6 @@
                     </div>
                     <div class="p-4" style="min-height: 40vh;">
                         <p>Sem postagens até agora...</p>
-
-                        <p>{{ user() | json }}</p>
-
                     </div>    
                 </main>
             </div>
