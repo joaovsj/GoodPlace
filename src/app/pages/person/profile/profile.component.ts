@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
@@ -15,7 +16,7 @@ import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe],
+  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe, ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,6 +51,12 @@ export class ProfileComponent implements OnInit{
 
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
+  #fb       = inject(FormBuilder);
+
+  public icons = this.#fb.group({
+    name: [""],
+    valueMedia: [""]
+  })
 
   public finalizeRegister = signal<boolean>(false);
 
@@ -59,7 +66,6 @@ export class ProfileComponent implements OnInit{
   
   public user = this.#user.userId;
   public icons$ = this.#user.getIcons$();
-  public icon = signal(null);
 
   public dateCreated: any = this.user()?.created_at;
 
@@ -68,17 +74,15 @@ export class ProfileComponent implements OnInit{
     const userId = atob(this.#Cookies.get('id'))
     this.#user.getUser$(userId).subscribe(); 
     this.#user.getIcons$().subscribe();
+    this.icons$.subscribe();
+
+    setTimeout(()=>{
+      console.log(this.user());
+      console.log(this.icons$);
+    },3000)
     
-    this.icons$.subscribe({
-      next: (res) => this.icon.set(res),
-    })
-
-    console.log(this.icons$);
-    console.log(this.icon());
-
     
   }
-
 
   public nextStep(step: string){
     this.stepForm.set(step);
@@ -91,6 +95,31 @@ export class ProfileComponent implements OnInit{
     this.finalizeRegister.update(oldValue => !oldValue)
   }
 
+  submit(){
+
+    this.user.update((oldValues)=>{
+      if(oldValues != undefined){
+        
+
+
+        const currentValues = oldValues.social_media;
+
+        const newIndex = this.icons.value.name;
+        const media = [[newIndex?.toLowerCase(), this.icons.value.valueMedia]] 
+
+        const allValues = currentValues.concat(media);
+
+        oldValues.social_media = [ allValues ];
+      }
+
+      console.log(oldValues);
+      return oldValues;
+    })
+
+
+    const id = this.user()?.id;
+    return this.#user.update$(id, this.user()).subscribe();
+  }
 
 }
 

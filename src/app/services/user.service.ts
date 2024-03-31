@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, pipe, tap, throwError } from 'rxjs';
 
 import { AuthService } from './auth.service';
 import { IUser } from 'app/interfaces/IUser';
@@ -24,9 +24,8 @@ export class UserService {
   //  USER
   #setUserId = signal<IUser | null>(null);
   public get userId(){
-    return this.#setUserId.asReadonly();
+    return this.#setUserId;
   }
-
 
   // ERROR  
   #setErrorUserId  = signal<any>(null);
@@ -54,6 +53,35 @@ export class UserService {
   public getIcons$(): Observable<any>{
     return this.#http.get<any>(`${environment.API+"/icons"}`, { headers: this.headers }).pipe(
       tap((res)=>this.#icons.set(res))
+    );
+  }
+
+
+  #statusUpdate = signal<boolean>(true);
+  public get statusUpdate(){
+    return this.#statusUpdate.asReadonly();
+  }
+
+  #messageUpdate = signal<String | null>(null);
+  public get messageUpdate(){
+    return this.#messageUpdate.asReadonly();
+  }
+
+
+  public update$(id: any, user: any):Observable<any>{
+
+    return this.#http.patch<any>(`${this.#url()}/${id}`, user, { headers: this.headers }).pipe(
+      tap((res: any) => {
+        this.#statusUpdate.set(res.status);
+        this.#messageUpdate.set(res.message);
+      }, 
+      catchError((err: HttpErrorResponse)=>{ 
+      
+        console.log(err);
+
+        return throwError(()=>err)
+      })
+      )
     );
   }
 

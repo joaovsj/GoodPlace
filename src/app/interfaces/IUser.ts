@@ -8,13 +8,7 @@ export interface IUser {
     placesVisited: number,
     comments: number,
 
-    social_media: [
-        {
-            github: String,
-            linkedin: String,
-            instagram: String
-        }
-    ],
+    social_media: [] | undefined | any,
 
     created_at: String;
     updated_at: String;

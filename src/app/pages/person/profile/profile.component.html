@@ -19,20 +19,19 @@
                     </li>
                     
                     @if(finalizeRegister()){
-                        <form class="container-fluid p-0 gap-1 d-flex flex-wrap my-2" [@register]>
+                        <form [formGroup]="icons" (ngSubmit)="submit()" class="container-fluid p-0 gap-1 d-flex flex-wrap my-2" [@register]>
                             <div class="col-4">
-                                <select class="form-select" aria-label="Default select example">
-
+                                <select class="form-select" aria-label="Default select example" formControlName="name">
                                     <option selected>Rede</option>
 
                                     @for (item of icons$ | async; track item) {
-                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                        <option value="{{ item.name }}" > {{ item.name }}</option>
                                     }
 
                                   </select>                  
                             </div>
                             <div class="col">
-                                <input type="text" name="vaue" id="value" class="form-control" placeholder="Complete aqui...">
+                                <input type="text" class="form-control" placeholder="Complete aqui..." formControlName="valueMedia">
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="w-100 btnSecondary">Finalizar</button>
@@ -77,6 +76,8 @@
                     </div>
                     <div class="p-4" style="min-height: 40vh;">
                         <p>Sem postagens até agora...</p>
+
+                        {{ user() | json }}
                     </div>    
                 </main>
             </div>
