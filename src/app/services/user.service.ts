@@ -72,6 +72,8 @@ export class UserService {
 
     return this.#http.patch<any>(`${this.#url()}/${id}`, user, { headers: this.headers }).pipe(
       tap((res: any) => {
+
+        console.log(res);
         this.#statusUpdate.set(res.status);
         this.#messageUpdate.set(res.message);
       }, 

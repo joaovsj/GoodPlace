@@ -7,13 +7,29 @@
                     <li class="list-group-item">Meus comentários: {{ user()?.comments }} </li>
                     <li class="list-group-item p-0">
                         <ul class="vstack m-0 p-0 ms-3" style="list-style-type: none;">
+
+
                             <li class="d-flex position-relative align-items-center">
                                 <div class="py-1 px-2 box-icon">
                                     <span class="circle"></span>
-                                    <img src="/assets/icons/select/envelope-at.svg" width="15px" height="100%">    
+                                    <img src="/assets/icons/select/email.svg" width="15px" height="100%">    
                                 </div>
                                 <p class="ms-2">{{ user()?.email }}</p>
                             </li>  
+
+                            @for (item of user()?.social_media; track $index) {
+                            
+                                <li class="d-flex position-relative align-items-center">
+                                    <div class="py-1 px-2 box-icon">
+                                        <span class="circle"></span>
+                                        <img src="/assets/icons/select/{{ item[0] }}.svg" width="15px" height="100%">    
+                                    </div>
+                                    <p class="ms-2">{{ item[1] }}</p>
+                                    
+                                </li>
+                            }
+
+               
                         
                         </ul>
                     </li>
@@ -25,7 +41,7 @@
                                     <option selected>Rede</option>
 
                                     @for (item of icons$ | async; track item) {
-                                        <option value="{{ item.name }}" > {{ item.name }}</option>
+                                        <option value="{{ item.name | lowercase }}" > {{ item.name }}</option>
                                     }
 
                                   </select>                  
@@ -77,7 +93,7 @@
                     <div class="p-4" style="min-height: 40vh;">
                         <p>Sem postagens até agora...</p>
 
-                        {{ user() | json }}
+                        <!-- {{ user() | json }} -->
                     </div>    
                 </main>
             </div>

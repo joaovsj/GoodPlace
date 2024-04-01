@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
@@ -54,8 +54,8 @@ export class ProfileComponent implements OnInit{
   #fb       = inject(FormBuilder);
 
   public icons = this.#fb.group({
-    name: [""],
-    valueMedia: [""]
+    name: ["", Validators.required],
+    valueMedia: ["", Validators.required]
   })
 
   public finalizeRegister = signal<boolean>(false);
@@ -97,26 +97,20 @@ export class ProfileComponent implements OnInit{
 
   submit(){
 
+    if(this.icons.invalid)
+      return;
+
+
     this.user.update((oldValues)=>{
-      if(oldValues != undefined){
-        
-
-
-        const currentValues = oldValues.social_media;
-
-        const newIndex = this.icons.value.name;
-        const media = [[newIndex?.toLowerCase(), this.icons.value.valueMedia]] 
-
-        const allValues = currentValues.concat(media);
-
-        oldValues.social_media = [ allValues ];
-      }
-
-      console.log(oldValues);
+ 
+      const objectIcons = this.icons.value;
+      const valuesIcons = Object.values(objectIcons); // as array
+      
+      oldValues?.social_media.push(valuesIcons); 
       return oldValues;
     })
 
-
+    this.icons.reset();
     const id = this.user()?.id;
     return this.#user.update$(id, this.user()).subscribe();
   }
