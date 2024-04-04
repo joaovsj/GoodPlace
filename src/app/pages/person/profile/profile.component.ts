@@ -72,6 +72,9 @@ export class ProfileComponent implements OnInit{
   public ngOnInit(){
 
     const userId = atob(this.#Cookies.get('id'))
+
+    console.log(this.#Cookies.get('id'));
+
     this.#user.getUser$(userId).subscribe(); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
@@ -102,13 +105,26 @@ export class ProfileComponent implements OnInit{
 
 
     this.user.update((oldValues)=>{
- 
+      
       const objectIcons = this.icons.value;
       const valuesIcons = Object.values(objectIcons); // as array
       
-      oldValues?.social_media.push(valuesIcons); 
+      
+      if(oldValues?.social_media === null){
+        oldValues.social_media = [valuesIcons]
+
+      } else{
+        oldValues?.social_media.push(valuesIcons); 
+        
+      }
+
+      console.log(this.user());
+      console.log(valuesIcons);
+
       return oldValues;
     })
+
+    console.log(this.user());
 
     this.icons.reset();
     const id = this.user()?.id;

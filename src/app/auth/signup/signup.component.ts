@@ -9,6 +9,7 @@ import { SpinnerComponent } from '@components/spinner/spinner.component';
 // SERVICES
 import { AuthService } from '@services/auth.service';
 import { ToastService } from '@services/toast.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-signup',
@@ -30,10 +31,11 @@ import { ToastService } from '@services/toast.service';
 })
 export default class SignupComponent{
   
-  #fb          = inject(FormBuilder);
-  #authService = inject(AuthService); 
-  #toast       = inject(ToastService);
-  #router      = inject(Router);
+  #fb             = inject(FormBuilder);
+  #authService    = inject(AuthService);
+  #toast          = inject(ToastService);
+  #cookies  = inject(CookieService);
+  #router         = inject(Router);
 
   public user   = this.#fb.group({
 
@@ -67,6 +69,8 @@ export default class SignupComponent{
 
           if(result.status){
             this.#toast.success('Usuário cadastrado com sucesso!');
+            this.#cookies.set("id", btoa(result.body.id));
+            this.#cookies.set("token", result.token);
             this.#router.navigate(['/profile']);
           }
         
