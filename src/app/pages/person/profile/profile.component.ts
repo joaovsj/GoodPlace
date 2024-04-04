@@ -68,14 +68,14 @@ export class ProfileComponent implements OnInit{
   public icons$ = this.#user.getIcons$();
 
   public dateCreated: any = this.user()?.created_at;
+  public userId = atob(this.#Cookies.get('id'))
 
   public ngOnInit(){
 
-    const userId = atob(this.#Cookies.get('id'))
+    // const userId = atob(this.#Cookies.get('id'))
+    // console.log(this.#Cookies.get('id'));
 
-    console.log(this.#Cookies.get('id'));
-
-    this.#user.getUser$(userId).subscribe(); 
+    this.#user.getUser$(this.userId).subscribe(); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
 
@@ -109,26 +109,29 @@ export class ProfileComponent implements OnInit{
       const objectIcons = this.icons.value;
       const valuesIcons = Object.values(objectIcons); // as array
       
-      
       if(oldValues?.social_media === null){
         oldValues.social_media = [valuesIcons]
 
       } else{
-        oldValues?.social_media.push(valuesIcons); 
-        
+        oldValues?.social_media.push(valuesIcons);         
       }
-
-      console.log(this.user());
-      console.log(valuesIcons);
 
       return oldValues;
     })
 
-    console.log(this.user());
-
+    
     this.icons.reset();
-    const id = this.user()?.id;
-    return this.#user.update$(id, this.user()).subscribe();
+    return this.#user.update$(this.userId, this.user()).subscribe();
+  }
+
+  removeIcon(icon: number){
+ 
+    const allSocialMedia = this.user()?.social_media;
+    allSocialMedia.splice(icon, 1);   
+
+    this.user()!.social_media = allSocialMedia;
+    return this.#user.update$(this.userId, this.user()).subscribe();
+
   }
 
 }

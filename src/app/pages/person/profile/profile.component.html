@@ -19,13 +19,23 @@
 
                             @for (item of user()?.social_media; track $index) {
                             
-                                <li class="d-flex position-relative align-items-center">
+                                <li class="d-flex position-relative align-items-center" style="width: 90%;">
                                     <div class="py-1 px-2 box-icon">
                                         <span class="circle"></span>
                                         <img src="/assets/icons/select/{{ item[0] }}.svg" width="15px" height="100%">    
                                     </div>
-                                    <p class="ms-2 text-truncate">{{ item[1] }}</p>
-                                    
+                                    <p class="ms-2 text-truncate">{{ item[1] }} </p>
+
+
+                                    @if (finalizeRegister()) {
+                                        <button 
+                                            (click)="removeIcon($index)" 
+                                            style="width: min-content; height: min-content;" 
+                                            class="bg-transparent text-danger btnRemove"
+                                        >
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    }
                                 </li>
                             }
 
