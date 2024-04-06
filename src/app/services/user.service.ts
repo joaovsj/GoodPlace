@@ -70,7 +70,7 @@ export class UserService {
 
   public update$(id: any, user: any):Observable<any>{
 
-    return this.#http.patch<any>(`${this.#url()}/${id}`, user, { headers: this.headers }).pipe(
+    return this.#http.put<any>(`${this.#url()}/${id}`, user, { headers: this.headers }).pipe(
       tap((res: any) => {
 
         console.log(res);

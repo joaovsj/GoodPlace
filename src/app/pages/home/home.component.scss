@@ -140,15 +140,11 @@
 
             .img{
                 position: relative;
-                height: 100px;
-                width: 100px;
-                border-radius: 50%;
+                height: 100%;
+                width: 100%;
                 background-color: tomato;
+                border-radius: 50%;
                 overflow: hidden;
-
-                img{
-                    object-fit: cover;
-                }
             }
 
             p{

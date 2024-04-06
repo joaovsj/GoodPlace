@@ -6,7 +6,8 @@ export interface IUser {
     phone: String,
 
     placesVisited: number,
-    comments: number,
+    comments: number,   
+    image: string,
 
     social_media: [] | undefined | any,
 

@@ -60,7 +60,7 @@
                                 <input type="text" class="form-control" placeholder="Complete aqui..." formControlName="valueMedia">
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="w-100 btnSecondary">Finalizar</button>
+                                <button type="submit" class="w-100 btnSecondary">Adicionar</button>
                             </div>                            
                         </form>
                     }
@@ -74,11 +74,14 @@
                 <main class="d-flex flex-column w-100 shadow rounded-3">
                     <div class="position-relative vstack gap-3 text-white background-primary px-4 py-3 rounded-top">
                         <div class="box-img position-relative bg-primary overflow-hidden rounded-circle position-absolute end-0 me-5" style="transform: translateY(-65%);">
+
                             <img 
                                 class="img-fluid overflow-hidden object-fit-cover"
-                                src="/assets/img/woman.jpg" 
+                                src="http://127.0.0.1:8000/api/user/image/1" 
                                 alt=""
                             >
+
+
                         </div>
                         <h3>{{ user()?.name }}</h3>
                         <ul class="d-flex p-0 m-0 gap-3 icons__title" style="list-style-type: none;">

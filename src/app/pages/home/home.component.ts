@@ -19,7 +19,7 @@ export default class HomeComponent {
 
   public comments = signal([
     {
-      src: "assets/img/comment-one.jpg",
+      src: "assets/img/some-comment.jpg",
       description: "Simplismente incrível, nem acredito que exista uma plataforma só para podermos falar sobre viagens e expriências...",
       person: {
         name: "Eshiley Megan",
@@ -28,7 +28,7 @@ export default class HomeComponent {
     },
     {
       src: "assets/img/comment-two.jpg",
-      description: "Eu tinha um pouco de receio no início, mas depois que comecei a usar não consegui mais parar, super recomendo!",
+      description: "Eu tinha um pouco de receio no início, até porque não conhecia muito, mas depois que comecei a usar não consegui mais parar, super recomendo!",
       person: {
         name: "Richard Russel",
         job: "Sócio-Executivo da Colins"

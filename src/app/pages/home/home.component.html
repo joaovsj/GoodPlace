@@ -85,8 +85,8 @@
 
             @for(item of comments(); track item){
                 <div class="card-person d-flex flex-column bg-light align-items-center justify-content-center px-3 py-4 rounded-3">
-                    <div class="img mb-3">
-                        <img ngSrc="{{ item.src }}" fill alt="">
+                    <div class="img mb-3 overflow-hidden position-relative" style="height: 110px; width: 110px;">
+                        <img [src]="item.src" alt="" class="img-fluid object-fit-cover">
                     </div>
                     <p class="text-center text-muted">"{{ item.description }}"</p>
                     <span>{{ item.person.name }}</span>
