@@ -20,7 +20,7 @@ export default class HomeComponent {
   public comments = signal([
     {
       src: "assets/img/some-comment.jpg",
-      description: "Simplismente incrível, nem acredito que exista uma plataforma só para podermos falar sobre viagens e expriências...",
+      description: "Simplismente incrível, nem acredito que exista uma plataforma só para podermos falar sobre viagens e experiências...",
       person: {
         name: "Eshiley Megan",
         job: "CEO Dantas"

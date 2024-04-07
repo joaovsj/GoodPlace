@@ -11,6 +11,7 @@ import { FooterComponent } from '@components/footer/footer.component';
 // Services
 import { UserService } from '@services/user.service';
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class ProfileComponent implements OnInit{
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
   #fb       = inject(FormBuilder);
+  public url = signal<string>(environment.API+"/user/image")
 
   public icons = this.#fb.group({
     name: ["", Validators.required],
@@ -71,9 +73,6 @@ export class ProfileComponent implements OnInit{
   public userId = atob(this.#Cookies.get('id'))
 
   public ngOnInit(){
-
-    // const userId = atob(this.#Cookies.get('id'))
-    // console.log(this.#Cookies.get('id'));
 
     this.#user.getUser$(this.userId).subscribe(); 
     this.#user.getIcons$().subscribe();
