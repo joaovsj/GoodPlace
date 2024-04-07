@@ -162,6 +162,12 @@ export class ProfileComponent implements OnInit{
     this.#user.upload$(this.formData).subscribe();
   }
 
+  public cancelUpload(){
+
+    this.finalizeRegister.set(false);
+    this.formData.delete("image");
+    this.formData.delete("user_id");
+  }
 }
 
 

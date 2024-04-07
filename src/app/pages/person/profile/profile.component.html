@@ -97,32 +97,20 @@
                                 
                                     <i class="fa-solid fa-pen text-dark rounded-circle bg-light rounded-circle icon position-absolute"></i>        
 
-                                    <!-- @if(isFileFill()){ -->
-                                      
-                                    <!-- } -->
-
-                                        <!-- top-100 mt-1 px-2 -->
-
-                                        
-                                            <!-- <i class="fa-solid fa-xmark text-dark rounded-circle bg-light rounded-circle icon position-absolute"></i>
-                                        
-                                            <i class="fa-solid fa-pen text-dark rounded-circle bg-light rounded-circle icon position-absolute"></i>        
-                                         -->
-
                                     </label>
                                     
                                     <i 
                                         class="fa-solid fa-paper-plane bg-primary text-light rounded-circle rounded-circle icon"
                                         [class.send]="finalizeRegister()"
                                         id="plan"
-                                        title="enviar"
+                                        title="Enviar"
                                         (click)="send()"
                                     ></i>
 
                                 </div>
 
                                     @if (finalizeRegister()) {
-                                        <i class="fa-solid fa-xmark text-light rounded-circle bg-danger rounded-circle icon px-2 cancel"  id="cancel" title="Cancelar"
+                                        <i class="fa-solid fa-xmark text-light rounded-circle bg-danger rounded-circle icon px-2 cancel"  id="cancel" title="Cancelar" (click)="cancelUpload()"
                                         ></i>
                                     }
 
