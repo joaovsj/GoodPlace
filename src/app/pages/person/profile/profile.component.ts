@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -43,6 +43,14 @@ import { environment } from 'environments/environment';
         animate('.2s ease', style({opacity: 0, transform: "translateY(-20px)"}))
       ])      
     ]), 
+
+    trigger('send', [
+      transition(':enter', [
+        style({opacity: 0, transform: "translateX(-20px)"}),
+        animate('.5s ease', style({opacity: 1, transform: 'translatX(8px)'}))
+      ]), 
+    ])
+
     
   ]
 })

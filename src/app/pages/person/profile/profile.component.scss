@@ -77,4 +77,33 @@
         position: absolute;
         right: -8%;
     }
+
+    .form-upload{
+        .icon{
+            padding: 6px 6px;
+            font-size: .7rem;
+            cursor: pointer;
+        }
+
+        #plan{
+            // transform: translateX(28px);
+        }
+
+        .send{
+            animation: move .5s ease;
+            transform: translateX(28px);
+            opacity: 1;
+        }
+
+        @keyframes move {
+            from{
+                transform: translateX(0px);
+            }
+            to{
+                transform: translateX(28px);
+            }
+        }
+
+    }
+
 }

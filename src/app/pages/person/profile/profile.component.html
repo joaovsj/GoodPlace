@@ -83,18 +83,29 @@
                    
                         </div>
                     
-                        @if(finalizeRegister()){
-                            <form action="" class="position-absolute end-0 me-5 mt-2">
+                        <!-- @if(finalizeRegister()){ -->
+                            <form action="" class="position-absolute end-0 me-5 mt-2 form-upload" enctype="multipart/form-data">
                                 <input type="file" name="image" id="image" class="d-none">
-                                <label 
-                                    for="image" class="rounded-circle bg-light rounded-circle" 
-                                    style="padding: 0 5px; cursor: pointer;"
-                                    title="Escolha uma imagem"    
-                                >
-                                    <i class="bi bi-pen-fill text-dark p-0 m-0" style="font-size: .7rem;"></i>
-                                </label>
+
+                                <div class="d-flex ">
+                                    <label 
+                                        for="image" 
+                                        title="Escolha uma imagem"
+                                        class="position-relative z-5"    
+                                    >    
+                                    <!-- <i class="fa-solid fa-xmark"></i> -->
+                                        <i class="fa-solid fa-pen text-dark rounded-circle bg-light rounded-circle icon position-absolute"></i>
+                                    </label>
+                                    
+                                    <i 
+                                        class="fa-solid fa-paper-plane bg-primary text-light rounded-circle rounded-circle icon"
+                                        [class.send]="finalizeRegister()"
+                                        id="plan"
+                                        title="enviar"
+                                    ></i>
+                                </div>
                             </form>
-                        }
+                        <!-- } -->
                         
                         <h3>{{ user()?.name }}</h3>
                         <ul class="d-flex p-0 m-0 gap-3 icons__title" style="list-style-type: none;">
