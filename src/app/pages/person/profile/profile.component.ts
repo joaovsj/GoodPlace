@@ -80,8 +80,13 @@ export class ProfileComponent implements OnInit{
   public dateCreated: any = this.user()?.created_at;
   public userId = atob(this.#Cookies.get('id'))
 
-  public ngOnInit(){
+  public formData!: FormData
+  public isFileFill = signal<boolean>(false);
 
+
+  public ngOnInit(){  
+
+    this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
@@ -139,6 +144,22 @@ export class ProfileComponent implements OnInit{
     this.user()!.social_media = allSocialMedia;
     return this.#user.update$(this.userId, this.user()).subscribe();
 
+  }
+
+  public onfileSelected(event: any){
+
+    if(event.target.files.length > 0){
+
+      const file = event.target.files[0]; 
+
+      this.isFileFill.set(true);
+      this.formData.append('image', file);
+      this.formData.append('user_id', this.userId)
+    } 
+  }
+
+  public send(){
+    this.#user.upload$(this.formData).subscribe();
   }
 
 }

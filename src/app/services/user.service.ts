@@ -87,4 +87,33 @@ export class UserService {
     );
   }
 
+  #statusUpload = signal<boolean | null>(null);
+  public get statusUpload(){
+    return this.#statusUpload.asReadonly();
+  }
+
+  #messageUpload = signal<string>("");
+  public get messageUpload(){
+    return this.#statusUpload.asReadonly();
+  }
+
+  
+
+  public upload$(data: any){
+    return this.#http.post<any>(`${this.#url()}/image`, data).pipe(
+      tap((res) => {
+
+        console.log(res);
+
+        this.#statusUpload.set(res.status);
+        this.#messageUpload.set(res.body);
+      }),
+      catchError((error: HttpErrorResponse)=>{
+        console.log(error)
+        return throwError(()=>error)
+      })
+    )
+  }
+
+
 }

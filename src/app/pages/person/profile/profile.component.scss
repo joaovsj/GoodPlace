@@ -85,14 +85,17 @@
             cursor: pointer;
         }
 
-        #plan{
-            // transform: translateX(28px);
-        }
-
         .send{
             animation: move .5s ease;
             transform: translateX(28px);
             opacity: 1;
+        }
+
+        #cancel{
+            position: absolute;
+            top: 120%;
+            opacity: 1;
+            animation: down .5s ease;
         }
 
         @keyframes move {
@@ -101,6 +104,15 @@
             }
             to{
                 transform: translateX(28px);
+            }
+        }
+
+        @keyframes down {
+            from{
+                top: 0;
+            }
+            to{
+                top: 120%;
             }
         }
 
