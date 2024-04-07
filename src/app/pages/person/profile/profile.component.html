@@ -79,10 +79,23 @@
                                 class="img-fluid overflow-hidden object-fit-cover"
                                 src="{{ url() }}/1" 
                                 alt=""
-                            >
-
-
+                            >   
+                   
                         </div>
+                    
+                        @if(finalizeRegister()){
+                            <form action="" class="position-absolute end-0 me-5 mt-2">
+                                <input type="file" name="image" id="image" class="d-none">
+                                <label 
+                                    for="image" class="rounded-circle bg-light rounded-circle" 
+                                    style="padding: 0 5px; cursor: pointer;"
+                                    title="Escolha uma imagem"    
+                                >
+                                    <i class="bi bi-pen-fill text-dark p-0 m-0" style="font-size: .7rem;"></i>
+                                </label>
+                            </form>
+                        }
+                        
                         <h3>{{ user()?.name }}</h3>
                         <ul class="d-flex p-0 m-0 gap-3 icons__title" style="list-style-type: none;">
                             <li class="position-relative">
