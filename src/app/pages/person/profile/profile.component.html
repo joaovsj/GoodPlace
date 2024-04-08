@@ -77,7 +77,7 @@
 
                             <img 
                                 class="img-fluid overflow-hidden object-fit-cover"
-                                src="{{ url() }}/1" 
+                                src="{{ url() }}/{{ imageUser() }}" 
                                 alt=""
                             >   
                    
@@ -101,7 +101,7 @@
                                     
                                     <i 
                                         class="fa-solid fa-paper-plane bg-primary text-light rounded-circle rounded-circle icon"
-                                        [class.send]="finalizeRegister()"
+                                        [class.send]="isFileFill()"
                                         id="plan"
                                         title="Enviar"
                                         (click)="send()"
@@ -109,7 +109,7 @@
 
                                 </div>
 
-                                    @if (finalizeRegister()) {
+                                    @if (isFileFill()) {
                                         <i class="fa-solid fa-xmark text-light rounded-circle bg-danger rounded-circle icon px-2 cancel"  id="cancel" title="Cancelar" (click)="cancelUpload()"
                                         ></i>
                                     }

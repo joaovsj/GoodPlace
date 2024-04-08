@@ -12,6 +12,7 @@ import { FooterComponent } from '@components/footer/footer.component';
 import { UserService } from '@services/user.service';
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 import { environment } from 'environments/environment';
+import { concatMap } from 'rxjs';
 
 
 @Component({
@@ -79,6 +80,7 @@ export class ProfileComponent implements OnInit{
 
   public dateCreated: any = this.user()?.created_at;
   public userId = atob(this.#Cookies.get('id'))
+  public imageUser = signal<string>("");
 
   public formData!: FormData
   public isFileFill = signal<boolean>(false);
@@ -87,7 +89,7 @@ export class ProfileComponent implements OnInit{
   public ngOnInit(){  
 
     this.formData = new FormData();
-    this.#user.getUser$(this.userId).subscribe(); 
+    this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
 
@@ -159,15 +161,26 @@ export class ProfileComponent implements OnInit{
   }
 
   public send(){
-    this.#user.upload$(this.formData).subscribe();
+    this.#user.upload$(this.formData)
+      .pipe(concatMap(()=>this.#user.getUser$(this.userId)))
+      .subscribe((next)=>this.setNameImage());
   }
 
   public cancelUpload(){
 
     this.finalizeRegister.set(false);
+    this.isFileFill.set(false);
     this.formData.delete("image");
     this.formData.delete("user_id");
   }
+
+  public setNameImage(){
+    this.user.update((oldValues: any)=>{
+      this.imageUser.set(oldValues?.image.name)
+      return oldValues;
+    })
+  }
+
 }
 
 
