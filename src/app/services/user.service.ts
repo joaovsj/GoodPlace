@@ -5,6 +5,7 @@ import { Observable, catchError, pipe, tap, throwError } from 'rxjs';
 
 import { AuthService } from './auth.service';
 import { IUser } from 'app/interfaces/IUser';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class UserService {
   #http  = inject(HttpClient);
   #auth  = inject(AuthService);
   #url   = signal<String>(environment.API+"/user");
+  #toast = inject(ToastService)
+
   public headers: HttpHeaders | undefined;
 
   constructor() {
@@ -102,14 +105,16 @@ export class UserService {
   public upload$(data: any){
     return this.#http.post<any>(`${this.#url()}/image`, data).pipe(
       tap((res) => {
-
-        console.log(res);
-
         this.#statusUpload.set(res.status);
         this.#messageUpload.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{
         console.log(error)
+
+        if(error.status == 422){
+          this.#toast.error(error.error.message)
+        }
+
         return throwError(()=>error)
       })
     )

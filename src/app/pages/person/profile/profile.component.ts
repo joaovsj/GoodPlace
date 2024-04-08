@@ -12,7 +12,8 @@ import { FooterComponent } from '@components/footer/footer.component';
 import { UserService } from '@services/user.service';
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 import { environment } from 'environments/environment';
-import { concatMap } from 'rxjs';
+import { concatMap, tap } from 'rxjs';
+import { ToastService } from '@services/toast.service';
 
 
 @Component({
@@ -62,6 +63,7 @@ export class ProfileComponent implements OnInit{
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
   #fb       = inject(FormBuilder);
+  #toast = inject(ToastService);
   public url = signal<string>(environment.API+"/user/image")
 
   public icons = this.#fb.group({
@@ -85,20 +87,15 @@ export class ProfileComponent implements OnInit{
   public formData!: FormData
   public isFileFill = signal<boolean>(false);
 
+  public statusUpload = this.#user.statusUpload;
+  public messageUpload = this.#user.messageUpload;
+
 
   public ngOnInit(){  
-
     this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
-
-    setTimeout(()=>{
-      console.log(this.user());
-      console.log(this.icons$);
-    },3000)
-    
-    
   }
 
   public nextStep(step: string){
@@ -117,7 +114,6 @@ export class ProfileComponent implements OnInit{
     if(this.icons.invalid)
       return;
 
-
     this.user.update((oldValues)=>{
       
       const objectIcons = this.icons.value;
@@ -133,7 +129,6 @@ export class ProfileComponent implements OnInit{
       return oldValues;
     })
 
-    
     this.icons.reset();
     return this.#user.update$(this.userId, this.user()).subscribe();
   }
@@ -162,8 +157,21 @@ export class ProfileComponent implements OnInit{
 
   public send(){
     this.#user.upload$(this.formData)
-      .pipe(concatMap(()=>this.#user.getUser$(this.userId)))
-      .subscribe((next)=>this.setNameImage());
+      .pipe(
+        tap((res)=>{
+
+          if(res.status){
+            this.#toast.success(res.message)
+            this.isFileFill.set(false);
+
+          }else{
+            this.#toast.error(res.message)
+          }
+        }),
+        concatMap(()=>this.#user.getUser$(this.userId)),
+      ).subscribe((next)=>{
+        this.setNameImage()   
+      });
   }
 
   public cancelUpload(){
