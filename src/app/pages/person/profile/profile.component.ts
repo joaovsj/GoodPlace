@@ -96,6 +96,13 @@ export class ProfileComponent implements OnInit{
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
+
+
+    setTimeout(()=>{
+      console.log(this.user());
+    },2000)
+
+
   }
 
   public nextStep(step: string){
@@ -131,6 +138,25 @@ export class ProfileComponent implements OnInit{
 
     this.icons.reset();
     return this.#user.update$(this.userId, this.user()).subscribe();
+  }
+
+  public changeName(name: string){
+
+    if(name === "" || name == null)
+      return;
+
+    this.user.update((oldValues)=>{
+        
+        oldValues!.name = name;
+
+
+        console.log(oldValues);
+        return oldValues;
+    });
+
+
+    this.#user.update$(this.userId, this.user()).subscribe();
+    this.finalizeRegister.set(false);
   }
 
   removeIcon(icon: number){
