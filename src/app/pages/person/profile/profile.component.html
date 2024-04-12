@@ -186,7 +186,7 @@
           
 
           <div class="col position-relative">
-            <form class="d-flex position-relative gap-2">
+            <section class="d-flex position-relative gap-2">
 
 
                 @switch (stepForm()) {
@@ -196,10 +196,10 @@
                                 <p class="mb-3">Nos conte aonde você foi!</p>
                                 <p>{{ stepBar() }}/4</p>
                             </div>
-                            <div class="d-flex gap-2">
-                                <input type="text" class="form-control" placeholder="Nome...">
-                                <button class="btnSecondary" type="button" (click)="nextStep('step-2')">Avançar</button>
-                            </div>                   
+                            <form class="d-flex gap-2">
+                                <input type="text" class="form-control" placeholder="Nome..." #name>
+                                <button class="btnSecondary" type="button" (click)="receiveName(name.value)">Avançar</button>
+                            </form>                   
                         </div>
                     }
 
@@ -213,16 +213,15 @@
                                <div class="d-flex flex-column flex-grow-1 gap-2 ms-3">
                                     
                                 <div class="d-flex gap-1">
-                                    <input type="radio" name="alreadyRegistered" id="sim">
-                                    <label for="sim">Sim</label>
+                                    <input type="radio" name="alreadyRegistered" id="yes" (click)="alreadyRegistered(true)">
+                                    <label for="yes">Sim</label>
                                 </div>
 
                                 <div class="d-flex gap-1">
-                                    <input type="radio" name="alreadyRegistered" id="nao">
-                                    <label for="nao">Não</label>
+                                    <input type="radio" name="alreadyRegistered" id="no" (click)="alreadyRegistered(false)">
+                                    <label for="no">Não</label>
                                 </div>
                             </div>
-                                
                                 <button class="btnSecondary" type="button" (click)="nextStep('step-3')">Avançar</button>
                             </div>                   
                         </div>
@@ -230,24 +229,108 @@
 
                     @case('step-3'){
                         <div class="w-100 box-step" [@state]>
-                            <div class="d-flex justify-content-between">
-                                <p class="mb-3">Passo 3</p>
-                                <p>{{ stepBar() }}/4</p>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <input type="text" class="form-control" placeholder="Nome...">
-                                <button class="btnSecondary" type="button" (click)="nextStep('step-final')">Avançar</button>
-                            </div>                   
+
+                          
+                                @if(placeRegistered()){
+                                    
+                                    <p>Já cadastrado...</p>
+
+                                }@else {
+                                    
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-3">Onde {{ temporaryName() }} fica?</p>
+                                        <p>{{ stepBar() }}/4</p>
+                                    </div>
+
+                                    <div class="container d-flex flex-column flex-column gap-2 position-relative">
+
+                                
+                                        <div class="row gap-2">
+                                            <input 
+                                                type="text" name="cep" id="cep" placeholder="Cep" class="rounded-2 col form-control">                             
+                                            <input 
+                                                type="text" name="number" id="number" placeholder="Número" class="rounded-2 col form-control">                             
+                                        </div>
+
+                                        <div class="row gap-2">
+                                            <input 
+                                                type="text" name="cep" id="street" placeholder="Rua" class="rounded-2  col-8 form-control">                             
+                                            <input 
+                                                type="text" name="number" id="neighborhood" placeholder="Bairro" class="rounded-2 col form-control">                             
+                                        </div>
+
+                                        <div class="row gap-2">
+                                            <input type="text" name="city" id="city" placeholder="Cidade" class="rounded-2 col form-control">
+                                            <input type="text" name="state" id="state" placeholder="Estado" class="rounded-2 col form-control">
+                                            <input type="text" name="country" id="country" placeholder="País" class="rounded-2 col form-control">
+                                        </div>
+
+                                        <div class="row gap-2 d-flex">
+                                            <input type="text" name="complement" id="complement" placeholder="Complemento" class="rounded-2 col form-control">
+                                            <button class="btnSecondary col" type="button" (click)="nextStep('step-final')">Avançar</button>
+                                        </div>
+
+                                        <!-- <input type="text" class="form-control" placeholder="Nome..."> -->
+                                        
+                                    </div>    
+
+                                }
+               
                         </div>
+
+
+
+
+
                     }
                     @case('step-final'){
                         <div class="w-100 box-step" [@state]>
                             <div class="d-flex justify-content-between">
-                                <p class="mb-3">Passo 4</p>
+                                <p class="mb-3">Que tipo de lugar é?</p>
                                 <p>{{ stepBar() }}/4</p>
                             </div>
-                            <div class="d-flex gap-2">
-                                <input type="text" class="form-control" placeholder="Nome...">
+                            <div class="d-flex flex-column gap-2">
+
+                                <div class="row gap-2">
+                                    <select class="form-select w-100" aria-label="Default select example">
+                                        <option selected>Escolha</option>
+                                        <option value="1">Hotel</option>
+                                        <option value="3">Restaurante</option>
+                                        <option value="3">Lojas</option>
+                                        <option value="3">Shopping</option>
+                                        <option value="3">Salão de Beleza</option>
+                                        <option value="3">Farmácia</option>
+                                        <option value="3">Padaria</option>
+                                        <option value="2">Hospital</option>
+                                        <option value="2">Posto de Saúde</option>
+                                      </select>
+                                </div>
+
+                                <div>
+                                    <p>Sua avaliação é muito importante...</p>
+
+                                    <!-- <ul class="d-flex gap-2" style="list-style-type: none;">
+                                        <li (click)="do()" class="star">
+                                            <i class="bi bi-star"></i> 
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-star"></i> 
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-star"></i> 
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-star"></i> 
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-star"></i> 
+                                        </li>
+                                    </ul> -->
+                                </div>
+
+
+
+                                <!-- <input type="text" class="form-control" placeholder="Nome..."> -->
                                 <button class="btnSecondary" type="button" (click)="nextStep('step-final')">Avançar</button>
                             </div>                   
                         </div>
@@ -257,7 +340,7 @@
 
 
  
-            </form>
+            </section>
           </div> <!--  close col of form-->
 
           <div class="col">

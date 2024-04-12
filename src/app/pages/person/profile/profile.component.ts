@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
@@ -19,7 +19,7 @@ import { ToastService } from '@services/toast.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe, ReactiveFormsModule],
+  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe, ReactiveFormsModule, FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -76,7 +76,6 @@ export class ProfileComponent implements OnInit{
   public stepForm  = signal<string>('step-1'); // Step of the Form
   public stepBar   = signal<number>(1)          // step of the bar in bottom
 
-  
   public user = this.#user.userId;
   public icons$ = this.#user.getIcons$();
 
@@ -84,11 +83,17 @@ export class ProfileComponent implements OnInit{
   public userId = atob(this.#Cookies.get('id'))
   public imageUser = signal<string>("");
 
+  // variables of upload file
   public formData!: FormData
   public isFileFill = signal<boolean>(false);
 
+  // upload
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
+
+  // form of register places
+  public temporaryName = signal<String>("");
+  public placeRegistered = signal<boolean>(false);
 
 
   public ngOnInit(){  
@@ -106,10 +111,37 @@ export class ProfileComponent implements OnInit{
   }
 
   public nextStep(step: string){
+
     this.stepForm.set(step);
     this.stepBar.update((oldValue) => {
       return oldValue + 1
     })
+  }
+
+  /**
+   * Receive the name of place
+   * @param name  
+   * 
+   */
+  public receiveName(name: string){
+    this.temporaryName.set(name);
+    this.nextStep('step-2');
+  }
+
+
+  do(){
+    alert('teste')
+  }
+
+  /**
+   * Check if the place is already registered
+   * @param status 
+   * 
+   */
+  public alreadyRegistered(status: boolean){
+
+    console.log(status);
+    this.placeRegistered.set(status)
   }
 
   public finalize(){  
