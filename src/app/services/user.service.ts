@@ -14,12 +14,14 @@ export class UserService {
 
   #http  = inject(HttpClient);
   #auth  = inject(AuthService);
-  #url   = signal<String>(environment.API+"/user");
+  #url   = signal<String>(environment.API);
   #toast = inject(ToastService)
 
   public headers: HttpHeaders | undefined;
 
   constructor() {
+
+    this.#auth.reloadHeaders();
     this.headers = this.#auth.headers;
   }
 
@@ -37,7 +39,7 @@ export class UserService {
   }
 
   public getUser$(id: String): Observable<IUser>{
-    return this.#http.get<IUser>(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
+    return this.#http.get<IUser>(`${this.#url()}/user/${id}`, { headers: this.headers }).pipe(
 
       tap((res: any)=>this.#setUserId.set(res.body)),
       catchError((error: HttpErrorResponse)=>{
@@ -73,7 +75,7 @@ export class UserService {
 
   public update$(id: any, user: any):Observable<any>{
 
-    return this.#http.put<any>(`${this.#url()}/${id}`, user, { headers: this.headers }).pipe(
+    return this.#http.put<any>(`${this.#url()}/user/${id}`, user, { headers: this.headers }).pipe(
       tap((res: any) => {
 
         console.log(res);
@@ -103,7 +105,7 @@ export class UserService {
   
 
   public upload$(data: any){
-    return this.#http.post<any>(`${this.#url()}/image`, data).pipe(
+    return this.#http.post<any>(`${this.#url()}/user/image`, data).pipe(
       tap((res) => {
         this.#statusUpload.set(res.status);
         this.#messageUpload.set(res.body);
@@ -118,6 +120,18 @@ export class UserService {
         return throwError(()=>error)
       })
     )
+  }
+
+
+  #categories = signal<any>([]);
+  public get categories(){
+    return this.#categories.asReadonly();
+  }
+  public getCategories$(){
+    return this.#http.get<any>(`${this.#url()}/categories`, { headers: this.headers }).pipe(
+      tap(res=> this.#categories.set(res.body))
+
+    );
   }
 
 

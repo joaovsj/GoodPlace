@@ -14,6 +14,7 @@ import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 import { environment } from 'environments/environment';
 import { concatMap, tap } from 'rxjs';
 import { ToastService } from '@services/toast.service';
+import { IPlace } from 'app/interfaces/IPlace';
 
 
 @Component({
@@ -71,6 +72,18 @@ export class ProfileComponent implements OnInit{
     valueMedia: ["", Validators.required]
   })
 
+
+  public place: IPlace | any = this.#fb.group({
+    name:          [""],
+    cep:           ["", Validators.required],
+    address:       ["", Validators.required],
+    number:        ["", Validators.required],
+    city:          ["", Validators.required],
+    neighborhood:  ["", Validators.required],
+    state:         ["", Validators.required],
+    country:       ["", Validators.required],
+  })
+
   public finalizeRegister = signal<boolean>(false);
 
   public stepForm  = signal<string>('step-1'); // Step of the Form
@@ -90,21 +103,28 @@ export class ProfileComponent implements OnInit{
   // upload
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
-
   // form of register places
   public temporaryName = signal<String>("");
   public placeRegistered = signal<boolean>(false);
   public numberStars = signal<number>(0);
+  public placeAddress: any = [];  
+
+
+  // Categories   
+  public categories = this.#user.categories;
+
 
   public ngOnInit(){  
     this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
+    this.#user.getCategories$().subscribe();
 
 
     setTimeout(()=>{
       console.log(this.user());
+      console.log(this.categories());
     },2000)
 
 
@@ -112,10 +132,23 @@ export class ProfileComponent implements OnInit{
 
   public nextStep(step: string){
 
+    if(step == "step-final"){
+      this.registerPlace();
+    }
+
     this.stepForm.set(step);
     this.stepBar.update((oldValue) => {
       return oldValue + 1
     })
+  }
+
+
+  public registerPlace(){
+
+
+    this.placeAddress = this.place.value;
+    this.placeAddress.name = this.temporaryName();
+    console.log(this.placeAddress);
   }
 
   /**

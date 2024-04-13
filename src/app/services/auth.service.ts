@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class AuthService {
 
   #http = inject(HttpClient);
   #url  = signal<string>(environment.API);  
+  #cookie = inject(CookieService); 
   public headers: HttpHeaders | undefined;
 
   #errorsRegister = signal<[{}] | any>(null);
@@ -18,10 +20,21 @@ export class AuthService {
   }  
   
   constructor(){
+    this.reloadHeaders();
+  }
+
+  public reloadHeaders(){
+
+    const token = this.#cookie.get('token');
+
     this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json');
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`);;
+
   }
+
+
 
   public register(user: any): Observable<any>{
     return this.#http.post<any>(`${this.#url()}/register`, {...user}, { headers: this.headers }).pipe(
