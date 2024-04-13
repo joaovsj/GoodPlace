@@ -120,8 +120,9 @@
 
     .stars{
         background-color: transparent;
-        width: min-content;
+        width: min-content !important;
         height: min-content;
-        cursor: pointer;
+        padding: 0;
+        text-decoration: none;
     }
 }

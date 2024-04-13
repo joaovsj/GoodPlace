@@ -306,8 +306,49 @@
                                       </select>
                                 </div>
 
-                                <div>
+                                <div class="row">
                                     <p>Sua avaliação é muito importante...</p>
+                                  
+                                    <div class="d-flex gap-2">    
+                                        <button type="button" (click)="setNumberStarts(1)" class="stars">
+
+                                            @if(numberStars() >= 1){
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }@else {
+                                                <i class="bi bi-star text-dark"></i>
+                                            }   
+
+                                            
+                                        </button>
+                                        <button type="button" (click)="setNumberStarts(2)" class="stars">
+                                            @if(numberStars()>=2){
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }@else {
+                                                <i class="bi bi-star text-dark"></i>
+                                            }   
+                                        </button>
+                                        <button type="button" (click)="setNumberStarts(3)" class="stars">
+                                            @if(numberStars()>=3){
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }@else {
+                                                <i class="bi bi-star text-dark"></i>
+                                            }   
+                                        </button>
+                                        <button type="button" (click)="setNumberStarts(4)" class="stars">
+                                            @if(numberStars()>=4){
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }@else {
+                                                <i class="bi bi-star text-dark"></i>
+                                            }   
+                                        </button>
+                                        <button type="button" (click)="setNumberStarts(5)" class="stars">
+                                            @if(numberStars()>=5){
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }@else {
+                                                <i class="bi bi-star text-dark"></i>
+                                            }   
+                                        </button>
+                                    </div>
 
                                     <!-- <ul class="d-flex gap-2" style="list-style-type: none;">
                                         <li (click)="do()" class="star">

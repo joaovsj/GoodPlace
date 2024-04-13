@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit{
   // form of register places
   public temporaryName = signal<String>("");
   public placeRegistered = signal<boolean>(false);
-
+  public numberStars = signal<number>(0);
 
   public ngOnInit(){  
     this.formData = new FormData();
@@ -129,8 +129,8 @@ export class ProfileComponent implements OnInit{
   }
 
 
-  do(){
-    alert('teste')
+  setNumberStarts(stars: number){
+    this.numberStars.set(stars);
   }
 
   /**
