@@ -289,9 +289,9 @@
                                 <p class="mb-3">Que tipo de lugar é?</p>
                                 <p>{{ stepBar() }}/4</p>
                             </div>
-                            <div class="d-flex flex-column gap-2">
+                            <div class="d-flex flex-column gap-3 my-2">
 
-                                <div class="row gap-2">
+                                <div class="gap-2">
                                     <select class="form-select w-100" aria-label="Default select example">
                                         <option selected>Escolha</option>
                                         <option value="1">Hotel</option>
@@ -306,10 +306,10 @@
                                       </select>
                                 </div>
 
-                                <div class="row">
-                                    <p>Sua avaliação é muito importante...</p>
+                                <div class="row position-relative">
+                                    <p class="mt-2">Sua avaliação é muito importante...</p>
                                   
-                                    <div class="d-flex gap-2">    
+                                    <div class="d-flex gap-2 position-relative my-1 ms-2">    
                                         <button type="button" (click)="setNumberStarts(1)" class="stars">
 
                                             @if(numberStars() >= 1){
@@ -350,29 +350,50 @@
                                         </button>
                                     </div>
 
-                                    <!-- <ul class="d-flex gap-2" style="list-style-type: none;">
-                                        <li (click)="do()" class="star">
-                                            <i class="bi bi-star"></i> 
-                                        </li>
-                                        <li>
-                                            <i class="bi bi-star"></i> 
-                                        </li>
-                                        <li>
-                                            <i class="bi bi-star"></i> 
-                                        </li>
-                                        <li>
-                                            <i class="bi bi-star"></i> 
-                                        </li>
-                                        <li>
-                                            <i class="bi bi-star"></i> 
-                                        </li>
-                                    </ul> -->
+
+                                    <div class="mt-2 d-flex gap-2">
+                                        <select class="form-select col" aria-label="Default select example">
+                                            <option selected>Serviço</option>
+                                            <option value="1">Hotel</option>
+                                            <option value="3">Restaurante</option>
+                                            <option value="3">Lojas</option>
+                                            <option value="3">Shopping</option>
+                                            <option value="3">Salão de Beleza</option>
+                                            <option value="3">Farmácia</option>
+                                            <option value="3">Padaria</option>
+                                            <option value="2">Hospital</option>
+                                            <option value="2">Posto de Saúde</option>
+                                        </select>
+
+
+                                        <select class="form-select col" aria-label="Default select example">
+                                            <option selected>Avaliação</option>
+                                            <option value="1">Hotel</option>
+                                            <option value="3">Restaurante</option>
+                                            <option value="3">Lojas</option>
+                                            <option value="3">Shopping</option>
+                                            <option value="3">Salão de Beleza</option>
+                                            <option value="3">Farmácia</option>
+                                            <option value="3">Padaria</option>
+                                            <option value="2">Hospital</option>
+                                            <option value="2">Posto de Saúde</option>
+                                        </select>
+
+                                        <button class="btn border border-dark col more-services">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div>
+                                    <label for="descriptption" class="mb-2">Nos conte o que você achou dessse lugar!</label>
+                                    <textarea name="" id="" cols="30" rows="5" class="w-100 rounded-2 p-2"></textarea>
                                 </div>
 
 
-
-                                <!-- <input type="text" class="form-control" placeholder="Nome..."> -->
-                                <button class="btnSecondary" type="button" (click)="nextStep('step-final')">Avançar</button>
+                                <button class="btnSecondary ms-auto" type="button" (click)="nextStep('step-final')">Cadastrar</button>
                             </div>                   
                         </div>
                     }
