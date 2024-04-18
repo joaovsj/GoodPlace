@@ -134,5 +134,12 @@ export class UserService {
     );
   }
 
+  
+  public getAddress$(cep: String){
+    return this.#http.get<any>(`https://viacep.com.br/ws/${cep}/json/`).pipe(
+      tap((res)=>console.log(res))
+    );
+  }
+
 
 }

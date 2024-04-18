@@ -247,7 +247,7 @@
                                 
                                         <div class="row gap-2">
                                             <input 
-                                                type="text" formControlName="cep" id="cep" placeholder="Cep" class="rounded-2 col form-control">                             
+                                                type="text" formControlName="cep" id="cep" placeholder="Cep" class="rounded-2 col form-control" (keyup)="findAdressByCEP(place.value?.cep)">                             
                                             <input 
                                                 type="text" formControlName="number" id="number" placeholder="Número" class="rounded-2 col form-control">                             
                                         </div>

@@ -113,6 +113,8 @@ export class ProfileComponent implements OnInit{
   // Categories   
   public categories = this.#user.categories;
 
+  // Address
+  public address: any = "";
 
   public ngOnInit(){  
     this.formData = new FormData();
@@ -145,10 +147,38 @@ export class ProfileComponent implements OnInit{
 
   public registerPlace(){
 
-
     this.placeAddress = this.place.value;
     this.placeAddress.name = this.temporaryName();
     console.log(this.placeAddress);
+  }
+
+
+  /**
+   * Find for one address by CEP number
+   */
+  public findAdressByCEP(cep: any){
+
+    if(cep.length === 8){
+
+      this.#user.getAddress$(cep).subscribe({
+        next: (res) => {
+          if(res.hasOwnProperty('erro')){
+            
+            this.#toast.error('Erro ao encontrar o endereço... ');
+            this.place.reset();
+           }else{
+
+            this.place.patchValue({
+              cep:           res.cep,
+              address:       res.logradouro,
+              city:          res.localidade,
+              neighborhood:  res.bairro,
+              state:         res.uf,
+            })
+          }
+        },
+      }); 
+    }
   }
 
   /**
@@ -181,7 +211,7 @@ export class ProfileComponent implements OnInit{
     this.finalizeRegister.update(oldValue => !oldValue)
   }
 
-  submit(){
+  public submit(){
 
     if(this.icons.invalid)
       return;
