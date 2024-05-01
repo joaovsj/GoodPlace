@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DatePipe, NgClass } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
@@ -15,6 +15,7 @@ import { environment } from 'environments/environment';
 import { concatMap, tap } from 'rxjs';
 import { ToastService } from '@services/toast.service';
 import { IPlace } from 'app/interfaces/IPlace';
+import { IAssessment } from 'app/interfaces/IAssessment';
 
 
 @Component({
@@ -72,7 +73,6 @@ export class ProfileComponent implements OnInit{
     valueMedia: ["", Validators.required]
   })
 
-
   public place: IPlace | any = this.#fb.group({
     name:          [""],
     cep:           ["", Validators.required],
@@ -83,6 +83,24 @@ export class ProfileComponent implements OnInit{
     state:         ["", Validators.required],
     country:       ["", Validators.required],
   })
+
+
+  public assessment: IAssessment | any = this.#fb.group({
+    type:           ["", Validators.required],
+    assessment:     ["", Validators.required],
+    description:    ["", Validators.required], 
+    user_id:        ["", Validators.required],
+    place_id:       ["", Validators.required],
+    details:        this.#fb.array([
+      ['']    
+    ])
+  })
+
+  public addNewDetail(detail: string, assessment: string){
+    const detailsForm = this.assessment.get('details') as FormArray;
+    const value = new FormControl([detail, assessment]);
+    detailsForm.push(value);
+  }
 
   public finalizeRegister = signal<boolean>(false);
 
