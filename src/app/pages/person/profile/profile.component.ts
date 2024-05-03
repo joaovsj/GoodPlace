@@ -4,6 +4,9 @@ import { CommonModule, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
+// Editor
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 // Components
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
@@ -21,7 +24,7 @@ import { IAssessment } from 'app/interfaces/IAssessment';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe, ReactiveFormsModule, FormsModule],
+  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe, ReactiveFormsModule, FormsModule, EditorModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,7 +63,6 @@ import { IAssessment } from 'app/interfaces/IAssessment';
 })
 
 export class ProfileComponent implements OnInit{
-
 
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
@@ -135,6 +137,7 @@ export class ProfileComponent implements OnInit{
   public address: any = "";
 
   public ngOnInit(){  
+
     this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();

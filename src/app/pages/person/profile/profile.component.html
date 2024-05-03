@@ -393,8 +393,22 @@
                                 </div>
 
                                 <div>
+
+                                    <!-- plugins: 'lists link image table code help wordcount' -->
                                     <label for="descriptption" class="mb-2">Nos conte o que você achou dessse lugar!</label>
-                                    <textarea name="" id="" cols="30" rows="5" class="w-100 rounded-2 p-2"></textarea>
+                                    <editor
+                                        apiKey="t3iwjkh6fkgdcvexigd07xrnn3grpqihr9qlceidfz0bvu8h" 
+                                        [init]="{
+                                            selector: 'textarea',
+                                            menubar: '',
+                                            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify',
+                                            statusbar: false,
+                                            max_height: 300,
+                                            max_width: 500,
+                                            min_height: 100,
+                                            min_width: 400
+                                      }"></editor>
+                                    <!-- <textarea name="" id="" cols="30" rows="5" class="w-100 rounded-2 p-2"></textarea> -->
                                 </div>
 
 
