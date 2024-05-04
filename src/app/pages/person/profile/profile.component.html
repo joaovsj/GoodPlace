@@ -373,13 +373,14 @@
                                                 <select class="form-select col mx-3" aria-label="Default select example" #assessment>
                                                     <option selected>Avaliação</option>
                                                     <option value="5">Excelente</option>
-                                                    <option value="4">Boa</option>
+                                                    <option value="4">Bom</option>
                                                     <option value="3">Regular</option>
                                                     <option value="2">Ruim</option>
                                                     <option value="1">Péssima</option>
                                                 </select>
                                                 <button class="btn border border-dark col more-services" (click)="addNewDetail(detail.value, assessment.value)">
-                                                    <i class="bi bi-plus-lg"></i>
+                                                    <!-- <i class="bi bi-plus-lg"></i>    -->
+                                                    <i class="fa-solid fa-check"></i>
                                                 </button>
                                             </div>
                                         }
@@ -395,8 +396,9 @@
                                 <div>
 
                                     <!-- plugins: 'lists link image table code help wordcount' -->
-                                    <label for="descriptption" class="mb-2">Nos conte o que você achou dessse lugar!</label>
+                                    <label for="description" class="mb-2">Nos conte o que você achou dessse lugar!</label>
                                     <editor
+                                        formControlName="description"
                                         apiKey="t3iwjkh6fkgdcvexigd07xrnn3grpqihr9qlceidfz0bvu8h" 
                                         [init]="{
                                             selector: 'textarea',

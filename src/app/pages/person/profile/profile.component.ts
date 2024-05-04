@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit{
   public url = signal<string>(environment.API+"/user/image")
 
   public icons = this.#fb.group({
-    name: ["", Validators.required],
+    name:       ["", Validators.required],
     valueMedia: ["", Validators.required]
   })
 
@@ -97,6 +97,8 @@ export class ProfileComponent implements OnInit{
       ['']    
     ])
   })
+
+  public assessmentValues: any = []
 
   public addNewDetail(detail: string, assessment: string){
     const detailsForm = this.assessment.get('details') as FormArray;
@@ -130,7 +132,7 @@ export class ProfileComponent implements OnInit{
   public placeAddress: any = [];  
 
 
-  // Categories   
+  // Categories     
   public categories = this.#user.categories;
 
   // Address
@@ -170,7 +172,11 @@ export class ProfileComponent implements OnInit{
 
     this.placeAddress = this.place.value;
     this.placeAddress.name = this.temporaryName();
+    
+    this.assessmentValues = this.assessment.value;
+    this.assessmentValues.assessment = this.numberStars();
     console.log(this.placeAddress);
+    console.log(this.assessmentValues);
   }
 
 
