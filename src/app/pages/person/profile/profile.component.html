@@ -76,7 +76,7 @@
                         <div class="box-img position-relative bg-primary overflow-hidden rounded-circle position-absolute end-0 me-5" style="transform: translateY(-65%);">
 
                             <img 
-                                class="img-fluid overflow-hidden object-fit-cover"
+                                class="img-fluid overflow-hidden object-fit-cover h-100"
                                 src="{{ url() }}/{{ imageUser() }}" 
                                 alt=""
                             >   
@@ -198,7 +198,7 @@
                             </div>
                             <form class="d-flex gap-2">
                                 <input type="text" class="form-control" placeholder="Nome..." #name>
-                                <button class="btnSecondary" type="button" (click)="receiveName(name.value)">Avançar</button>
+                                <button class="btnSecondary" type="button" (click)="receiveName(name.value)" [disabled]="">Avançar</button>
                             </form>                   
                         </div>
                     }
@@ -262,7 +262,17 @@
                                         <div class="row gap-2">
                                             <input type="text" formControlName="city" id="city" placeholder="Cidade" class="rounded-2 col form-control">
                                             <input type="text" formControlName="state" id="state" placeholder="Estado" class="rounded-2 col form-control">
-                                            <input type="text" formControlName="country" id="country" placeholder="País" class="rounded-2 col form-control">
+                                            
+                                            <select formControlName="country" class="rounded-2 col form-control">
+                                                <option value="" selected>País</option>
+                                                
+                                                @for (item of contries(); track $index) {
+                                                    <option value="{{ item.nome }}"> {{ item.nome }} </option>
+                                                }
+
+                                            </select>
+<!-- 
+                                            <input type="text" formControlName="country" id="country" placeholder="País" class="rounded-2 col form-control"> -->
                                         </div>
 
                                         <div class="row gap-2 d-flex">
@@ -299,11 +309,11 @@
 
                                 <div class="gap-2">
                                     
-                                    <select formControlName="type" class="form-select w-100" aria-label="Default select example">
+                                    <select formControlName="category_id" class="form-select w-100" aria-label="Default select example">
                                         <option selected>Escolha</option>
 
                                         @for (category of categories(); track $index) {    
-                                            <option value="{{ category.name }}"> {{ category.name }} </option>
+                                            <option value="{{ category.id }}"> {{ category.name }} </option>
                                         }
                                       </select>
                                 </div>

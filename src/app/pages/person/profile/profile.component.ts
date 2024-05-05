@@ -3,6 +3,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { concatMap, tap } from 'rxjs';
 
 // Editor
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -11,14 +12,16 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
 
-// Services
-import { UserService } from '@services/user.service';
-import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
-import { environment } from 'environments/environment';
-import { concatMap, tap } from 'rxjs';
-import { ToastService } from '@services/toast.service';
 import { IPlace } from 'app/interfaces/IPlace';
 import { IAssessment } from 'app/interfaces/IAssessment';
+import { contryList } from 'app/classes/countries';
+
+import { environment } from 'environments/environment';
+import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
+// Services
+import { UserService } from '@services/user.service';
+import { ToastService } from '@services/toast.service';
+import { PlaceService } from '@services/place.service';
 
 
 @Component({
@@ -66,6 +69,7 @@ export class ProfileComponent implements OnInit{
 
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
+  #place    = inject(PlaceService)
   #fb       = inject(FormBuilder);
   #toast = inject(ToastService);
   public url = signal<string>(environment.API+"/user/image")
@@ -84,18 +88,19 @@ export class ProfileComponent implements OnInit{
     neighborhood:  ["", Validators.required],
     state:         ["", Validators.required],
     country:       ["", Validators.required],
+    category_id:   [""],
   })
 
 
   public assessment: IAssessment | any = this.#fb.group({
-    type:           ["", Validators.required],
     assessment:     ["", Validators.required],
     description:    ["", Validators.required], 
     user_id:        ["", Validators.required],
     place_id:       ["", Validators.required],
     details:        this.#fb.array([
       ['']    
-    ])
+    ]),
+    category_id:   ["", Validators.required],
   })
 
   public assessmentValues: any = []
@@ -106,6 +111,7 @@ export class ProfileComponent implements OnInit{
     detailsForm.push(value);
   }
 
+  public contries = signal<any>(contryList);
   public finalizeRegister = signal<boolean>(false);
 
   public stepForm  = signal<string>('step-1'); // Step of the Form
@@ -173,10 +179,18 @@ export class ProfileComponent implements OnInit{
     this.placeAddress = this.place.value;
     this.placeAddress.name = this.temporaryName();
     
+
     this.assessmentValues = this.assessment.value;
     this.assessmentValues.assessment = this.numberStars();
-    console.log(this.placeAddress);
-    console.log(this.assessmentValues);
+
+    this.placeAddress.category_id = this.assessmentValues.category_id;
+    delete this.assessmentValues.category_id;
+
+    console.log(this.placeAddress)
+    console.log(this.#place.httpPost$(this.placeAddress).subscribe())
+
+    // console.log(this.placeAddress);
+    // console.log(this.assessmentValues);
   }
 
 
@@ -214,10 +228,13 @@ export class ProfileComponent implements OnInit{
    * 
    */
   public receiveName(name: string){
+
+    if(name == "")
+      return;
+
     this.temporaryName.set(name);
     this.nextStep('step-2');
   }
-
 
   setNumberStarts(stars: number){
     this.numberStars.set(stars);
@@ -338,5 +355,8 @@ export class ProfileComponent implements OnInit{
   }
 
 }
+
+
+
 
 

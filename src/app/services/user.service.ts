@@ -20,7 +20,7 @@ export class UserService {
   public headers: HttpHeaders | undefined;
 
   constructor() {
-
+    
     this.#auth.reloadHeaders();
     this.headers = this.#auth.headers;
   }

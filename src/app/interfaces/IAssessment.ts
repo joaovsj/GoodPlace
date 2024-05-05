@@ -1,5 +1,4 @@
 export interface IAssessment {
-    type: String,
     assessment: number,
     description: String, 
     user_id: number,

@@ -7,4 +7,5 @@ export interface IPlace {
     city: String,
     state: string,
     country: String
+    category_id: String,
 }
