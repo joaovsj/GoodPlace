@@ -216,8 +216,6 @@ export class ModalProfileComponent {
       const file = event.target.files[0]; 
       this.formData.append('image', file);
       this.formData.append('user_id', user_id);
-
-
     } 
   }
 

@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit{
   // upload
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
-
+  
   public ngOnInit(){  
     this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit{
     this.#user.getCategories$().subscribe();
   }
 
-  
+  // store the social media of user
   public submit(){
     if(this.icons.invalid)
       return;
@@ -97,6 +97,7 @@ export class ProfileComponent implements OnInit{
     return this.#user.update$(this.userId, this.user()).subscribe();
   }
 
+  // update the name of user
   public changeName(name: string){
     if(name === "" || name == null)
       return;
@@ -113,6 +114,7 @@ export class ProfileComponent implements OnInit{
     this.finalizeRegister.set(false);
   }
 
+  // update the social media of user
   removeIcon(icon: number){
     const allSocialMedia = this.user()?.social_media;
     allSocialMedia.splice(icon, 1);   
@@ -121,6 +123,7 @@ export class ProfileComponent implements OnInit{
     return this.#user.update$(this.userId, this.user()).subscribe();
   }
 
+  // method triggered when the user selected an image
   public onfileSelected(event: any){
 
     if(event.target.files.length > 0){
@@ -133,6 +136,7 @@ export class ProfileComponent implements OnInit{
     } 
   }
 
+  // method responsible for uploading file
   public send(){
     this.#user.upload$(this.formData)
       .pipe(
@@ -152,6 +156,7 @@ export class ProfileComponent implements OnInit{
       });
   }
 
+  // method responsible to cancel upload
   public cancelUpload(){
 
     this.finalizeRegister.set(false);
@@ -160,6 +165,7 @@ export class ProfileComponent implements OnInit{
     this.formData.delete("user_id");
   }
 
+  // method responsible to define the image name
   public setNameImage(){
     this.user.update((oldValues: any)=>{
       this.imageUser.set(oldValues?.image.name)
@@ -167,6 +173,7 @@ export class ProfileComponent implements OnInit{
     })
   }
 
+  // method responsible to change the content on template if the user wants finalize register
   public finalize(){  
     this.finalizeRegister.update(oldValue => !oldValue)
   }
