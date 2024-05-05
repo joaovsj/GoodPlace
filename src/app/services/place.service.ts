@@ -18,16 +18,21 @@ export class PlaceService {
   public headers: HttpHeaders | undefined;
 
   constructor() {
-    
-    console.log(this.#url);
     this.#auth.reloadHeaders();
     this.headers = this.#auth.headers;
   }
 
-
+  #idPlace = signal<String | null >(null);
+  public get idPlace(){
+    return this.#idPlace.asReadonly();
+  }
   public httpPost$(place: IPlace): Observable<any>{
     return this.#http.post<any>(`${this.#url()}`, place, { headers: this.headers }).pipe(
-      tap(res => console.log(res)),
+      tap(res => {
+        if(res.status){
+          this.#idPlace.set(res.id);
+        }
+      }),
       catchError((error: HttpErrorResponse)=>{
           
         console.log(error);

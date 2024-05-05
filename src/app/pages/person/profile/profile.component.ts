@@ -74,7 +74,6 @@ export class ProfileComponent implements OnInit{
   }
 
   
-
   public submit(){
     if(this.icons.invalid)
       return;

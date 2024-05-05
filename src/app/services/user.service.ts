@@ -77,15 +77,10 @@ export class UserService {
 
     return this.#http.put<any>(`${this.#url()}/user/${id}`, user, { headers: this.headers }).pipe(
       tap((res: any) => {
-
-        console.log(res);
         this.#statusUpdate.set(res.status);
         this.#messageUpdate.set(res.message);
       }, 
       catchError((err: HttpErrorResponse)=>{ 
-      
-        console.log(err);
-
         return throwError(()=>err)
       })
       )
@@ -111,8 +106,6 @@ export class UserService {
         this.#messageUpload.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{
-        console.log(error)
-
         if(error.status == 422){
           this.#toast.error(error.error.message)
         }
@@ -130,15 +123,11 @@ export class UserService {
   public getCategories$(){
     return this.#http.get<any>(`${this.#url()}/categories`, { headers: this.headers }).pipe(
       tap(res=> this.#categories.set(res.body))
-
     );
   }
 
-  
   public getAddress$(cep: String){
-    return this.#http.get<any>(`https://viacep.com.br/ws/${cep}/json/`).pipe(
-      tap((res)=>console.log(res))
-    );
+    return this.#http.get<any>(`https://viacep.com.br/ws/${cep}/json/`);
   }
 
 

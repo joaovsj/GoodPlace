@@ -68,6 +68,7 @@ export class ModalProfileComponent {
   public url = signal<string>(environment.API+"/user/image")
 
   public categories = this.#user.categories;
+  public idPlace = this.#place.idPlace;
 
   public assessmentValues: any = []
   public contries = signal<any>(contryList);
@@ -120,7 +121,33 @@ export class ModalProfileComponent {
   }
 
 
-  public registerPlace(){
+  async registerPlace(){
+    this.modifiedFields();
+    const status = await this.getIdPlace();    
+
+    if(status){
+      this.registerAssessment();
+    }
+  }
+  
+  getIdPlace(){
+    return new Promise(resolve => {
+      this.#place.httpPost$(this.placeAddress).subscribe({complete() {
+        resolve(true)
+      },});
+    });
+  }
+
+  public registerAssessment(){
+  
+    this.assessmentValues.place_id = this.idPlace();
+    this.assessmentValues.user_id  = this.#user.userId()?.id;
+    
+    console.log(this.assessmentValues);
+    console.log(this.idPlace());
+  }
+
+  public modifiedFields(){
     this.placeAddress = this.place.value;
     this.placeAddress.name = this.temporaryName();
 
@@ -128,10 +155,6 @@ export class ModalProfileComponent {
     this.assessmentValues.assessment = this.numberStars();
 
     this.placeAddress.category_id = this.assessmentValues.category_id;
-    delete this.assessmentValues.category_id;
-
-    console.log(this.placeAddress)
-    console.log(this.#place.httpPost$(this.placeAddress).subscribe())
   }
 
   public findAdressByCEP(cep: any){
