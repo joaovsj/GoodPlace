@@ -71,6 +71,7 @@ export class ModalProfileComponent {
   public categories = this.#user.categories;
   public idPlace = this.#place.idPlace;
 
+  public formData!: FormData
   public assessmentValues: any = []
   public contries = signal<any>(contryList);
   public address: any = "";
@@ -202,6 +203,22 @@ export class ModalProfileComponent {
   // check if place is already registered
   public alreadyRegistered(status: boolean){
     this.placeRegistered.set(status)
+  }
+
+  // method responsible for uploding the file
+  public onfileSelected(event: any){
+
+    const user_id: any = this.#user.userId()?.id
+    console.log(event.target.files);
+    
+    if(event.target.files.length > 0){
+
+      const file = event.target.files[0]; 
+      this.formData.append('image', file);
+      this.formData.append('user_id', user_id);
+
+
+    } 
   }
 
 }
