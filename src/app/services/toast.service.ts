@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 // Components
-import { ToastComponent } from '@components/toast/toast.component';
 import { BehaviorSubject } from 'rxjs';
 
 

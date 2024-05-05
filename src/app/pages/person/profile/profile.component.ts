@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit{
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
   #fb       = inject(FormBuilder);
-  #toast = inject(ToastService);
+  #toast    = inject(ToastService);
   public url = signal<string>(environment.API+"/user/image")
 
   public icons = this.#fb.group({

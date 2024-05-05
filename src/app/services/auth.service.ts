@@ -9,8 +9,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class AuthService {
 
-  #http = inject(HttpClient);
-  #url  = signal<string>(environment.API);  
+  #http   = inject(HttpClient);
+  #url    = signal<string>(environment.API);  
   #cookie = inject(CookieService); 
   public headers: HttpHeaders | undefined;
 

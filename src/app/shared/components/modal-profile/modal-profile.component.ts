@@ -13,7 +13,7 @@ import { IPlace } from 'app/interfaces/IPlace';
 import { PlaceService } from '@services/place.service';
 import { ToastService } from '@services/toast.service';
 import { UserService } from '@services/user.service';
-import { CookieService } from 'ngx-cookie-service';
+import { PostService } from '@services/post.service';
 
 // EDTIOR
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -62,7 +62,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 export class ModalProfileComponent {
 
   #user     = inject(UserService);
-  #place    = inject(PlaceService)
+  #place    = inject(PlaceService);
+  #post     = inject(PostService);
   #fb       = inject(FormBuilder);
   #toast    = inject(ToastService);
   public url = signal<string>(environment.API+"/user/image")
@@ -106,13 +107,14 @@ export class ModalProfileComponent {
     category_id:   ["", Validators.required],
   })
 
+  // adds new field as detail in form
   public addNewDetail(detail: string, assessment: string){
     const detailsForm = this.assessment.get('details') as FormArray;
     const value = new FormControl([detail, assessment]);
     detailsForm.push(value);
   }
 
-
+  // modify the step on form
   public nextStep(step: string){
     this.stepForm.set(step);
     this.stepBar.update((oldValue) => {
@@ -120,17 +122,18 @@ export class ModalProfileComponent {
     })
   }
 
-
-  async registerPlace(){
+  // store posts(place and assessment)
+  async submit(){
     this.modifiedFields();
-    const status = await this.getIdPlace();    
+    const status = await this.registerPlace();    
 
     if(status){
       this.registerAssessment();
     }
   }
   
-  getIdPlace(){
+  // store place and wait return id
+  registerPlace(){
     return new Promise(resolve => {
       this.#place.httpPost$(this.placeAddress).subscribe({complete() {
         resolve(true)
@@ -138,15 +141,16 @@ export class ModalProfileComponent {
     });
   }
 
+  // store assessment
   public registerAssessment(){
-  
+
     this.assessmentValues.place_id = this.idPlace();
     this.assessmentValues.user_id  = this.#user.userId()?.id;
     
-    console.log(this.assessmentValues);
-    console.log(this.idPlace());
+    this.#post.httpPost$(this.assessmentValues).subscribe();
   }
 
+  // assign values in another property
   public modifiedFields(){
     this.placeAddress = this.place.value;
     this.placeAddress.name = this.temporaryName();
@@ -157,6 +161,7 @@ export class ModalProfileComponent {
     this.placeAddress.category_id = this.assessmentValues.category_id;
   }
 
+  // search CEP by parameter
   public findAdressByCEP(cep: any){
     if(cep.length === 8){
       this.#user.getAddress$(cep).subscribe({
@@ -180,6 +185,7 @@ export class ModalProfileComponent {
     }
   }
 
+  // get the name from the first input
   public receiveName(name: string){
     if(name == "")
       return;
@@ -188,10 +194,12 @@ export class ModalProfileComponent {
     this.nextStep('step-2');
   }
 
+  // set the numver of stars
   public setNumberStarts(stars: number){
     this.numberStars.set(stars);
   }
 
+  // check if place is already registered
   public alreadyRegistered(status: boolean){
     this.placeRegistered.set(status)
   }
