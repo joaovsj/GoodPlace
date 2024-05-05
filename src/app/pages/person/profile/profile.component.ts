@@ -1,75 +1,43 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { concatMap, tap } from 'rxjs';
-
-// Editor
-import { EditorModule } from '@tinymce/tinymce-angular';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
-
-import { IPlace } from 'app/interfaces/IPlace';
-import { IAssessment } from 'app/interfaces/IAssessment';
-import { contryList } from 'app/classes/countries';
 
 import { environment } from 'environments/environment';
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 // Services
 import { UserService } from '@services/user.service';
 import { ToastService } from '@services/toast.service';
-import { PlaceService } from '@services/place.service';
+import { ModalProfileComponent } from '@components/modal-profile/modal-profile.component';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgClass, CommonModule, LocalDatePipe, ReactiveFormsModule, FormsModule, EditorModule],
+  imports: [
+    HeaderComponent, 
+    FooterComponent, 
+    NgClass, 
+    CommonModule, 
+    LocalDatePipe, 
+    ReactiveFormsModule, 
+    FormsModule, 
+    ModalProfileComponent
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('state', [
-      transition(':enter', [
-        style({opacity: 0, transform: "translate(200px)"}),
-        animate('1s ease', style({opacity: 1, transform: 'translateX(0)'}))
-      ]), 
-      transition(':leave', [
-        style({opacity: 1, transform: "translateX(0)"}),
-        animate('.2s ease', style({opacity: 0, transform: "translateX(-80px)"}))
-      ])      
-    ]), 
-
-    trigger('register', [
-      transition(':enter', [
-        style({opacity: 0, transform: "translateY(-20px)"}),
-        animate('.5s ease', style({opacity: 1, transform: 'translateY(0)'}))
-      ]), 
-      transition(':leave', [
-        style({opacity: 1, transform: "translateY(0)"}),
-        animate('.2s ease', style({opacity: 0, transform: "translateY(-20px)"}))
-      ])      
-    ]), 
-
-    trigger('send', [
-      transition(':enter', [
-        style({opacity: 0, transform: "translateX(-20px)"}),
-        animate('.5s ease', style({opacity: 1, transform: 'translatX(8px)'}))
-      ]), 
-    ])
-
-    
-  ]
 })
 
 export class ProfileComponent implements OnInit{
 
   #user     = inject(UserService);
   #Cookies  = inject(CookieService);
-  #place    = inject(PlaceService)
   #fb       = inject(FormBuilder);
   #toast = inject(ToastService);
   public url = signal<string>(environment.API+"/user/image")
@@ -79,44 +47,9 @@ export class ProfileComponent implements OnInit{
     valueMedia: ["", Validators.required]
   })
 
-  public place: IPlace | any = this.#fb.group({
-    name:          [""],
-    cep:           ["", Validators.required],
-    address:       ["", Validators.required],
-    number:        ["", Validators.required],
-    city:          ["", Validators.required],
-    neighborhood:  ["", Validators.required],
-    state:         ["", Validators.required],
-    country:       ["", Validators.required],
-    category_id:   [""],
-  })
 
-
-  public assessment: IAssessment | any = this.#fb.group({
-    assessment:     ["", Validators.required],
-    description:    ["", Validators.required], 
-    user_id:        ["", Validators.required],
-    place_id:       ["", Validators.required],
-    details:        this.#fb.array([
-      ['']    
-    ]),
-    category_id:   ["", Validators.required],
-  })
-
-  public assessmentValues: any = []
-
-  public addNewDetail(detail: string, assessment: string){
-    const detailsForm = this.assessment.get('details') as FormArray;
-    const value = new FormControl([detail, assessment]);
-    detailsForm.push(value);
-  }
-
-  public contries = signal<any>(contryList);
   public finalizeRegister = signal<boolean>(false);
-
-  public stepForm  = signal<string>('step-1'); // Step of the Form
-  public stepBar   = signal<number>(1)          // step of the bar in bottom
-
+  
   public user = this.#user.userId;
   public icons$ = this.#user.getIcons$();
 
@@ -131,132 +64,18 @@ export class ProfileComponent implements OnInit{
   // upload
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
-  // form of register places
-  public temporaryName = signal<String>("");
-  public placeRegistered = signal<boolean>(false);
-  public numberStars = signal<number>(0);
-  public placeAddress: any = [];  
-
-
-  // Categories     
-  public categories = this.#user.categories;
-
-  // Address
-  public address: any = "";
 
   public ngOnInit(){  
-
     this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
     this.#user.getCategories$().subscribe();
-
-
-    setTimeout(()=>{
-      console.log(this.user());
-      console.log(this.categories());
-    },2000)
-
-
   }
 
-  public nextStep(step: string){
-
-    if(step == "step-final"){
-      this.registerPlace();
-    }
-
-    this.stepForm.set(step);
-    this.stepBar.update((oldValue) => {
-      return oldValue + 1
-    })
-  }
-
-
-  public registerPlace(){
-
-    this.placeAddress = this.place.value;
-    this.placeAddress.name = this.temporaryName();
-    
-
-    this.assessmentValues = this.assessment.value;
-    this.assessmentValues.assessment = this.numberStars();
-
-    this.placeAddress.category_id = this.assessmentValues.category_id;
-    delete this.assessmentValues.category_id;
-
-    console.log(this.placeAddress)
-    console.log(this.#place.httpPost$(this.placeAddress).subscribe())
-
-    // console.log(this.placeAddress);
-    // console.log(this.assessmentValues);
-  }
-
-
-  /**
-   * Find for one address by CEP number
-   */
-  public findAdressByCEP(cep: any){
-
-    if(cep.length === 8){
-
-      this.#user.getAddress$(cep).subscribe({
-        next: (res) => {
-          if(res.hasOwnProperty('erro')){
-            
-            this.#toast.error('Erro ao encontrar o endereço... ');
-            this.place.reset();
-           }else{
-
-            this.place.patchValue({
-              cep:           res.cep,
-              address:       res.logradouro,
-              city:          res.localidade,
-              neighborhood:  res.bairro,
-              state:         res.uf,
-            })
-          }
-        },
-      }); 
-    }
-  }
-
-  /**
-   * Receive the name of place
-   * @param name  
-   * 
-   */
-  public receiveName(name: string){
-
-    if(name == "")
-      return;
-
-    this.temporaryName.set(name);
-    this.nextStep('step-2');
-  }
-
-  setNumberStarts(stars: number){
-    this.numberStars.set(stars);
-  }
-
-  /**
-   * Check if the place is already registered
-   * @param status 
-   * 
-   */
-  public alreadyRegistered(status: boolean){
-
-    console.log(status);
-    this.placeRegistered.set(status)
-  }
-
-  public finalize(){  
-    this.finalizeRegister.update(oldValue => !oldValue)
-  }
+  
 
   public submit(){
-
     if(this.icons.invalid)
       return;
 
@@ -280,14 +99,11 @@ export class ProfileComponent implements OnInit{
   }
 
   public changeName(name: string){
-
     if(name === "" || name == null)
       return;
 
-    this.user.update((oldValues)=>{
-        
+    this.user.update((oldValues)=>{        
         oldValues!.name = name;
-
 
         console.log(oldValues);
         return oldValues;
@@ -299,13 +115,11 @@ export class ProfileComponent implements OnInit{
   }
 
   removeIcon(icon: number){
- 
     const allSocialMedia = this.user()?.social_media;
     allSocialMedia.splice(icon, 1);   
 
     this.user()!.social_media = allSocialMedia;
     return this.#user.update$(this.userId, this.user()).subscribe();
-
   }
 
   public onfileSelected(event: any){
@@ -352,6 +166,10 @@ export class ProfileComponent implements OnInit{
       this.imageUser.set(oldValues?.image.name)
       return oldValues;
     })
+  }
+
+  public finalize(){  
+    this.finalizeRegister.update(oldValue => !oldValue)
   }
 
 }
