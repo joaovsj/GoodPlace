@@ -223,6 +223,7 @@
                                         <!-- plugins: 'lists link image table code help wordcount' -->
                                         <label for="description" class="mb-2">Nos conte o que você achou dessse lugar!</label>
                                         <editor
+                                            #description
                                             formControlName="description"
                                             apiKey="t3iwjkh6fkgdcvexigd07xrnn3grpqihr9qlceidfz0bvu8h" 
                                             [init]="{
@@ -239,7 +240,12 @@
                                     </div>
 
 
-                                    <button class="btnSecondary ms-auto" type="button" (click)="submit()">Cadastrar</button>
+                                    <button 
+                                        class="btnSecondary ms-auto" type="button" 
+                                        [class.disabled]="assessment.invalid && numberStars()==0"
+                                        [disabled]="assessment.invalid && numberStars() == 0"
+                                        (click)="submit()" >
+                                    Cadastrar</button>
                                 </form>                   
                             </div>
                         }

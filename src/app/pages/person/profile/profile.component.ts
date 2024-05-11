@@ -150,30 +150,22 @@ export class ProfileComponent implements OnInit{
 
   // method responsible for uploading file
   public send(){
+    this.#user.upload$(this.formData)
+      .pipe(
+        tap((res)=>{
 
-    // console.log(this.formData.get('image'));
+          if(res.status){
+            this.#toast.success(res.message)
+            this.isFileFill.set(false);
 
-    this.#user.upload$(this.formData).subscribe();
-    // this.#user.upload$(this.formData)
-    //   .pipe(
-    //     tap((res)=>{
-    //       console.log(res); 
-
-
-    //       if(res.status){
-    //         this.#toast.success(res.message)
-    //         this.isFileFill.set(false);
-
-    //       }else{
-    //         this.#toast.error(res.message)
-    //       }
-    //     }),
-    //     concatMap(()=>this.#user.getUser$(this.userId)),
-    //   ).subscribe((next)=>{
-
-    //     console.log(next);
-    //     this.setNameImage()   
-    //   });
+          }else{
+            this.#toast.error(res.message)
+          }
+        }),
+        concatMap(()=>this.#user.getUser$(this.userId)),
+      ).subscribe((next)=>{
+        this.setNameImage()   
+      });
   }
 
   // method responsible to cancel upload

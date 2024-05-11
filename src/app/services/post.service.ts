@@ -24,19 +24,21 @@ export class PostService {
     this.headers = this.#auth.headers;
   }
 
-  #assessment = signal<String | null >(null);
-  public get assessment(){
-    return this.#assessment.asReadonly();
-  }
-  
   public httpPost$(assessment: IAssessment): Observable<any>{
     return this.#http.post<any>(`${this.#url()}`, assessment, { headers: this.headers }).pipe(
-      tap(res => {
+      tap(res => { 
+      
         console.log(res);
+        this.showMessage(res.status, res.message)
+
       }),
+
       catchError((error: HttpErrorResponse)=>{
-          
-        console.log(error);
+        
+        if(error.status == 422){
+          this.#toast.error(error.error.message)
+        }
+
         return throwError(()=> error.error)
       })
     );
@@ -57,4 +59,16 @@ export class PostService {
       })
     )
   }
+
+  private showMessage(status: boolean, message: string){
+
+    if(status == true){
+      this.#toast.success(message);
+
+    } else{
+      this.#toast.error(message);
+    }
+
+  }
+
 }

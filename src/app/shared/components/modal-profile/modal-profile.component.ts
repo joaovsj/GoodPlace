@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -62,6 +62,8 @@ import { tap } from 'rxjs';
 })
 export class ModalProfileComponent {
 
+  @ViewChild('description') public description!: ElementRef | any
+
   #user     = inject(UserService);
   #place    = inject(PlaceService);
   #post     = inject(PostService);
@@ -71,6 +73,9 @@ export class ModalProfileComponent {
 
   public categories = this.#user.categories;
   public idPlace = this.#place.idPlace;
+
+  public statusPost = this.#post.httpPost$;
+
 
   public formData!: FormData
   public assessmentValues: any = []
@@ -101,8 +106,8 @@ export class ModalProfileComponent {
   public assessment: IAssessment | any = this.#fb.group({
     assessment:     ["", Validators.required],
     description:    ["", Validators.required], 
-    user_id:        ["", Validators.required],
-    place_id:       ["", Validators.required],
+    user_id:        [""],
+    place_id:       [""],
     details:        this.#fb.array([
       ['']    
     ]),
@@ -126,9 +131,11 @@ export class ModalProfileComponent {
 
   // store posts(place and assessment)
   async submit(){
+    if(this.assessment.value.description == ""){
+      return;
+    }
 
     this.send();
-
     this.modifiedFields();
     const status = await this.registerPlace();    
 
@@ -156,7 +163,7 @@ export class ModalProfileComponent {
   }
 
   // assign values in another property
-  public modifiedFields(){
+  public modifiedFields(){  
     this.placeAddress = this.place.value;
     this.placeAddress.name = this.temporaryName();
 
