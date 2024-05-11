@@ -17,6 +17,7 @@ import { PostService } from '@services/post.service';
 
 // EDTIOR
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { tap } from 'rxjs';
 
 
 @Component({
@@ -125,6 +126,9 @@ export class ModalProfileComponent {
 
   // store posts(place and assessment)
   async submit(){
+
+    this.send();
+
     this.modifiedFields();
     const status = await this.registerPlace();    
 
@@ -208,15 +212,30 @@ export class ModalProfileComponent {
   // method responsible for uploding the file
   public onfileSelected(event: any){
 
+    console.log(event);
+
     const user_id: any = this.#user.userId()?.id
     console.log(event.target.files);
     
     if(event.target.files.length > 0){
 
       const file = event.target.files[0]; 
+
+      console.log(file);
+
       this.formData.append('image', file);
       this.formData.append('user_id', user_id);
     } 
+  }
+
+
+  public send(){
+
+    console.log(this.formData);
+
+    this.#post.upload$(this.formData).subscribe((next)=>{
+        console.log(next);
+    });
   }
 
 }

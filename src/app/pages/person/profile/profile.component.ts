@@ -14,6 +14,7 @@ import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 import { UserService } from '@services/user.service';
 import { ToastService } from '@services/toast.service';
 import { ModalProfileComponent } from '@components/modal-profile/modal-profile.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -32,6 +33,18 @@ import { ModalProfileComponent } from '@components/modal-profile/modal-profile.c
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('register', [
+      transition(':enter', [
+        style({opacity: 0, transform: "translateY(-20px)"}),
+        animate('.5s ease', style({opacity: 1, transform: 'translateY(0)'}))
+      ]), 
+      transition(':leave', [
+        style({opacity: 1, transform: "translateY(0)"}),
+        animate('.2s ease', style({opacity: 0, transform: "translateY(-20px)"}))
+      ])      
+    ]),
+  ]
 })
 
 export class ProfileComponent implements OnInit{
@@ -129,7 +142,6 @@ export class ProfileComponent implements OnInit{
     if(event.target.files.length > 0){
 
       const file = event.target.files[0]; 
-
       this.isFileFill.set(true);
       this.formData.append('image', file);
       this.formData.append('user_id', this.userId)
@@ -138,22 +150,30 @@ export class ProfileComponent implements OnInit{
 
   // method responsible for uploading file
   public send(){
-    this.#user.upload$(this.formData)
-      .pipe(
-        tap((res)=>{
 
-          if(res.status){
-            this.#toast.success(res.message)
-            this.isFileFill.set(false);
+    // console.log(this.formData.get('image'));
 
-          }else{
-            this.#toast.error(res.message)
-          }
-        }),
-        concatMap(()=>this.#user.getUser$(this.userId)),
-      ).subscribe((next)=>{
-        this.setNameImage()   
-      });
+    this.#user.upload$(this.formData).subscribe();
+    // this.#user.upload$(this.formData)
+    //   .pipe(
+    //     tap((res)=>{
+    //       console.log(res); 
+
+
+    //       if(res.status){
+    //         this.#toast.success(res.message)
+    //         this.isFileFill.set(false);
+
+    //       }else{
+    //         this.#toast.error(res.message)
+    //       }
+    //     }),
+    //     concatMap(()=>this.#user.getUser$(this.userId)),
+    //   ).subscribe((next)=>{
+
+    //     console.log(next);
+    //     this.setNameImage()   
+    //   });
   }
 
   // method responsible to cancel upload

@@ -100,12 +100,21 @@ export class UserService {
   
 
   public upload$(data: any){
-    return this.#http.post<any>(`${this.#url()}/user/image`, data).pipe(
+
+    console.log(data);
+
+    return this.#http.post<any>(`${this.#url()}/user/image`, data, { headers: this.headers }).pipe(
       tap((res) => {
+
+        console.log(res)
+
         this.#statusUpload.set(res.status);
         this.#messageUpload.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{
+
+        console.log(error)
+
         if(error.status == 422){
           this.#toast.error(error.error.message)
         }

@@ -42,4 +42,19 @@ export class PostService {
     );
   }
 
+
+  
+  public upload$(data: any){
+    return this.#http.post<any>(`${this.#url()}/image`, data, { headers: this.headers }).pipe(
+      tap((res) => {
+
+        console.log(res)
+      }),
+      catchError((error: HttpErrorResponse)=>{
+
+        console.log(error)
+        return throwError(()=>error)
+      })
+    )
+  }
 }
