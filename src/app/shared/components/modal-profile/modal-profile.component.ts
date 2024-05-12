@@ -73,11 +73,12 @@ export class ModalProfileComponent {
 
   public categories = this.#user.categories;
   public idPlace = this.#place.idPlace;
+  public idPost  = this.#post.idPost;
 
   public statusPost = this.#post.httpPost$;
 
 
-  public formData!: FormData
+  public formData: FormData = new FormData()
   public assessmentValues: any = []
   public contries = signal<any>(contryList);
   public address: any = "";
@@ -134,13 +135,14 @@ export class ModalProfileComponent {
     if(this.assessment.value.description == ""){
       return;
     }
-
-    this.send();
     this.modifiedFields();
     const status = await this.registerPlace();    
 
     if(status){
-      this.registerAssessment();
+      const statusAssessment = await this.registerAssessment();
+      if(statusAssessment){
+        this.send();
+      }
     }
   }
   
@@ -158,9 +160,14 @@ export class ModalProfileComponent {
 
     this.assessmentValues.place_id = this.idPlace();
     this.assessmentValues.user_id  = this.#user.userId()?.id;
-    
-    this.#post.httpPost$(this.assessmentValues).subscribe();
+   
+    return new Promise(resolve => {
+      this.#post.httpPost$(this.assessmentValues).subscribe({ complete(){
+        resolve(true)
+      } });
+    });
   }
+  
 
   // assign values in another property
   public modifiedFields(){  
@@ -201,7 +208,6 @@ export class ModalProfileComponent {
   public receiveName(name: string){
     if(name == "")
       return;
-
     this.temporaryName.set(name);
     this.nextStep('step-2');
   }
@@ -216,33 +222,19 @@ export class ModalProfileComponent {
     this.placeRegistered.set(status)
   }
 
-  // method responsible for uploding the file
+  // method responsible to add image on form data
   public onfileSelected(event: any){
-
-    console.log(event);
-
-    const user_id: any = this.#user.userId()?.id
-    console.log(event.target.files);
-    
     if(event.target.files.length > 0){
-
       const file = event.target.files[0]; 
-
-      console.log(file);
-
       this.formData.append('image', file);
-      this.formData.append('user_id', user_id);
     } 
   }
 
-
+  // method responsible for uploding file
   public send(){
-
-    console.log(this.formData);
-
-    this.#post.upload$(this.formData).subscribe((next)=>{
-        console.log(next);
-    });
+    const id: string = this.#post.idPost();
+    this.formData.append('post_id', id);
+    this.#post.upload$(this.formData).subscribe();
   }
 
 }

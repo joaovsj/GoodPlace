@@ -24,11 +24,15 @@ export class PostService {
     this.headers = this.#auth.headers;
   }
 
+  #idPost = signal<string>("");
+  get idPost(){
+    return this.#idPost.asReadonly();
+  }
+
   public httpPost$(assessment: IAssessment): Observable<any>{
     return this.#http.post<any>(`${this.#url()}`, assessment, { headers: this.headers }).pipe(
       tap(res => { 
-      
-        console.log(res);
+        this.#idPost.set(res.id);
         this.showMessage(res.status, res.message)
 
       }),
@@ -45,16 +49,31 @@ export class PostService {
   }
 
 
-  
+  // #statusUpload = signal<boolean | null>(null);
+  // public get statusUpload(){
+  //   return this.#statusUpload.asReadonly();
+  // }
+
+  // #messageUpload = signal<string>("");
+  // public get messageUpload(){
+  //   return this.#statusUpload.asReadonly();
+  // }
+
   public upload$(data: any){
-    return this.#http.post<any>(`${this.#url()}/image`, data, { headers: this.headers }).pipe(
+    return this.#http.post<any>(`${this.#url()}/image`, data).pipe(
       tap((res) => {
 
-        console.log(res)
+        console.log(res);
+        // this.#statusUpload.set(res.status);
+        // this.#messageUpload.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{
+        console.log(error);
 
-        console.log(error)
+        if(error.status == 422){
+          this.#toast.error(error.error.message)
+        }
+
         return throwError(()=>error)
       })
     )
