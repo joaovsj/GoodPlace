@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
+import { checkGuard } from './shared/guards/check.guard';
 
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () => import('./pages/home/home.component')
+        loadComponent: () => import('./pages/home/home.component'),
     },
     {
         path: 'login',
@@ -15,11 +16,12 @@ export const routes: Routes = [
     },
     {
         path: 'explore', 
-        loadComponent: () => import('./pages/explore/explore.component')
+        loadComponent: () => import('./pages/explore/explore.component'),
     },
     {
         path: 'profile',
-        loadChildren: () => import('./pages/person/person.routes').then(rout => rout.personRoutes)
+        loadChildren: () => import('./pages/person/person.routes').then(rout => rout.personRoutes),
+        canMatch: [checkGuard]
     },
     {
         path: '**', 
