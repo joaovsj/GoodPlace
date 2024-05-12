@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class AuthService {
 
   #http   = inject(HttpClient);
+  #router = inject(Router);
   #url    = signal<string>(environment.API);  
   #cookie = inject(CookieService); 
   public headers: HttpHeaders | undefined;
@@ -83,6 +85,19 @@ export class AuthService {
       
         this.#errorlogin.set(error.error.errors); 
         
+        return throwError(()=>error);
+      })
+    );
+  }
+
+  public logged$(){
+    return this.#http.get<any>(`${this.#url()}/logged`, { headers: this.headers }).pipe(
+      tap(res=> console.log(res)),
+      catchError((error: HttpErrorResponse) => {
+        if(error.status == 401){
+          this.#router.navigate(['login'])
+        }
+
         return throwError(()=>error);
       })
     );
