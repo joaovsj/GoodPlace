@@ -16,9 +16,17 @@
                 <li>
                     <a routerLink="/explore">Explorar</a>
                 </li>
-                <li>
-                    <a routerLink="/login">Login/Cadastre-se</a>
-                </li>
+                
+                @if(isLogged()){
+                    <li>
+                        <a (click)="logout()">Sair</a>
+                    </li>    
+                } @else{
+                    <li>
+                        <a routerLink="/login">Login/Cadastre-se</a>
+                    </li>
+                }
+
             </ul>
         </div>
     </div>

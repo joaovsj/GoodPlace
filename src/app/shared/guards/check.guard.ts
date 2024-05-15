@@ -12,12 +12,10 @@ export const checkGuard: CanActivateFn = (route, state) => {
   const token = cookieService.get('token')
   
   if(token){
-
-    const data = authService.logged$().subscribe()
-
-    if(data){ 
+    // const data = authService.logged$().subscribe()
+    // if(data){ 
       return true  
-    }
+    // }
   }
 
   router.navigate(['/login']);
