@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -13,7 +13,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class HeaderComponent{
 
   #cookieService = inject(CookieService)  
+  #router        = inject(Router);
   public isLogged = signal<boolean>(false)
+
 
   constructor(){
     const token = this.#cookieService.get('token')
@@ -23,9 +25,7 @@ export class HeaderComponent{
 
   public logout(){
     this.#cookieService.deleteAll();
-    
+    this.#router.navigate(['/login'])
   }
 
-
-  
 }
