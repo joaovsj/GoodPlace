@@ -77,7 +77,6 @@ export class ModalProfileComponent {
 
   public statusPost = this.#post.httpPost$;
 
-
   public formData: FormData = new FormData()
   public assessmentValues: any = []
   public contries = signal<any>(contryList);
@@ -132,26 +131,20 @@ export class ModalProfileComponent {
 
   // store posts(place and assessment)
   async submit(){
-    if(this.assessment.value.description == ""){
-      return;
-    }
+
+    const filledFile = this.formData.has('image');
+    
+    if(this.assessment.value.description == "" ) return;
+    if(filledFile == false) return;
+
     this.modifiedFields();
     const status = await this.registerPlace();    
 
-      
+    if(status == false) return; 
 
-    console.log(false);
-    return; 
-
-    console.log('teste');
-
-
-
-    if(status){
-      const statusAssessment = await this.registerAssessment();
-      if(statusAssessment){
-        this.send();
-      }
+    const statusAssessment = await this.registerAssessment();
+    if(statusAssessment){
+      this.send();
     }
   }
   
