@@ -25,7 +25,7 @@ export class HeaderComponent{
 
   public logout(){
     this.#cookieService.deleteAll();
-    this.#router.navigate(['/login'])
+    this.#router.navigate(['/'])
   }
 
 }

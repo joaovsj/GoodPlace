@@ -138,6 +138,15 @@ export class ModalProfileComponent {
     this.modifiedFields();
     const status = await this.registerPlace();    
 
+      
+
+    console.log(false);
+    return; 
+
+    console.log('teste');
+
+
+
     if(status){
       const statusAssessment = await this.registerAssessment();
       if(statusAssessment){
@@ -147,9 +156,15 @@ export class ModalProfileComponent {
   }
   
   // store place and wait return id
-  registerPlace(){
+  public registerPlace(){
     return new Promise(resolve => {
-      this.#place.httpPost$(this.placeAddress).subscribe({complete() {
+      this.#place.httpPost$(this.placeAddress).subscribe({
+        next(value) {
+          if(value.status == false){
+            resolve(false);
+          }
+        },
+        complete() {
         resolve(true)
       },});
     });

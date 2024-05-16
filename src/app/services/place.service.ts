@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { environment } from 'environments/environment';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { IPlace } from 'app/interfaces/IPlace';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class PlaceService {
 
   #http  = inject(HttpClient);
   #auth  = inject(AuthService);
+  #toast = inject(ToastService)
   #url   = signal<String>(environment.API+"/places");
 
   public headers: HttpHeaders | undefined;
@@ -31,6 +33,8 @@ export class PlaceService {
       tap(res => {
         if(res.status){
           this.#idPlace.set(res.id);
+        }else{
+          this.#toast.info(res.message)
         }
       }),
       catchError((error: HttpErrorResponse)=>{
