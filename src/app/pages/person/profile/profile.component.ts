@@ -2,19 +2,21 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { CommonModule, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { concatMap, tap } from 'rxjs';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
+import { ModalProfileComponent } from '@components/modal-profile/modal-profile.component';
 
 import { environment } from 'environments/environment';
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
+
 // Services
 import { UserService } from '@services/user.service';
 import { ToastService } from '@services/toast.service';
-import { ModalProfileComponent } from '@components/modal-profile/modal-profile.component';
-import { animate, style, transition, trigger } from '@angular/animations';
+import { PostService } from '@services/post.service';
 
 
 @Component({
@@ -53,6 +55,8 @@ export class ProfileComponent implements OnInit{
   #Cookies  = inject(CookieService);
   #fb       = inject(FormBuilder);
   #toast    = inject(ToastService);
+  #posts    = inject(PostService)
+
   public url = signal<string>(environment.API+"/user/image")
 
   public icons = this.#fb.group({
@@ -66,6 +70,7 @@ export class ProfileComponent implements OnInit{
   public user = this.#user.userId;
   public icons$ = this.#user.getIcons$();
 
+  public posts = this.#posts.allPosts$; // all posts
   public dateCreated: any = this.user()?.created_at;
   public userId = atob(this.#Cookies.get('id'))
   public imageUser = signal<string>("");
@@ -84,6 +89,15 @@ export class ProfileComponent implements OnInit{
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
     this.#user.getCategories$().subscribe();
+    this.#posts.httpGet$(this.userId).subscribe();
+
+
+    setTimeout(()=>{
+      console.log(this.posts());
+    },4000)
+
+    
+
   }
 
   // store the social media of user

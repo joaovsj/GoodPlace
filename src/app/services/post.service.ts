@@ -24,6 +24,22 @@ export class PostService {
     this.headers = this.#auth.headers;
   }
 
+  #allPosts = signal(null);
+  get allPosts$(){
+    return this.#allPosts.asReadonly();
+  } 
+
+  public httpGet$(id: String | null){
+    return this.#http.get(`${this.#url()}?user_id=${id}`, { headers: this.headers }).pipe(
+      tap((res: any) => {
+        if(res.status){
+          this.#allPosts.set(res.body);
+        }
+      })
+    );
+  }
+
+
   #idPost = signal<string>("");
   get idPost(){
     return this.#idPost.asReadonly();
@@ -48,24 +64,10 @@ export class PostService {
     );
   }
 
-
-  // #statusUpload = signal<boolean | null>(null);
-  // public get statusUpload(){
-  //   return this.#statusUpload.asReadonly();
-  // }
-
-  // #messageUpload = signal<string>("");
-  // public get messageUpload(){
-  //   return this.#statusUpload.asReadonly();
-  // }
-
   public upload$(data: any){
     return this.#http.post<any>(`${this.#url()}/image`, data).pipe(
       tap((res) => {
-
         console.log(res);
-        // this.#statusUpload.set(res.status);
-        // this.#messageUpload.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{
         console.log(error);

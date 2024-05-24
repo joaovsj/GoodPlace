@@ -149,8 +149,11 @@
                         </ul>
                     </div>
                     <div class="p-4" style="min-height: 40vh;">
-                        <p>Sem postagens até agora...</p>
-
+                        @if(posts(); as data){
+                            <p>Possui postagens</p>
+                        } @else{
+                            <p>Sem postagens até agora...</p>
+                        }
                         <!-- {{ user() | json }} -->
                     </div>    
                 </main>
