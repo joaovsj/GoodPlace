@@ -18,6 +18,10 @@
                 </li>
                 
                 @if(isLogged()){
+
+                    <li>
+                        <a routerLink="/profile">Perfil</a>
+                    </li>
                     <li>
                         <a role="button" (click)="logout()">Sair</a>
                     </li>    
