@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, computed, input, signal } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-box-post',
@@ -6,8 +7,49 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './box-post.component.html',
   styleUrl: './box-post.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoxPostComponent {
+export class BoxPostComponent implements AfterContentInit{
+
+  public url = signal(environment.API+"/post/image");
+
+  // public name = "";
+  @Input() public namePost  = "";
+  @Input() public imagePost = signal("");   
+  @Input() public userName  = signal("");
+  @Input() public stars     = 0;
+
+  public countStars: any = "";
+
+  ngAfterContentInit(){
+
+    // setTimeout(()=>{
+      console.log(this.stars);
+    // },4000)
+
+    
+    this.setNumberStars();
+  }
+
+
+
+  setNumberStars(){
+    let contador = 0;
+    for(let i=0; i < this.stars; i++){   
+      this.countStars+=`
+        <li><i class="bi bi-star-fill"></i></li>
+      `;
+
+      contador++;
+    }
+
+    if(contador<5){
+      for (let i = contador; i < 5; i++) {
+        this.countStars+=`<li><i class="bi bi-star"></i></li>`;
+      }
+    }
+
+  }
+
 
 }

@@ -1,19 +1,14 @@
-<div class="row p-3">
-    <h4 class="text-center">Veja as postagens mais relevantes</h4>
-</div>
-
 <div class="row p-4 post">
-    <div class=" position-relative rounded px-0 overflow-hidden box-img" style="min-height: 400px;">
+    <div class="position-relative rounded px-0 overflow-hidden box-img" style="min-height: 400px; max-height: 600px;">
 
-        <h5 class="position-absolute text-white pt-3 ps-4 fs-4">Party Brasil</h5>
+        <h5 class="position-absolute pt-3 ps-4 fs-4" style="color: #f26101dd;">{{ namePost }}</h5>
         
-      
-        <ul class="position-absolute text-warning d-flex end-0 p-3" style="list-style-type: none;">
-            <li><i class="bi bi-star-fill"></i></li>
+        <ul class="position-absolute text-warning d-flex end-0 p-3" style="list-style-type: none;" [innerHTML]="countStars">
+            <!-- <li><i class="bi bi-star-fill"></i></li>
             <li><i class="bi bi-star-fill"></i></li>
             <li><i class="bi bi-star-fill"></i></li>
             <li><i class="bi bi-star"></i></li>
-            <li><i class="bi bi-star"></i></li>
+            <li><i class="bi bi-star"></i></li> -->
         </ul>
 
         <ul class="position-absolute text-white end-0 bottom-0 p-3 mb-0" style="list-style-type: none;">
@@ -29,14 +24,14 @@
 
         <button class="position-absolute bottom-0 mb-2 ms-2 btnTertiary">Ver comentário</button>
 
-        <img src="assets/img/party.jpg" alt="" class="img-fluid h-100 object-fit-cover">
+        <img src="{{ url() }}/{{ imagePost }}" alt="" class="img-fluid h-100 object-fit-cover">
     </div>
     <div class="details p-0">
-        <p class="p-0 mt-2">Cadastrado por: <strong>Nathasha Wallace</strong></p>
+        <p class="p-0 mt-2">Cadastrado por: <strong>{{ userName }}</strong></p>
     </div>
 </div>
 
-
+<!-- 
 <div class="row p-4 post">
     <div class=" position-relative rounded px-0 overflow-hidden box-img" style="min-height: 400px;">
 
@@ -69,4 +64,4 @@
     <div class="details p-0">
         <p class="p-0 mt-2">Cadastrado por: <strong>Murilo Freitas</strong></p>
     </div>
-</div>
+</div> -->

@@ -9,6 +9,7 @@ import { concatMap, tap } from 'rxjs';
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
 import { ModalProfileComponent } from '@components/modal-profile/modal-profile.component';
+import { BoxPostComponent } from '@components/box-post/box-post.component';
 
 import { environment } from 'environments/environment';
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
@@ -30,7 +31,8 @@ import { PostService } from '@services/post.service';
     LocalDatePipe, 
     ReactiveFormsModule, 
     FormsModule, 
-    ModalProfileComponent
+    ModalProfileComponent,
+    BoxPostComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -70,7 +72,8 @@ export class ProfileComponent implements OnInit{
   public user = this.#user.userId;
   public icons$ = this.#user.getIcons$();
 
-  public posts = this.#posts.allPosts$; // all posts
+  public posts: any = this.#posts.allPosts; // all posts
+
   public dateCreated: any = this.user()?.created_at;
   public userId = atob(this.#Cookies.get('id'))
   public imageUser = signal<string>("");
@@ -89,15 +92,13 @@ export class ProfileComponent implements OnInit{
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
     this.#user.getCategories$().subscribe();
+
     this.#posts.httpGet$(this.userId).subscribe();
 
 
     setTimeout(()=>{
       console.log(this.posts());
     },4000)
-
-    
-
   }
 
   // store the social media of user

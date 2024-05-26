@@ -148,12 +148,27 @@
                             
                         </ul>
                     </div>
-                    <div class="p-4" style="min-height: 40vh;">
-                        @if(posts(); as data){
-                            <p>Possui postagens</p>
-                        } @else{
-                            <p>Sem postagens até agora...</p>
-                        }
+                    <div class="p-4 d-flex justify-content-center" style="min-height: 40vh;">
+                        
+
+                        <section style="max-width: 450px;">
+                        
+                            
+
+                            @if(posts(); as data){
+                                @for(item of data; track item){ 
+                                    <app-box-post 
+                                        [namePost]="item.name"
+                                        [imagePost]="item.image"
+                                        [userName]="item.username"
+                                        [stars]="item.assessment"
+                                    />    
+                                }   
+                            } @else{
+                                <p>Sem postagens até agora...</p>
+                            }
+
+                        </section>
                         <!-- {{ user() | json }} -->
                     </div>    
                 </main>

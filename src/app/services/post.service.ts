@@ -24,10 +24,11 @@ export class PostService {
     this.headers = this.#auth.headers;
   }
 
-  #allPosts = signal(null);
-  get allPosts$(){
-    return this.#allPosts.asReadonly();
-  } 
+  #allPosts = signal([]);
+  public allPosts =  this.#allPosts.asReadonly();
+  // get allPosts$(){
+  //   return this.#allPosts.asReadonly();
+  // } 
 
   public httpGet$(id: String | null){
     return this.#http.get(`${this.#url()}?user_id=${id}`, { headers: this.headers }).pipe(
