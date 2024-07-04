@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, inject, signal, viewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
-
+import { EventEmitter, Output } from "@angular/core";
 
 import { environment } from 'environments/environment';
 import { contryList } from 'app/classes/countries';
@@ -62,7 +62,9 @@ import { tap } from 'rxjs';
 })
 export class ModalProfileComponent {
 
+  @Output() public registerDone = new EventEmitter(false);
   @ViewChild('description') public description!: ElementRef | any
+  // @ViewChild('btnClose') public btnClose!: ElementRef | any
 
   #user     = inject(UserService);
   #place    = inject(PlaceService);
@@ -243,6 +245,7 @@ export class ModalProfileComponent {
     const id: string = this.#post.idPost();
     this.formData.append('post_id', id);
     this.#post.upload$(this.formData).subscribe();
+    this.registerDone.emit(true);
   }
 
 }

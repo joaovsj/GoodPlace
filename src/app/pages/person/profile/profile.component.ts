@@ -205,6 +205,14 @@ export class ProfileComponent implements OnInit{
     this.finalizeRegister.update(oldValue => !oldValue)
   }
 
+  // method responsible to get all posts and data user after input
+  public reloadPosts(event: boolean){
+    if(event){
+      this.#posts.httpGet$(this.userId).subscribe();
+      this.#user.getUser$(this.userId).subscribe();
+    }
+  }
+
 }
 
 

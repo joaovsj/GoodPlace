@@ -19,12 +19,18 @@ export class HeaderComponent{
 
   constructor(){
     const token = this.#cookieService.get('token')
+   
+
     token != "" ? this.isLogged.set(true) : null; 
 
   }
 
   public logout(){
     this.#cookieService.deleteAll();
+
+    const token = this.#cookieService.get('token')
+    console.log(token)
+    
     this.#router.navigate(['/login'])
   }
 
