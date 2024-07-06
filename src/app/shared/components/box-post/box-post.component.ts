@@ -18,6 +18,7 @@ export class BoxPostComponent implements AfterContentInit{
   @Input() public imagePost = signal("");   
   @Input() public userName  = signal("");
   @Input() public stars     = 0;
+  @Input() public comments  = 0;
 
   public countStars: any = "";
 
