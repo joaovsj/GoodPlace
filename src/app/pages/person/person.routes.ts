@@ -6,7 +6,7 @@ export const personRoutes: Routes = [
         loadComponent: () => import('./profile/profile.component').then(p => p.ProfileComponent)
     },
     {
-        path: 'comment',
+        path: 'comment/:idPost',
         loadComponent: () => import('./comment/comment.component').then(p => p.CommentComponent)
     }
 ]

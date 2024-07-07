@@ -1,10 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Components
 import { HeaderComponent }      from '@components/header/header.component';
 import { FooterComponent }      from '@components/footer/footer.component';
 import { DescriptionComponent } from '@components/description/description.component';
 import { BoxCommentComponent }  from '@components/box-comment/box-comment.component';
+
+// Services
+import { PostService } from '@services/post.service';
 
 @Component({
   selector: 'app-comment',
@@ -14,6 +18,26 @@ import { BoxCommentComponent }  from '@components/box-comment/box-comment.compon
   styleUrl: './comment.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentComponent {
+export class CommentComponent implements OnInit{
+  
+  #activedRoute = inject(ActivatedRoute);
+  #postService  = inject(PostService);
+  
+  public post = this.#postService.post;
+
+
+  ngOnInit() {
+    this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
+
+
+    setTimeout(()=>{
+      console.log(this.post());
+    }, 4000)
+
+
+  }
+
+
+
 
 }

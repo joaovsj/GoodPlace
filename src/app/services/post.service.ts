@@ -40,6 +40,19 @@ export class PostService {
     );
   }
 
+  #post = signal(null);
+  get post (){
+    return this.#post.asReadonly();
+  }
+
+  public httpGetId$(id: string){
+    return this.#http.get(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
+      tap((res: any) => {
+        this.#post.set(res.body );
+      })
+    );
+  }
+
 
   #idPost = signal<string>("");
   get idPost(){

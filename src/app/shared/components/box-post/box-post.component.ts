@@ -1,10 +1,12 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, computed, input, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-box-post',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './box-post.component.html',
   styleUrl: './box-post.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush
@@ -14,6 +16,7 @@ export class BoxPostComponent implements AfterContentInit{
   public url = signal(environment.API+"/post/image");
 
   // public name = "";
+  @Input() public idPost    = 0;
   @Input() public namePost  = "";
   @Input() public imagePost = signal("");   
   @Input() public userName  = signal("");
