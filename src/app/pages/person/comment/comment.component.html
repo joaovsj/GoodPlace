@@ -21,14 +21,18 @@
 
         <div class="row ms-5 me-2">
             <div class="col-8 p-0">
-                {{ post() | json }}
-                
-                <app-description 
-                
-                />
-
-
-
+            
+                @if(post()){
+                    <app-description 
+                        [title]="post()[0].name"
+                        [stars]="post()[0].assessment"
+                        [comments]="post()[0].comments"
+                        [description]="post()[0].description"
+                        [username]="post()[0].username"
+                        [imagePost]="post()[0].image"
+                    />         
+                }
+    
             </div>
             <div class="col  ms-3 p-4 rounded-3">
                 <app-box-comment />

@@ -1,9 +1,9 @@
-<main class="col w-100 p-4 w-100 rounded-3 shadow core">
-    <div class="d-flex justify-content-between align-items-center">
-        <h3 class="mb-4 fw-bold">Pão com Boi</h3>
+<main class="col w-100 p-4 w-100 rounded-3 shadow core position-relative">
+    <div class="d-flex w-100 justify-content-between align-items-center">
+        <h3 class="mb-4 fw-bold"> {{ title }} </h3>
 
         <div class="d-flex mb-3">
-            <p>Maior parte das pessoas: &nbsp;</p>
+            <p>Avaliação: &nbsp;</p>
             <div class="d-flex text-warning">
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
@@ -14,12 +14,10 @@
         </div>
     </div>
     
-    <div class="d-flex">
+    <div class="d-flex w-100">
         <div class="box-img w-50 rounded-3 overflow-hidden">
             <img 
-                src="/assets/img/comment-one.jpg" 
-                width="100%"
-                height="100%"
+                src="{{ url() }}/{{ imagePost }}"
                 alt="">
         </div>
         <div class="position-relative pt-4 px-4 pb-0 w-50 details d-flex flex-column gap-4">

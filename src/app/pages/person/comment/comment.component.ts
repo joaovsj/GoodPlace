@@ -27,7 +27,7 @@ export class CommentComponent implements OnInit{
   #activedRoute = inject(ActivatedRoute);
   #postService  = inject(PostService);
 
-  public post = this.#postService.post;
+  public post: any = this.#postService.post;
 
   ngOnInit() {
     this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();

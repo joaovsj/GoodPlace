@@ -28,7 +28,7 @@ export class BoxPostComponent implements AfterContentInit{
   ngAfterContentInit(){
 
     // setTimeout(()=>{
-      console.log(this.stars);
+      // console.log(this.stars);
     // },4000)
 
     
