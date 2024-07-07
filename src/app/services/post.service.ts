@@ -1,11 +1,16 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
-import { ToastService } from './toast.service';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 import { IAssessment } from 'app/interfaces/IAssessment';
 import { AuthService } from './auth.service';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+
+// Services
+import { ToastService } from './toast.service';
+
+// Interface
+import { IPost } from 'app/interfaces/IPost';
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +45,8 @@ export class PostService {
     );
   }
 
-  #post = signal(null);
-  get post (){
-    return this.#post.asReadonly();
-  }
+  #post = signal< IPost | null >(null);
+  public post = this.#post.asReadonly();
 
   public httpGetId$(id: string){
     return this.#http.get(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
@@ -96,7 +99,6 @@ export class PostService {
   }
 
   private showMessage(status: boolean, message: string){
-
     if(status == true){
       this.#toast.success(message);
 

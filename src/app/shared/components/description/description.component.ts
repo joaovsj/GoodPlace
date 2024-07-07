@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-description',
@@ -8,6 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './description.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DescriptionComponent {
-
+export class DescriptionComponent { 
+  
+  @Input() public title = "";
+  
 }

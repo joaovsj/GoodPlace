@@ -1,0 +1,22 @@
+export interface IPost {
+        id: 2,
+        assessment:  number,
+        description: string,
+        details: any,
+        user_id: number,
+        place_id: number,
+        created_at: string,
+        updated_at: string,
+        name: string,
+        cep: string,
+        address: string,
+        number: number,
+        neighborhood: string,
+        city: string,
+        state: string,
+        country: string,
+        category_id: number,
+        image: string,
+        username: string,
+        comments: number
+}

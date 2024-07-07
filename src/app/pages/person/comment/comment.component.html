@@ -21,7 +21,14 @@
 
         <div class="row ms-5 me-2">
             <div class="col-8 p-0">
-                <app-description />
+                {{ post() | json }}
+                
+                <app-description 
+                
+                />
+
+
+
             </div>
             <div class="col  ms-3 p-4 rounded-3">
                 <app-box-comment />
