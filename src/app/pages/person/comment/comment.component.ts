@@ -31,7 +31,7 @@ export class CommentComponent implements OnInit{
 
   ngOnInit() {
     this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
-
+    
     setTimeout(()=>{
       console.log(this.post());
     }, 4000)

@@ -14,13 +14,20 @@ export class DescriptionComponent implements AfterContentInit{
 
   public url = signal(environment.API+"/post/image");
   
+  // Post
   @Input() public title: any = "";
   @Input() public stars: number = 0;
   @Input() public comments: number = 0;
   @Input() public description: string = "";
-  @Input() public address: string = "";
   @Input() public username: string = "";
   @Input() public imagePost: string = "";
+
+  // Adress
+  @Input() public address: string = "";  
+  @Input() public number: number = 0; 
+  @Input() public neighborhood: string = "";  
+  @Input() public city: string = ""; 
+  @Input() public state: string=""; 
   
   public countStars: any = "";
 
