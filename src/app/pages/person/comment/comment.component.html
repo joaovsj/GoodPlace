@@ -21,7 +21,7 @@
 
         <div class="row ms-5 me-2">
             <div class="col-8 p-0">
-            
+
                 @if(post()){
                     <app-description 
                         [title]="post()[0].name"
@@ -36,8 +36,7 @@
                         [neighborhood]="post()[0].neighborhood"
                         [city]="post()[0].city"
                         [state]="post()[0].state"
-
-
+                        [details]="post()[0].details"
                     />         
                 }
     

@@ -28,6 +28,7 @@ export class CommentComponent implements OnInit{
   #postService  = inject(PostService);
 
   public post: any = this.#postService.post;
+  public details: any = [];
 
   ngOnInit() {
     this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
@@ -35,9 +36,7 @@ export class CommentComponent implements OnInit{
     setTimeout(()=>{
       console.log(this.post());
     }, 4000)
+
   }
-
-
-
 
 }

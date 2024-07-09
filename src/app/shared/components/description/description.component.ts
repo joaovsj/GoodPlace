@@ -21,6 +21,7 @@ export class DescriptionComponent implements AfterContentInit{
   @Input() public description: string = "";
   @Input() public username: string = "";
   @Input() public imagePost: string = "";
+  @Input() public details: any = [];
 
   // Adress
   @Input() public address: string = "";  
@@ -30,10 +31,24 @@ export class DescriptionComponent implements AfterContentInit{
   @Input() public state: string=""; 
   
   public countStars: any = "";
+  public result: any = [];
+
 
   ngAfterContentInit(){
 
    this.setNumberStars();
+
+    if(this.details){
+
+      let regex = /\["([^"]+)", "([^"]+)"\]/g;
+      let match;
+    
+      while ((match = regex.exec(this.details)) !== null) {
+        // match[1] e match[2] has the values tracked by groups in regex
+        this.result.push([match[1], match[2]]);
+      }
+    }
+    
   }
 
 
