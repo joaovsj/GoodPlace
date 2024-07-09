@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-box-comment',
@@ -9,5 +10,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoxCommentComponent {
+
+  public url = signal<string>(environment.API+"/user/image")
+
+  @Input() public name        = "";
+  @Input() public image       = "";
+  @Input() public description = "";
 
 }

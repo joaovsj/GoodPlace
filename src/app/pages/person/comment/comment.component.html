@@ -41,8 +41,20 @@
                 }
     
             </div>
-            <div class="col  ms-3 p-4 rounded-3">
-                <app-box-comment />
+            <div class="col ms-3  rounded-3">
+                
+                <h4 class="fw-bold mb-4">Comentários: </h4>
+
+                @if(comments()){
+                    @for (comment of comments(); track $index) {
+                        <app-box-comment 
+                            [name]="comment.name"
+                            [image]="comment.image"
+                            [description]="comment.description"
+                        />
+                    }
+                }
+
             </div>
         </div>
         
