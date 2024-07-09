@@ -13,7 +13,6 @@ import { PostService } from '@services/post.service';
 
 // Interfaces
 import { IPost } from 'app/interfaces/IPost';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
@@ -23,7 +22,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './comment.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentComponent implements OnInit, OnDestroy{
+export class CommentComponent implements OnInit{
   
   #activedRoute = inject(ActivatedRoute);
   #postService  = inject(PostService);
@@ -31,21 +30,16 @@ export class CommentComponent implements OnInit, OnDestroy{
   public post: any = this.#postService.post;
   public details: any = [];
 
-  public subscription!: Subscription;
-
   ngOnInit() {
-    this.subscription = this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
+    this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
     
-    // console.log('ativo');
 
-    // setTimeout(()=>{
-    //   console.log(this.post());
-    // }, 4000)
+
+    setTimeout(()=>{
+      console.log(this.post());
+    }, 4000)
 
   }
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
-  }
 
 }
