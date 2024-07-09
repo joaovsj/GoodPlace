@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 
 import { environment } from 'environments/environment';
 
@@ -10,7 +10,7 @@ import { environment } from 'environments/environment';
   styleUrl: './description.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DescriptionComponent implements AfterContentInit{ 
+export class DescriptionComponent implements OnChanges{ 
 
   public url = signal(environment.API+"/post/image");
   
@@ -33,13 +33,27 @@ export class DescriptionComponent implements AfterContentInit{
   public countStars: any = "";
   public result: any = [];
 
+  ngOnChanges(changes: SimpleChanges): void {
 
-  ngAfterContentInit(){
+    // console.log(this.stars);
+    this.stars = 0;
+    this.result = [];
+    this.countStars = "";
 
-   this.setNumberStars();
+
+    this.stars = changes['stars'].currentValue;
+    this.details = changes['details'].currentValue;
+
+    // console.log(this.stars);
+    console.log(changes);
+
+    this.changeDetails();
+    this.setNumberStars();
+  }
+
+  private changeDetails() {
 
     if(this.details){
-
       let regex = /\["([^"]+)", "([^"]+)"\]/g;
       let match;
     
@@ -48,10 +62,7 @@ export class DescriptionComponent implements AfterContentInit{
         this.result.push([match[1], match[2]]);
       }
     }
-    
   }
-
-
 
   setNumberStars(){
     let contador = 0;

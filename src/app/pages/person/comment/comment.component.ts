@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,6 +13,7 @@ import { PostService } from '@services/post.service';
 
 // Interfaces
 import { IPost } from 'app/interfaces/IPost';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
@@ -22,7 +23,7 @@ import { IPost } from 'app/interfaces/IPost';
   styleUrl: './comment.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentComponent implements OnInit{
+export class CommentComponent implements OnInit, OnDestroy{
   
   #activedRoute = inject(ActivatedRoute);
   #postService  = inject(PostService);
@@ -30,13 +31,21 @@ export class CommentComponent implements OnInit{
   public post: any = this.#postService.post;
   public details: any = [];
 
-  ngOnInit() {
-    this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
-    
-    setTimeout(()=>{
-      console.log(this.post());
-    }, 4000)
+  public subscription!: Subscription;
 
+  ngOnInit() {
+    this.subscription = this.#postService.httpGetId$(this.#activedRoute.snapshot.params['idPost']).subscribe();
+    
+    // console.log('ativo');
+
+    // setTimeout(()=>{
+    //   console.log(this.post());
+    // }, 4000)
+
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }

@@ -2,6 +2,10 @@
     .box-img{
         height: 100px;
         width: 100px;
+
+        img{
+            min-width: 100% !important;
+        }
     }
 
 
