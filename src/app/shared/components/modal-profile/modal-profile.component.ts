@@ -19,11 +19,14 @@ import { PostService } from '@services/post.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { tap } from 'rxjs';
 
+// Components
+import { SpinnerComponent } from '@components/spinner/spinner.component';
+
 
 @Component({
   selector: 'app-modal-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, EditorModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, EditorModule, SpinnerComponent],
   templateUrl: './modal-profile.component.html',
   styleUrl: './modal-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,7 +77,7 @@ export class ModalProfileComponent {
   public url = signal<string>(environment.API+"/user/image")
 
   public categories = this.#user.categories;
-  public idPlace = this.#place.idPlace;
+  public idPlace: any = this.#place.idPlace;
   public idPost  = this.#post.idPost;
 
   public statusPost = this.#post.httpPost$;
@@ -118,20 +121,27 @@ export class ModalProfileComponent {
 
 
   public places: any = this.#place.places;
-
+  public spinnerShow = signal<boolean>(false);
 
   // method responsible to search some place by name
-  public findPlace(){
+  public findPlace(name: string = ""){
 
-    this.#place.getPlaces$(this.temporaryName()).subscribe();
+    this.spinnerShow.set(true);
+
+    if(name == ""){
+      this.#place.getPlaces$(this.temporaryName()).subscribe();
+    
+    } else{
+      this.#place.getPlaces$(name).subscribe();
+    }
 
 
-    setTimeout(()=>{
-      console.log(this.places());
+    // this.spinnerShow.set(false);
+  }
 
-    }, 4000)
-    console.log(this.placeRegistered());
-    console.log(this.temporaryName());
+  // method responsible to define Id of place already registered
+  public setPlaceAlreadyRegistered(id: string){
+    this.idPlace = id;
   }
 
   // adds new field as detail in form
@@ -189,7 +199,12 @@ export class ModalProfileComponent {
   // store assessment
   public registerAssessment(){
 
-    this.assessmentValues.place_id = this.idPlace();
+    if((typeof this.idPlace) == "function"){
+      this.assessmentValues.place_id = this.idPlace();
+    } else{      
+      this.assessmentValues.place_id = this.idPlace;
+    }
+  
     this.assessmentValues.user_id  = this.#user.userId()?.id;
    
     return new Promise(resolve => {

@@ -66,30 +66,33 @@
                                                 <p>{{ stepBar() }}/4</p>
                                             </div>
                                             <form class="d-flex gap-2">
-                                                <input type="text"class="form-control" placeholder="Nome..." value="{{temporaryName() }}">
+                                                <input type="text"class="form-control" placeholder="Nome..." value="{{temporaryName() }}" #search (keyup)="findPlace(search.value)">
                                             </form>                   
                                         </div>
 
                                         <div class="row m-0 w-100 list-places" style="max-height: 20vh;">
                                             <div class="list-group p-0">
-                                                <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+
+<!-- 
+                                                @if(spinnerShow()){
+                                                    <div class="mx-auto">
+                                                        <app-spinner />
+                                                    </div>
+                                                } -->
+
+                                                @if(places(); as data){
+
+                                                    @for (place of data; track place) {
+                                                        <a role="button" (click)="setPlaceAlreadyRegistered(place.id)" class="list-group-item list-group-item-action">
+                                                            {{ place.name }}
+                                                        </a>
+                                                    } @empty{
+                                                        <p>Nenhum local encontrado... 😔</p>
+                                                    }
+                                                } 
+
                                             </div>
                                         </div>
-
-
-                                        <p>Já cadastrado...</p>
-                                        <p>{{ temporaryName()}}</p>
 
                                     }@else {
                                         
