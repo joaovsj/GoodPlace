@@ -116,6 +116,24 @@ export class ModalProfileComponent {
     category_id:   ["", Validators.required],
   })
 
+
+  public places: any = this.#place.places;
+
+
+  // method responsible to search some place by name
+  public findPlace(){
+
+    this.#place.getPlaces$(this.temporaryName()).subscribe();
+
+
+    setTimeout(()=>{
+      console.log(this.places());
+
+    }, 4000)
+    console.log(this.placeRegistered());
+    console.log(this.temporaryName());
+  }
+
   // adds new field as detail in form
   public addNewDetail(detail: string, assessment: string){
     const detailsForm = this.assessment.get('details') as FormArray;
@@ -125,6 +143,9 @@ export class ModalProfileComponent {
 
   // modify the step on form
   public nextStep(step: string){
+
+    if(step == 'step-3') this.findPlace(); // case place already exists
+
     this.stepForm.set(step);
     this.stepBar.update((oldValue) => {
       return oldValue + 1

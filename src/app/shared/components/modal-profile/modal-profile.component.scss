@@ -44,4 +44,9 @@
   .more-services:hover{
       background-color: #e4e4e4;  
   }
+
+  .list-places{
+    max-height: 30vh;
+    overflow-y: auto;
+  }
 }

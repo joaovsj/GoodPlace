@@ -45,4 +45,21 @@ export class PlaceService {
     );
   }
 
+  
+  #places = signal(null); 
+  public places = this.#places.asReadonly();
+
+  public getPlaces$(name: String){
+    return this.#http.get(`${this.#url()}/?search=${name}`, { headers: this.headers }).pipe(
+      tap((res: any)=>{
+        if(res.status){
+          console.log(res);
+          console.log(res.body);
+          this.#places.set(res.body);
+        }
+      })
+    );
+  }
+
+
 }

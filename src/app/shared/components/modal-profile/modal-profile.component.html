@@ -34,13 +34,20 @@
                                         
                                     <div class="d-flex gap-1">
                                         <input type="radio" name="alreadyRegistered" id="yes" (click)="alreadyRegistered(true)">
-                                        <label for="yes">Sim</label>
+                                        <label for="yes">Sim 😎</label>
                                     </div>
 
                                     <div class="d-flex gap-1">
                                         <input type="radio" name="alreadyRegistered" id="no" (click)="alreadyRegistered(false)">
-                                        <label for="no">Não</label>
+                                        <label for="no">Não 😁</label>
                                     </div>
+
+
+                                    <div class="d-flex gap-1">
+                                        <input type="radio" name="alreadyRegistered" id="unknow" (click)="alreadyRegistered(true)">
+                                        <label for="unknow">Não sei 🤔</label>
+                                    </div>
+
                                 </div>
                                     <button class="btnSecondary" type="button" (click)="nextStep('step-3')">Avançar</button>
                                 </div>                   
@@ -52,8 +59,37 @@
 
                             
                                     @if(placeRegistered()){
-                                        
+
+                                        <div class="w-100 box-step mb-4" [@state]>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-3">Nos conte aonde você foi!</p>
+                                                <p>{{ stepBar() }}/4</p>
+                                            </div>
+                                            <form class="d-flex gap-2">
+                                                <input type="text"class="form-control" placeholder="Nome..." value="{{temporaryName() }}">
+                                            </form>                   
+                                        </div>
+
+                                        <div class="row m-0 w-100 list-places" style="max-height: 20vh;">
+                                            <div class="list-group p-0">
+                                                <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                            </div>
+                                        </div>
+
+
                                         <p>Já cadastrado...</p>
+                                        <p>{{ temporaryName()}}</p>
 
                                     }@else {
                                         
