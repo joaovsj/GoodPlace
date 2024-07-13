@@ -53,6 +53,8 @@
                             [image]="comment.image"
                             [description]="comment.description"
                         />
+                    } @empty {
+                        <p class="ms-5">Nenhum comentáro ainda...😢</p>
                     }
                 }
 
