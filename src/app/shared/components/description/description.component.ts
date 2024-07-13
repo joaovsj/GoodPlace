@@ -22,6 +22,7 @@ export class DescriptionComponent implements OnChanges{
   @Input() public username: string = "";
   @Input() public imagePost: string = "";
   @Input() public details: any = [];
+  @Input() public category: any = [];
 
   // Adress
   @Input() public address: string = "";  
@@ -35,10 +36,14 @@ export class DescriptionComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    // console.log(this.stars);
+    console.log(changes);
+
     this.stars = 0;
     this.result = [];
     this.countStars = "";
+
+    console.log(this.comments);
+
 
 
     this.stars = changes['stars'].currentValue;
