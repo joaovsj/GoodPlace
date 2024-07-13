@@ -142,6 +142,8 @@ export class ModalProfileComponent {
   // method responsible to define Id of place already registered
   public setPlaceAlreadyRegistered(id: string){
     this.idPlace = id;
+    this.nextStep('step-final');
+    console.log(this.idPlace);
   }
 
   // adds new field as detail in form
@@ -170,8 +172,12 @@ export class ModalProfileComponent {
     if(this.assessment.value.description == "" ) return;
     if(filledFile == false) return;
 
+    let status: any = true;
     this.modifiedFields();
-    const status = await this.registerPlace();    
+
+    if(typeof this.idPlace == "function"){
+      status = await this.registerPlace();
+    }
 
     if(status == false) return; 
 
@@ -217,13 +223,16 @@ export class ModalProfileComponent {
 
   // assign values in another property
   public modifiedFields(){  
-    this.placeAddress = this.place.value;
-    this.placeAddress.name = this.temporaryName();
+    if(typeof this.idPlace == "function"){
+
+      this.placeAddress = this.place.value;
+      this.placeAddress.name = this.temporaryName();
+        
+      this.placeAddress.category_id = this.assessmentValues.category_id;
+    }
 
     this.assessmentValues = this.assessment.value;
     this.assessmentValues.assessment = this.numberStars();
-
-    this.placeAddress.category_id = this.assessmentValues.category_id;
   }
 
   // search CEP by parameter
