@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { ToastService } from './toast.service';
 
 // Interface
-import { IComment } from 'app/interfaces/icomment';
+import { IComment } from 'app/interfaces/Icomment';
 import { tap } from 'rxjs';
 
 @Injectable({

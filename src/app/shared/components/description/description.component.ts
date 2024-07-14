@@ -36,22 +36,13 @@ export class DescriptionComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log(changes);
-
     this.stars = 0;
     this.result = [];
     this.countStars = "";
 
-    console.log(this.comments);
-
-
-
     this.stars = changes['stars'].currentValue;
     this.details = changes['details'].currentValue;
-
-    // console.log(this.stars);
-    console.log(changes);
-
+    
     this.changeDetails();
     this.setNumberStars();
   }

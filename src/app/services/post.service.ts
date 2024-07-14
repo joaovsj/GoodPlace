@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';7
 
 import { IAssessment } from 'app/interfaces/IAssessment';
 import { AuthService } from './auth.service';
@@ -21,6 +22,7 @@ export class PostService {
   #http   = inject(HttpClient); 
   #auth   = inject(AuthService);
   #toast  = inject(ToastService); 
+  #route  = inject(Router);
   
   public headers: HttpHeaders | undefined;
 
@@ -51,7 +53,13 @@ export class PostService {
   public httpGetId$(id: string): Observable<IPost>{
     return this.#http.get(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
       tap((res: any) => {
-        this.#post.set(res.body );
+        this.#post.set(res.body);
+      }),
+      catchError((error: HttpErrorResponse)=>{ 
+        if(error.status == 404){
+          this.#route.navigate(['/profile']);
+        }
+        return throwError(()=> error.error)
       })
     );
   }

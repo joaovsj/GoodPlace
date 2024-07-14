@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -26,6 +26,7 @@ import { IPost } from 'app/interfaces/IPost';
 export class CommentComponent implements OnInit{
   
   #activedRoute   = inject(ActivatedRoute);
+  #router         = inject(Router);
   #postService    = inject(PostService);
   #commentService = inject(CommentService);
 
@@ -36,19 +37,16 @@ export class CommentComponent implements OnInit{
   public post_id!: string;
 
   ngOnInit() {
-
-
+    
     this.post_id = this.#activedRoute.snapshot.params['idPost'];
-
     this.#postService.httpGetId$(this.post_id).subscribe();
     this.#commentService.getComments$(this.post_id).subscribe();
 
-    setTimeout(()=>{
-      console.log(this.post());
-      console.log(this.comments());
-      console.log(typeof this.comments());
-    }, 4000)
-
+    // setTimeout(()=>{
+    //   console.log(this.post());
+    //   console.log(this.comments());
+    //   console.log(typeof this.comments());
+    // }, 4000)
   }
 
 
