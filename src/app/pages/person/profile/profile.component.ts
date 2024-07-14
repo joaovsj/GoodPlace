@@ -96,9 +96,9 @@ export class ProfileComponent implements OnInit{
     this.#posts.httpGet$(this.userId).subscribe();
 
 
-    setTimeout(()=>{
-      console.log(this.posts());
-    },4000)
+    // setTimeout(()=>{
+    //   console.log(this.posts());
+    // },4000)
   }
 
   // store the social media of user

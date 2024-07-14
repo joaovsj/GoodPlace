@@ -13,7 +13,7 @@
                         @case('step-1'){
                             <div class="w-100 box-step" [@state]>
                                 <div class="d-flex justify-content-between">
-                                    <p class="mb-3">Nos conte aonde você foi!</p>
+                                    <p class="mb-3">Nos conte onde você foi!</p>
                                     <p>{{ stepBar() }}/4</p>
                                 </div>
                                 <form class="d-flex gap-2">
@@ -62,7 +62,7 @@
 
                                         <div class="w-100 box-step mb-4" [@state]>
                                             <div class="d-flex justify-content-between">
-                                                <p class="mb-3">Nos conte aonde você foi!</p>
+                                                <p class="mb-3">Nos conte onde você foi!</p>
                                                 <p>{{ stepBar() }}/4</p>
                                             </div>
                                             <form class="d-flex gap-2">
@@ -80,7 +80,11 @@
                                                             {{ place.name }}
                                                         </a>
                                                     } @empty{
-                                                        <p>Nenhum local encontrado... 😔</p>
+
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="m-0 p-0">Nenhum local encontrado... 😔</p>
+                                                            <button class="btnSecondary" type="button" (click)="this.placeRegistered.set(false)">Cadastrar</button>
+                                                        </div>
                                                     }
                                                 } 
 
@@ -131,8 +135,7 @@
                                                     class="btnSecondary col-6 offset-6" type="button" 
                                                     [class.disabled]="place.invalid"
                                                     (click)="nextStep('step-final')"
-                                                    [disabled]="place.invalid"
-                                                    
+                                                    [disabled]="place.invalid"                                                    
                                                 >Avançar</button>
                                             </div>
                                         </form>    
@@ -277,7 +280,15 @@
                                         [class.disabled]="assessment.invalid && numberStars()==0"
                                         [disabled]="assessment.invalid && numberStars() == 0"
                                         (click)="submit()" >
-                                    Cadastrar</button>
+                                    
+                                    @if (spinner()) {
+                                        <div class="spinner-border spinner-border-sm bg-transparent" role="status">
+                                            <span class="visually-hidden"></span>
+                                        </div>
+                                    }@else{
+                                        Cadastrar
+                                    }                                    
+                                    </button>
                                 </form>                   
                             </div>
                         }

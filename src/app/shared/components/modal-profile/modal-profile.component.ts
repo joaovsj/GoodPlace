@@ -95,6 +95,7 @@ export class ModalProfileComponent {
   public placeRegistered = signal<boolean>(false);
   public numberStars = signal<number>(0);
   public placeAddress: any = [];  
+  public spinner = signal(false);
 
   public place: IPlace | any = this.#fb.group({
     name:          [""],
@@ -126,8 +127,6 @@ export class ModalProfileComponent {
   // method responsible to search some place by name
   public findPlace(name: string = ""){
 
-    this.spinnerShow.set(true);
-
     if(name == ""){
       this.#place.getPlaces$(this.temporaryName()).subscribe();
     
@@ -143,7 +142,6 @@ export class ModalProfileComponent {
   public setPlaceAlreadyRegistered(id: string){
     this.idPlace = id;
     this.nextStep('step-final');
-    console.log(this.idPlace);
   }
 
   // adds new field as detail in form
@@ -167,10 +165,16 @@ export class ModalProfileComponent {
   // store posts(place and assessment)
   async submit(){
 
+    this.spinner.set(true);
+
     const filledFile = this.formData.has('image');
-    
-    if(this.assessment.value.description == "" ) return;
-    if(filledFile == false) return;
+
+    if(this.assessment.value.description == "" || filledFile == false) {
+
+      this.spinner.set(false);
+      return;
+    }
+  
 
     let status: any = true;
     this.modifiedFields();
@@ -179,12 +183,18 @@ export class ModalProfileComponent {
       status = await this.registerPlace();
     }
 
-    if(status == false) return; 
+    if(status == false){
+      this.spinner.set(false);
+      return;
+    }
 
     const statusAssessment = await this.registerAssessment();
+    
     if(statusAssessment){
       this.send();
     }
+
+    this.spinner.set(false);
   }
   
   // store place and wait return id
@@ -227,8 +237,8 @@ export class ModalProfileComponent {
 
       this.placeAddress = this.place.value;
       this.placeAddress.name = this.temporaryName();
-        
-      this.placeAddress.category_id = this.assessmentValues.category_id;
+          
+      this.placeAddress.category_id = this.assessment.value.category_id;
     }
 
     this.assessmentValues = this.assessment.value;

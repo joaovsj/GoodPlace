@@ -63,7 +63,7 @@ export class DescriptionComponent implements OnChanges{
       let match;
     
       while ((match = regex.exec(this.details)) !== null) {
-        // match[1] e match[2] has the values tracked by groups in regex
+        // match[1] and match[2] has the values tracked by groups in regex
         this.result.push([match[1], match[2]]);
       }
     }
