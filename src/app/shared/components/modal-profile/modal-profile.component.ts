@@ -138,6 +138,12 @@ export class ModalProfileComponent {
     // this.spinnerShow.set(false);
   }
 
+  public changeName(name: string){
+    this.temporaryName.set(name);
+    this.placeRegistered.set(false);
+  }
+
+
   // method responsible to define Id of place already registered
   public setPlaceAlreadyRegistered(id: string){
     this.idPlace = id;
