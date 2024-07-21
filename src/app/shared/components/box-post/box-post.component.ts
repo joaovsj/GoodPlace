@@ -23,6 +23,8 @@ export class BoxPostComponent implements AfterContentInit{
   @Input() public stars     = 0;
   @Input() public comments  = 0;
 
+  @Input() public deletePost: any = 0;
+
   public countStars: any = "";
 
   ngAfterContentInit(){
@@ -34,8 +36,6 @@ export class BoxPostComponent implements AfterContentInit{
     
     this.setNumberStars();
   }
-
-
 
   setNumberStars(){
     let contador = 0;
@@ -52,8 +52,10 @@ export class BoxPostComponent implements AfterContentInit{
         this.countStars+=`<li><i class="bi bi-star"></i></li>`;
       }
     }
-
   }
 
+  public delete(id: any){
+    alert('What? Really... ' + id);
+  }
 
 }

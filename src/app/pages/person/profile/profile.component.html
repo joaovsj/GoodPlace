@@ -121,7 +121,7 @@
                         
                         @if(finalizeRegister()){
                             <form action="" class="d-flex gap-1 form-name">
-                                <input type="text" class="form-control w-50 rounded-1 fs-5 ps-2 border border-light" placeholder="{{ user()?.name }}" #name>
+                                <input type="text" class="form-control w-50 rounded-1 fs-5 ps-2 border border-light p-0" placeholder="{{ user()?.name }}" #name>
                                 <button class="btnSecondary" type="button" (click)="changeName(name.value)">Atualizar</button>
                             </form>    
 
@@ -164,6 +164,7 @@
                                         [userName]="item.username"
                                         [stars]="item.assessment"
                                         [comments]="item.comments"
+                                        [deletePost]="finalizeRegister()"
                                     />    
                                 }   
                             } @else{

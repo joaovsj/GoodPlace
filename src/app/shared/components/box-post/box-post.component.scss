@@ -17,4 +17,12 @@
             // background-color: rgba(0,0,0,0.9);
         } 
     }
+
+    .button-without{
+        height: min-content;
+        width: min-content;
+        padding: .8vmin;
+        background-color: white;
+        border-radius: 46px 50px;
+    }
 }

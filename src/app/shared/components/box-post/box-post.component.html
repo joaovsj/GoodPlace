@@ -1,5 +1,13 @@
-<div class="row p-4 post">
-    <div class="position-relative rounded px-0 overflow-hidden box-img" style="min-height: 400px; max-height: 600px;">
+<div class="row p-4 post overflow-hidden">
+    <div class="position-relative rounded px-0 box-img" style="min-height: 400px; max-height: 600px;">
+
+        @if(deletePost){
+            <div class="position-absolute top-0 start-100 translate-middle">
+                <button (click)="delete( idPost )" class="button-without z-1">
+                    <i class="fa-solid fa-circle-xmark fs-4" style="color: red;"></i>
+                </button>
+            </div>
+        }
 
         <h5 class="position-absolute pt-3 ps-4 fs-4 fw-bolder" style="color: #fbff00dd;">{{ namePost }}</h5>
         
