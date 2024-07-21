@@ -1,5 +1,8 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, computed, input, signal } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+// Services
+import { PostService } from '@services/post.service';
 
 import { environment } from 'environments/environment';
 
@@ -12,6 +15,9 @@ import { environment } from 'environments/environment';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoxPostComponent implements AfterContentInit{
+
+
+  #postService  = inject(PostService);
 
   public url = signal(environment.API+"/post/image");
 
@@ -55,7 +61,7 @@ export class BoxPostComponent implements AfterContentInit{
   }
 
   public delete(id: any){
-    alert('What? Really... ' + id);
+    return this.#postService.httpDelete$(id).subscribe();
   }
 
 }

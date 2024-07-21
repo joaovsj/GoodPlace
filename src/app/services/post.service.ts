@@ -106,6 +106,24 @@ export class PostService {
     )
   }
 
+
+  public httpDelete$(id: number){
+    return this.#http.delete(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
+      tap((res: any) => {
+        if(res){
+          this.showMessage(res.status, res.message);
+        }
+      }),
+      catchError((error: HttpErrorResponse)=>{ 
+        
+        console.log(error);
+
+        return throwError(()=> error.error)
+      })
+    );
+  }
+
+
   private showMessage(status: boolean, message: string){
     if(status == true){
       this.#toast.success(message);
