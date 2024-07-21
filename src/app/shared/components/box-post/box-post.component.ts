@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, computed, inject, input, signal } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 // Services
@@ -31,6 +31,8 @@ export class BoxPostComponent implements AfterContentInit{
 
   @Input() public deletePost: any = 0;
 
+  @Output() public deleted = new EventEmitter(false);
+
   public countStars: any = "";
 
   ngAfterContentInit(){
@@ -60,8 +62,16 @@ export class BoxPostComponent implements AfterContentInit{
     }
   }
 
-  public delete(id: any){
-    return this.#postService.httpDelete$(id).subscribe();
+  public delete(id: any): void{
+    const resultado = window.confirm("Você realmente quer apagar essa postagem?");
+
+    if(resultado){
+      this.#postService.httpDelete$(id).subscribe({
+        complete: ()=>{
+          this.deleted.emit(true);
+        }
+      });
+    }
   }
 
 }
