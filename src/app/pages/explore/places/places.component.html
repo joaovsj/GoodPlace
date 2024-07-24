@@ -1,6 +1,15 @@
 <div class="row mx-5 d-flex gap-5 all-content" [@visibility]="'visible'">
     <div class="col-4 shadow px-4 py-4 rounded-3 d-flex flex-column gap-3 boxCards">
-        <app-box-list /> <!-- LIST OF SEARCH -->
+        @for(place of places; track $index){
+            <app-box-list 
+                [title]="place.place"
+                [countStars]="place.assessment"
+                [comments]="place.comments"
+                [author]="place.username"
+                [imageName]="place.image"
+            /> <!-- LIST OF SEARCH -->
+        }
+
     </div> 
     <!-- Close First Column -->
 

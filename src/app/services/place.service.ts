@@ -61,5 +61,21 @@ export class PlaceService {
     );
   }
 
+  #placesSearch = signal(null);
+  public placesSearch = this.#placesSearch.asReadonly();
+
+  public search$(name: any){
+    return this.#http.get(`${this.#url()}/comments/${name}`, { headers: this.headers }).pipe(
+      tap((res: any)=>{
+        if(res.status){
+          
+          console.log(res);
+
+          this.#placesSearch.set(res.body);
+        }
+      })
+    );
+  }
+
 
 }

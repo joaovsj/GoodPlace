@@ -123,6 +123,7 @@ export class ModalProfileComponent {
 
   public places: any = this.#place.places;
   public spinnerShow = signal<boolean>(false);
+  public loading = signal(false);
 
   // method responsible to search some place by name
   public findPlace(name: string = ""){
@@ -171,12 +172,14 @@ export class ModalProfileComponent {
   // store posts(place and assessment)
   async submit(){
 
+    this.loading.set(true);
     this.spinner.set(true);
 
     const filledFile = this.formData.has('image');
 
     if(this.assessment.value.description == "" || filledFile == false) {
 
+      this.loading.set(false);
       this.spinner.set(false);
       return;
     }
@@ -190,6 +193,7 @@ export class ModalProfileComponent {
     }
 
     if(status == false){
+      this.loading.set(false);
       this.spinner.set(false);
       return;
     }
@@ -200,6 +204,7 @@ export class ModalProfileComponent {
       this.send();
     }
 
+    this.loading.set(false);
     this.spinner.set(false);
   }
   

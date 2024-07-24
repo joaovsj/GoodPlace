@@ -19,7 +19,11 @@
     
 
         @if(filterSearch.value.category === "places"){
-            <app-places />    
+
+            <app-places 
+                [places]="places()"
+            />        
+
         } @else {
             <app-people />
         }

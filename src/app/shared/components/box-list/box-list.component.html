@@ -2,7 +2,7 @@
  <div class="card shadow-sm d-flex flex-row py-1 myCard mb-2">
     <div class="col-2 d-flex align-items-center justify-content-center box-img d-flex">
         <img 
-            src="/assets/img/comment-one.jpg" 
+            src="{{ url() }}/{{ imageName }}" 
             height="50px"
             width="50px"
             alt=""
@@ -10,15 +10,15 @@
             >
     </div>
     <div class="col d-flex flex-column justify-content-center gap-2 p-2 box-details">
-        <h5>Pão com Boi</h5>
+        <h5>{{ title }}</h5>
         <ul class="d-flex gap-3 p-0 m-0" style="list-style-type: none;">
-            <li>
+            <!-- <li>
                 <i class="bi bi-eye"></i>
                 445
-            </li>
+            </li> -->
             <li>
                 <i class="bi bi-chat-dots"></i>
-                18
+                {{ comments }}
             </li>
         </ul>
     </div>
@@ -33,37 +33,4 @@
     </div>
 </div>
 
-<div class="card shadow-sm d-flex flex-row py-1 myCard mb-2">
-    <div class="col-2 d-flex align-items-center justify-content-center box-img d-flex">
-        <img 
-            src="/assets/img/comment-one.jpg" 
-            height="50px"
-            width="50px"
-            alt=""
-            class="rounded-circle bg-primary"
-            >
-    </div>
-    <div class="col d-flex flex-column justify-content-center gap-2 p-2 box-details">
-        <h5>Pão com Boi</h5>
-        <ul class="d-flex gap-3 p-0 m-0" style="list-style-type: none;">
-            <li>
-                <i class="bi bi-eye"></i>
-                445
-            </li>
-            <li>
-                <i class="bi bi-chat-dots"></i>
-                18
-            </li>
-        </ul>
-    </div>
-    <div class="col pe-4">
-        <div class="d-flex text-warning float-end mt-2">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-        </div>
-    </div>
-</div>
 <!-- CLOSE CARDS -->

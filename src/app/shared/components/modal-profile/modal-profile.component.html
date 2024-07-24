@@ -135,7 +135,7 @@
                                                     class="btnSecondary col-6 offset-6" type="button" 
                                                     [class.disabled]="place.invalid"
                                                     (click)="nextStep('step-final')"
-                                                    [disabled]="place.invalid"                                                    
+                                                    [disabled]="place.invalid"                                                         
                                                 >Avançar</button>
                                             </div>
                                         </form>    
@@ -277,8 +277,8 @@
 
                                     <button 
                                         class="btnSecondary ms-auto" type="button" 
-                                        [class.disabled]="assessment.invalid && numberStars()==0"
-                                        [disabled]="assessment.invalid && numberStars() == 0"
+                                        [class.disabled]="assessment.invalid && numberStars()==0 || loading()"
+                                        [disabled]="assessment.invalid && numberStars() == 0 || loading()"
                                         (click)="submit()" >
                                     
                                     @if (spinner()) {
