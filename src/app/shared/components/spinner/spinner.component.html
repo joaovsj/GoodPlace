@@ -1,3 +1,7 @@
-<div class="spinner-border spinner-border-sm m-5 color-primary" role="status" aria-hidden="true">
-    <span class="visually-hidden">Loading...</span>
-</div>
+@if (spinner.active$ | async) {
+    <div class="spinner-border spinner-border-sm bg-transparent" role="status">
+        <span class="visually-hidden"></span>
+    </div>
+}@else{
+    {{ textAlternative }}
+}

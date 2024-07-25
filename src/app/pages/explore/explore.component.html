@@ -12,7 +12,11 @@
     
                     <input type="text" class="form-control" name="" placeholder="pesquisar por..." formControlName="description">
     
-                    <button class="btnSecondary px-4">Pesquisar</button>
+                    <button class="btnSecondary px-4" style="min-width: 120px;">
+                        <app-spinner 
+                            [textAlternative]="'Pesquisar'"
+                        /> 
+                    </button>
                 </div>
             </form>
         </div>

@@ -6,16 +6,18 @@ import { environment } from 'environments/environment';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { IPlace } from 'app/interfaces/IPlace';
 import { ToastService } from './toast.service';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaceService {
 
-  #http  = inject(HttpClient);
-  #auth  = inject(AuthService);
-  #toast = inject(ToastService)
-  #url   = signal<String>(environment.API+"/places");
+  #http     = inject(HttpClient);
+  #auth     = inject(AuthService);
+  #toast    = inject(ToastService)
+  #spinner  = inject(SpinnerService);
+  #url      = signal<String>(environment.API+"/places");
 
   public headers: HttpHeaders | undefined;
 
@@ -68,16 +70,15 @@ export class PlaceService {
     return this.#http.get(`${this.#url()}/comments/${name}`, { headers: this.headers }).pipe(
       tap((res: any)=>{
         if(res.status){
-          console.log(res);
           this.#placesSearch.set(res.body);
         }
+        this.#spinner.hide();
       }),
       catchError((error: HttpErrorResponse)=>{
         if(error.status === 404){
           this.#placesSearch.set(null);
         }
-
-        console.log(error.status);
+        this.#spinner.hide();
         return throwError(()=> error.error)
       })
     );
