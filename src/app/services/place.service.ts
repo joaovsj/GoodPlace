@@ -68,11 +68,17 @@ export class PlaceService {
     return this.#http.get(`${this.#url()}/comments/${name}`, { headers: this.headers }).pipe(
       tap((res: any)=>{
         if(res.status){
-          
           console.log(res);
-
           this.#placesSearch.set(res.body);
         }
+      }),
+      catchError((error: HttpErrorResponse)=>{
+        if(error.status === 404){
+          this.#placesSearch.set(null);
+        }
+
+        console.log(error.status);
+        return throwError(()=> error.error)
       })
     );
   }
