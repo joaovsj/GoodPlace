@@ -1,7 +1,48 @@
 <div class="row mx-5 d-flex gap-5 all-content" [@visibility]="'visible'">
     <div class="col-4 shadow px-4 py-4 rounded-3 d-flex flex-column gap-3 boxCards">
+        <!-- CARDS -->
+        <div class="card shadow-sm d-flex flex-row py-1 myCard mb-2">
+            <div class="col-2 d-flex align-items-center justify-content-center box-img d-flex">
+                <img 
+                    src="" 
+                    height="50px"
+                    width="50px"
+                    alt=""
+                    class="rounded-circle bg-primary"
+                    >
+            </div>
+            <div class="col d-flex flex-column justify-content-center p-2 box-details">
+                <h5 class="text-capitalize">title </h5>
+                    <p class="text-muted m-0 p-0 ">author</p>
+            
+            </div>
+            <div class="col d-flex flex-column justify-content-center align-items-end me-4 p-2 pb-0">
+                <ul class="d-flex p-0 mt-1 gap-2 icons_title" style="list-style-type: none;">
+                    <!-- <li>
+                        <i class="bi bi-eye"></i>
+                        445
+                    </li> -->
+                    <li class="align-self-end position-relative">
+                        <i class="bi bi-chat-dots-fill"></i>
+                        56
+                        <span class="position-absolute top-100 translate-middle-x ms-3 text-bg-dark p-2 d-flex text-nowrap rounded-3">Comentários</span>
+                    </li>
+                    <li class="align-self-end position-relative">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        56
+                        <span class="position-absolute top-100 translate-middle-x ms-3 text-bg-dark p-2 d-flex text-nowrap rounded-3">Postagens</span>
+                    </li>
+                    <li class="align-items-end position-relative">
+                        <i class="fa-solid fa-location-dot"></i>
+                        6
+                        <span class="position-absolute top-100 translate-middle-x ms-3 text-bg-dark p-2 d-flex text-nowrap rounded-3">Lugares Visitados</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-        <app-box-list />
+
+
         
     </div> <!-- Close First Column -->
     <div class="col-4 rounded-3 shadow">
