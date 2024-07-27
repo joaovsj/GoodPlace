@@ -11,6 +11,7 @@ import PlacesComponent from './places/places.component';
 
 // Services
 import { PlaceService } from '@services/place.service';
+import { PostService } from '@services/post.service';
 import { SpinnerService } from '@services/spinner.service';
 
 
@@ -27,12 +28,13 @@ export default class ExploreComponent{
 
   #fb = inject(FormBuilder);  
   #placeService = inject(PlaceService);
-
+  #postService  = inject(PostService);
 
   
   public spinner = inject(SpinnerService);
 
   public places = this.#placeService.placesSearch;
+  public people = this.#postService.postSearch;
 
   public filterSearch = this.#fb.group({
     category: ['places', Validators.required],
@@ -45,12 +47,15 @@ export default class ExploreComponent{
     this.spinner.show();
 
     if(this.filterSearch.value.category === "places"){
-      this.#placeService.search$(this.filterSearch.value.description).subscribe({
-      });
+      this.#placeService.search$(this.filterSearch.value.description).subscribe();
     }
+    
+    if(this.filterSearch.value.category === "people"){
+      this.#postService.search$(this.filterSearch.value.description).subscribe();
+    } 
 
     setTimeout(()=>{
-      console.log(this.places());
+      console.log(this.people());
     }, 4000)
 
     console.log(this.filterSearch);

@@ -29,7 +29,9 @@
             />        
 
         } @else {
-            <app-people />
+            <app-people 
+                [people]="people()"
+            />
         }
         
     </div>

@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 
 // Services
 import { ToastService } from './toast.service';
+import { SpinnerService } from './spinner.service';
 
 // Interface
 import { IPost } from 'app/interfaces/IPost';
@@ -22,6 +23,7 @@ export class PostService {
   #http   = inject(HttpClient); 
   #auth   = inject(AuthService);
   #toast  = inject(ToastService); 
+  #spinner  = inject(SpinnerService);
   #route  = inject(Router);
   
   public headers: HttpHeaders | undefined;
@@ -124,6 +126,27 @@ export class PostService {
   }
 
 
+  #postSearch = signal(null);
+  public postSearch = this.#postSearch.asReadonly();
+
+  public search$(name: any){
+    return this.#http.get(`${this.#url()}/people/${name}`, { headers: this.headers }).pipe(
+      tap((res: any)=>{
+        if(res.status){
+          this.#postSearch.set(res.body);
+        }
+        this.#spinner.hide();
+      }),
+      catchError((error: HttpErrorResponse)=>{
+        if(error.status === 404){
+          this.#postSearch.set(null);
+        }
+        this.#spinner.hide();
+        return throwError(()=> error.error)
+      })
+    );
+  }
+
   private showMessage(status: boolean, message: string){
     if(status == true){
       this.#toast.success(message);
@@ -131,7 +154,6 @@ export class PostService {
     } else{
       this.#toast.error(message);
     }
-
   }
 
 }
