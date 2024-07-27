@@ -59,7 +59,7 @@ export class PostService {
       }),
       catchError((error: HttpErrorResponse)=>{ 
         if(error.status == 404){
-          this.#route.navigate(['/profile']);
+          this.#route.navigate(['/explore']);
         }
         return throwError(()=> error.error)
       })

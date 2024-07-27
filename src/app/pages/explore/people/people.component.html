@@ -17,13 +17,13 @@
                         class="rounded-circle bg-primary object-fit-cover"
                     >
                 </div>
-                <div class="col d-flex flex-column justify-content-center gap-1 p-2 box-details">
-                    <h5 class="text-capitalize">{{ person.name }}</h5>
+                <div class="col d-flex flex-column justify-content-center gap-1 p-2 flex-grow-1 box-details">
+                    <h5 class="text-capitalize" style="font-size: calc(10px + 1vmin);">{{ person.name }}</h5>
                         <p class="text-muted m-0 p-0" style="font-size: 1.5vmin;">{{ person.created_at | localDate }}</p>
                 
                 </div>
                 <div class="col d-flex flex-column justify-content-center align-items-end me-4 p-2 pb-0">
-                    <ul class="d-flex p-0 mt-1 gap-2 icons_title" style="list-style-type: none;">
+                    <ul class="d-flex p-0 mt-1 gap-3 icons_title" style="list-style-type: none;">
                         <li class="align-self-end position-relative">
                             <i class="bi bi-chat-dots-fill"></i>
                             {{ person.comments_done }}
@@ -51,12 +51,16 @@
 
         
     </div> <!-- Close First Column -->
-    <div class="col-4 rounded-3 shadow">
 
-        <div class="row p-3">
-            <h4 class="text-center">Veja as postagens mais relevantes</h4>
+    @if(people){
+        <div class="col-4 rounded-3 shadow">
+
+            <div class="row p-3">
+                <h4 class="text-center">Veja as postagens mais recentes!</h4>
+            </div>
+    
+            <app-box-post />
         </div>
-
-        <app-box-post />
-    </div>
+    }
+    
 </div>

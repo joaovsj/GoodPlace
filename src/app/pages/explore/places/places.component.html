@@ -12,16 +12,15 @@
             <p class="ms-5 text-white fs-5">Nenhum local encontrado...😢</p>
         }
 
-    </div> 
-    <!-- Close First Column -->
+    </div>     <!-- Close First Column -->
 
-    <div class="col d-flex flex-column p-0">
-        <app-description />     <!-- DESCRIPTION MAIN -->
-
-        <div class="col mt-5">
-           <app-box-comment />  <!-- COMMENTS -->
-        </div>
-    </div> 
-    <!-- Close Last Column -->
+    @if(places){
+        <div class="col d-flex flex-column p-0">
+            <app-description />     <!-- DESCRIPTION MAIN -->
     
+            <div class="col mt-5">
+               <app-box-comment />  <!-- COMMENTS -->
+            </div>
+        </div> 
+    }
 </div>

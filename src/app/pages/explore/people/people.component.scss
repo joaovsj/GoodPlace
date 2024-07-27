@@ -3,11 +3,12 @@
     .all-content{
         opacity: 0;
         pointer-events: none;
+        min-height: 60vh;
     }
 
     .boxCards{
         background-color: #f26101dd;
-        min-height: 70vh;
+        // min-height: 70vh;
     }
 
 
