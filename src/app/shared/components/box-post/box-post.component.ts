@@ -24,8 +24,8 @@ export class BoxPostComponent implements AfterContentInit{
   // public name = "";
   @Input() public idPost    = 0;
   @Input() public namePost  = "";
-  @Input() public imagePost = signal("");   
-  @Input() public userName  = signal("");
+  @Input() public imagePost = "";   
+  @Input() public userName  = "";
   @Input() public stars     = 0;
   @Input() public comments  = 0;
 
