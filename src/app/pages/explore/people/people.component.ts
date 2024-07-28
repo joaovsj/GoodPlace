@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 // Components
 import { BoxListComponent } from '@components/box-list/box-list.component';
 import { BoxPostComponent } from '@components/box-post/box-post.component';
+import { MonkeyComponent } from '@components/monkey/monkey.component';
 
 // Pipes
 import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
@@ -13,7 +14,7 @@ import { environment } from 'environments/environment';
 @Component({
   selector: 'app-people',
   standalone: true,
-  imports: [BoxListComponent, BoxPostComponent, CommonModule, LocalDatePipe],
+  imports: [BoxListComponent, BoxPostComponent, CommonModule, LocalDatePipe, MonkeyComponent],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

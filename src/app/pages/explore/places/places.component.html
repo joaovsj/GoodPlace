@@ -16,9 +16,9 @@
 
     </div>     <!-- Close First Column -->
 
-    @if(places){
-        <div class="col d-flex flex-column p-0">
 
+    <div class="col d-flex flex-column p-0">
+        @if(places){
 
             @if(post()){
                 <app-description 
@@ -37,22 +37,26 @@
                     [state]="post()[0].state"
                     [details]="post()[0].details"
                 />         
-            }  <!-- DESCRIPTION MAIN -->
-    
-            <div class="col mt-5">
+                <!-- DESCRIPTION MAIN -->
+            } 
 
-                @if(comments()){
-                    @for (comment of comments(); track $index) {
-                        <app-box-comment 
-                            [name]="comment.name"
-                            [image]="comment.image"
-                            [description]="comment.description"
-                        />
-                    } @empty {
-                        <p class="ms-5">Nenhum comentáro ainda...😢</p>
-                    }
-                 } <!-- COMMENTS -->
-            </div>
-        </div> 
-    }
+        <div class="col mt-5">
+
+            @if(comments()){
+                @for (comment of comments(); track $index) {
+                    <app-box-comment 
+                        [name]="comment.name"
+                        [image]="comment.image"
+                        [description]="comment.description"
+                    />
+                } @empty {
+                    <p class="ms-5">Nenhum comentáro ainda...😢</p>
+                }
+                } <!-- COMMENTS -->
+        </div>
+
+        } @else {
+            <app-monkey />
+        }
+    </div> 
 </div>

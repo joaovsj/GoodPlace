@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { BoxListComponent }     from '@components/box-list/box-list.component';
 import { DescriptionComponent } from '@components/description/description.component';
 import { BoxCommentComponent }  from '@components/box-comment/box-comment.component';
+import { MonkeyComponent } from '@components/monkey/monkey.component';
 
 // Services
 import { PostService }    from '@services/post.service';
@@ -15,7 +16,7 @@ import { CommentService } from '@services/comment.service';
 @Component({
   selector: 'app-places',
   standalone: true,
-  imports: [BoxListComponent, DescriptionComponent, BoxCommentComponent, CommonModule],
+  imports: [BoxListComponent, DescriptionComponent, BoxCommentComponent, CommonModule, MonkeyComponent],
   templateUrl: './places.component.html',
   styleUrl: './places.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

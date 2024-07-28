@@ -52,15 +52,19 @@
         
     </div> <!-- Close First Column -->
 
+
     @if(people){
         <div class="col-4 rounded-3 shadow">
-
             <div class="row p-3">
                 <h4 class="text-center">Veja as postagens mais recentes!</h4>
             </div>
-    
+
             <app-box-post />
         </div>
+    } @else {
+        <div class="col-4 rounded-3">  
+            <app-monkey />
+        </div>
     }
-    
+
 </div>

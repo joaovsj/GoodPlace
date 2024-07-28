@@ -43,22 +43,20 @@ export default class ExploreComponent{
 
 
   submit(){
-
-    this.spinner.show();
-
+    
     if(this.filterSearch.value.category === "places"){
+    
+      this.spinner.show();
       this.#placeService.search$(this.filterSearch.value.description).subscribe();
     }
     
     if(this.filterSearch.value.category === "people"){
+      
+      this.spinner.show();
       this.#postService.search$(this.filterSearch.value.description).subscribe();
     } 
 
-    setTimeout(()=>{
-      console.log(this.people());
-    }, 4000)
-
-    console.log(this.filterSearch);
+    return;
   }
 
   
