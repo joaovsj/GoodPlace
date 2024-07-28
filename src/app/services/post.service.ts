@@ -52,7 +52,7 @@ export class PostService {
   #post = signal< IPost | null >(null);
   public post = this.#post.asReadonly();
 
-  public httpGetId$(id: string): Observable<IPost>{
+  public httpGetId$(id: any): Observable<IPost>{
     return this.#http.get(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
       tap((res: any) => {
         this.#post.set(res.body);

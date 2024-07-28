@@ -1,5 +1,5 @@
  <!-- CARDS -->
- <div class="card shadow-sm d-flex flex-row py-1 myCard mb-2">
+ <div class="card shadow-sm d-flex flex-row py-2 myCard mb-2" (click)="showDetails(idPost)">
     <div class="col-2 d-flex align-items-center justify-content-center box-img d-flex">
         <img 
             src="{{ url() }}/{{ imageName }}" 
@@ -10,23 +10,21 @@
             >
     </div>
     <div class="col d-flex flex-column justify-content-center p-2 box-details">
-        <h5 class="text-capitalize">{{ title }}</h5>
+        <h5 class="text-capitalize text-nowrap">{{ title }}</h5>
             <p class="text-muted m-0 p-0 ">{{ author }}</p>
        
     </div>
     <div class="col d-flex flex-column justify-content-center align-items-end me-4 p-2 pb-0">
-        <div class="d-flex text-warning mt-2">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-        </div>
-        <ul class="d-flex p-0 mt-1" style="list-style-type: none;">
-            <!-- <li>
-                <i class="bi bi-eye"></i>
-                445
-            </li> -->
+        <ul class="d-flex text-warning p-0 m-0" style="list-style-type: none;" [innerHTML]="countStars">
+            <!-- <li><i class="bi bi-star-fill"></i></li>
+            <li><i class="bi bi-star-fill"></i></li>
+            <li><i class="bi bi-star-fill"></i></li>
+            <li><i class="bi bi-star"></i></li>
+            <li><i class="bi bi-star"></i></li> -->
+        </ul>
+
+
+        <ul class="d-flex p-0 m-0" style="list-style-type: none;">
             <li class="align-self-end">
                 <i class="bi bi-chat-dots"></i>
                 {{ comments }}

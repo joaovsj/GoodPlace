@@ -30,7 +30,7 @@ export class CommentService {
   #comments = signal<IComment | null>(null);
   public comments = this.#comments.asReadonly();
 
-  public getComments$(id: string){
+  public getComments$(id: any){
     return this.#http.get(`${this.#url()}/?post_id=${id}`, { headers: this.headers }).pipe(
       tap((res: any)=>{
         if(res.status){

@@ -1,11 +1,15 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Components
 import { BoxListComponent }     from '@components/box-list/box-list.component';
 import { DescriptionComponent } from '@components/description/description.component';
 import { BoxCommentComponent }  from '@components/box-comment/box-comment.component';
+
+// Services
+import { PostService }    from '@services/post.service';
+import { CommentService } from '@services/comment.service';
 
 
 @Component({
@@ -26,37 +30,29 @@ import { BoxCommentComponent }  from '@components/box-comment/box-comment.compon
     ])
   ]
 })
-export default  class PlacesComponent implements AfterContentInit{
+export default  class PlacesComponent implements OnInit{
+
+  #postService    = inject(PostService);
+  #commentService = inject(CommentService);
 
   @Input() public places: any = 0;
   @Input() public stars     = 0;
   public countStars: any = "";
   
-  ngAfterContentInit(){
+  public post: any = this.#postService.post;
+  public comments: any = this.#commentService.comments; // list of comments
 
-    // setTimeout(()=>{
-      // console.log(this.stars);
-    // },4000)
+  public searchDetails(event: Event){
 
-    
-    this.setNumberStars();
+    this.#postService.httpGetId$(event).subscribe();
+    this.#commentService.getComments$(event).subscribe();
   }
 
-  setNumberStars(){
-    let contador = 0;
-    for(let i=0; i < this.stars; i++){   
-      this.countStars+=`
-        <li><i class="bi bi-star-fill"></i></li>
-      `;
-
-      contador++;
-    }
-
-    if(contador<5){
-      for (let i = contador; i < 5; i++) {
-        this.countStars+=`<li><i class="bi bi-star"></i></li>`;
-      }
-    }
+  public ngOnInit(){
+    setTimeout(()=>{
+      console.log(this.post());
+      console.log(this.comments());
+    },5000)
   }
 
 }

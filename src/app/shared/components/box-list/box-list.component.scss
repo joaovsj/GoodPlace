@@ -1,5 +1,11 @@
 :host{
     .myCard{
+        cursor: pointer;
+
+        &:hover{
+            background-color: #e0e0e0;
+        }
+
         .box-img{
             position: relative;
 

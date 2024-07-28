@@ -2,11 +2,13 @@
     <div class="col-4 shadow px-4 py-4 rounded-3 d-flex flex-column gap-3 boxCards">
         @for(place of places; track $index){
             <app-box-list 
+                [idPost]="place.id"
                 [title]="place.place"
-                [countStars]="place.assessment"
+                [stars]="place.assessment"
                 [comments]="place.comments"
                 [author]="place.username"
-                [imageName]="place.image"
+                [imageName]="place.image"   
+                (idPostEvent)="searchDetails($event)"
             /> <!-- LIST OF SEARCH -->
         } @empty{
             <p class="ms-5 text-white fs-5">Nenhum local encontrado...😢</p>
@@ -16,10 +18,40 @@
 
     @if(places){
         <div class="col d-flex flex-column p-0">
-            <app-description />     <!-- DESCRIPTION MAIN -->
+
+
+            @if(post()){
+                <app-description 
+                    [title]="post()[0].name"
+                    [stars]="post()[0].assessment"
+                    [comments]="post()[0].comments"
+                    [description]="post()[0].description"
+                    [username]="post()[0].username"
+                    [imagePost]="post()[0].image"
+                    [category]="post()[0].category"
+
+                    [address]="post()[0].address" 
+                    [number]="post()[0].number"
+                    [neighborhood]="post()[0].neighborhood"
+                    [city]="post()[0].city"
+                    [state]="post()[0].state"
+                    [details]="post()[0].details"
+                />         
+            }  <!-- DESCRIPTION MAIN -->
     
             <div class="col mt-5">
-               <app-box-comment />  <!-- COMMENTS -->
+
+                @if(comments()){
+                    @for (comment of comments(); track $index) {
+                        <app-box-comment 
+                            [name]="comment.name"
+                            [image]="comment.image"
+                            [description]="comment.description"
+                        />
+                    } @empty {
+                        <p class="ms-5">Nenhum comentáro ainda...😢</p>
+                    }
+                 } <!-- COMMENTS -->
             </div>
         </div> 
     }
