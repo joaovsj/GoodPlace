@@ -19,47 +19,69 @@
     
         <!-- Vai ser uma página para ver a a avaliação de uma pessoa X, e os comentários feitos à respeito dessa pessoa. -->
 
-        <div class="row ms-5 me-2">
-            <div class="col-8 p-0">
+        @defer(
+            on viewport;
+        ){
+           
+            <div class="row ms-5 me-2">
+                <div class="col-8 p-0">
 
-                @if(post()){
-                    <app-description 
-                        [title]="post()[0].name"
-                        [stars]="post()[0].assessment"
-                        [comments]="post()[0].comments"
-                        [description]="post()[0].description"
-                        [username]="post()[0].username"
-                        [imagePost]="post()[0].image"
-                        [category]="post()[0].category"
+                    @if(post()){
+                        <app-description 
+                            [title]="post()[0].name"
+                            [stars]="post()[0].assessment"
+                            [comments]="post()[0].comments"
+                            [description]="post()[0].description"
+                            [username]="post()[0].username"
+                            [imagePost]="post()[0].image"
+                            [category]="post()[0].category"
 
-                        [address]="post()[0].address" 
-                        [number]="post()[0].number"
-                        [neighborhood]="post()[0].neighborhood"
-                        [city]="post()[0].city"
-                        [state]="post()[0].state"
-                        [details]="post()[0].details"
-                    />         
-                }
-    
-            </div>
-            <div class="col ms-3  rounded-3">
-                
-                <h4 class="fw-bold mb-4">Comentários: </h4>
-
-                @if(comments()){
-                    @for (comment of comments(); track $index) {
-                        <app-box-comment 
-                            [name]="comment.name"
-                            [image]="comment.image"
-                            [description]="comment.description"
-                        />
-                    } @empty {
-                        <p class="ms-5">Nenhum comentáro ainda...😢</p>
+                            [address]="post()[0].address" 
+                            [number]="post()[0].number"
+                            [neighborhood]="post()[0].neighborhood"
+                            [city]="post()[0].city"
+                            [state]="post()[0].state"
+                            [details]="post()[0].details"
+                        />         
                     }
-                }
+        
+                </div>
+                <div class="col ms-3  rounded-3">
+                    
+                    <h4 class="fw-bold mb-4">Comentários: </h4>
 
+                    @if(comments()){
+                        @for (comment of comments(); track $index) {
+                            <app-box-comment 
+                                [name]="comment.name"
+                                [image]="comment.image"
+                                [description]="comment.description"
+                            />
+                        } @empty {
+                            <p class="ms-5">Nenhum comentáro ainda...😢</p>
+                        }
+                    }
+
+                </div>
             </div>
-        </div>
+
+        } @loading {
+            <div class="w-100 d-flex align-items-center justify-content-center" style="height: 40vh;">
+                <div class="spinner-border color-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }   @placeholder {
+            <div class="w-100 d-flex align-items-center justify-content-center" style="height: 40vh;">
+                <div class="spinner-border color-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+         } @error {
+            <div class="w-100 d-flex align-items-center justify-content-center" style="height: 40vh;">
+                <p>Ops... Parece que houve um problema ao carregar esse comentário! 😢</p>
+            </div>
+         }
         
     </div>
 <app-footer />

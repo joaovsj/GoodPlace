@@ -44,13 +44,6 @@ export class DescriptionComponent implements OnChanges, OnInit{
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log(changes);
-
-    console.log(this.countStars);
-    console.log(this.stars);
-
-    alert('on changes');
-
     this.result = [];
     this.countStars = "";
     this.comments = 0;
