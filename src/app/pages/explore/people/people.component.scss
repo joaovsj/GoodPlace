@@ -1,5 +1,15 @@
 :host{
 
+
+    .myCard{
+        cursor: pointer;
+
+        &:hover{
+            background-color: #e0e0e0;
+        }
+
+    }
+
     .all-content{
         opacity: 0;
         pointer-events: none;

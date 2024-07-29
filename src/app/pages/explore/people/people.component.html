@@ -7,7 +7,7 @@
 
         @for (person of people; track $index) {
             <!-- CARDS -->
-            <div class="card shadow-sm d-flex flex-row py-1 myCard mb-2">
+            <div class="card shadow-sm d-flex flex-row py-1 myCard mb-2" (click)="showDetails(person.id)">
                 <div class="col-2 d-flex align-items-center justify-content-center box-img d-flex">
                     <img 
                         src="{{ url() }}/{{ person.image }}" 
@@ -59,7 +59,20 @@
                 <h4 class="text-center">Veja as postagens mais recentes!</h4>
             </div>
 
-            <app-box-post />
+
+                @for(post of posts(); track $index){ 
+                    <app-box-post 
+                        [idPost]="post.id"
+                        [namePost]="post.name"
+                        [imagePost]="post.image"
+                        [userName]="post.username"
+                        [stars]="post.assessment"
+                        [comments]="post.comments"
+                    />    
+                } @empty{
+                    <p>Sem postagens até agora...</p>
+                }
+
         </div>
     } @else {
         <div class="col-4 rounded-3">  

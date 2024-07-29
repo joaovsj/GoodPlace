@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -31,7 +31,7 @@ import { CommentService } from '@services/comment.service';
     ])
   ]
 })
-export default  class PlacesComponent implements OnInit{
+export default  class PlacesComponent {
 
   #postService    = inject(PostService);
   #commentService = inject(CommentService);
@@ -45,15 +45,15 @@ export default  class PlacesComponent implements OnInit{
 
   public searchDetails(event: Event){
 
+    console.log(event);
+    
     this.#postService.httpGetId$(event).subscribe();
     this.#commentService.getComments$(event).subscribe();
-  }
 
-  public ngOnInit(){
-    setTimeout(()=>{
-      console.log(this.post());
-      console.log(this.comments());
-    },5000)
+    // setTimeout(()=>{
+    //   console.log(this.post());
+    //   console.log(this.comments());
+    // },5000)
   }
 
 }

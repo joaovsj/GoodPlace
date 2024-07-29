@@ -10,9 +10,11 @@ import { environment } from 'environments/environment';
   styleUrl: './description.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DescriptionComponent implements OnChanges{ 
+export class DescriptionComponent implements OnChanges, OnInit{
+  
 
   public url = signal(environment.API+"/post/image");
+  
   
   // Post
   @Input() public title: any = "";
@@ -34,14 +36,35 @@ export class DescriptionComponent implements OnChanges{
   public countStars: any = "";
   public result: any = [];
 
+
+  
+  ngOnInit(): void {
+    console.log(this.comments);  
+  } 
+
   ngOnChanges(changes: SimpleChanges): void {
 
-    this.stars = 0;
+    console.log(changes);
+
+    console.log(this.countStars);
+    console.log(this.stars);
+
+    alert('on changes');
+
     this.result = [];
     this.countStars = "";
+    this.comments = 0;
 
-    this.stars = changes['stars'].currentValue;
-    this.details = changes['details'].currentValue;
+
+    if(changes.hasOwnProperty('stars')){
+      this.stars = changes['stars'].currentValue;  
+    }
+
+    if(changes.hasOwnProperty('comments')){
+      this.comments = changes['comments'].currentValue;
+    }
+  
+    this.details  = changes['details'].currentValue;
     
     this.changeDetails();
     this.setNumberStars();
@@ -60,6 +83,7 @@ export class DescriptionComponent implements OnChanges{
     }
   }
 
+
   setNumberStars(){
     let contador = 0;
     for(let i=0; i < this.stars; i++){   
@@ -75,7 +99,6 @@ export class DescriptionComponent implements OnChanges{
         this.countStars+=`<li><i class="bi bi-star"></i></li>`;
       }
     }
-
   }
 }
 

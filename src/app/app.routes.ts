@@ -21,7 +21,7 @@ export const routes: Routes = [
     {
         path: 'profile',
         loadChildren: () => import('./pages/person/person.routes').then(rout => rout.personRoutes),
-        canMatch: [checkGuard]
+        // canMatch: [checkGuard]
     },
     {
         path: '**', 
