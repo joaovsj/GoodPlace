@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit{
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
   
-  public ngOnInit(){  
+  public ngOnInit(){   
     this.formData = new FormData();
     this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
     this.#user.getIcons$().subscribe();

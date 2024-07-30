@@ -49,5 +49,11 @@ export class CommentComponent implements OnInit{
     // }, 4000)
   }
 
+  public redirect(){
+    setTimeout(()=>{
+      this.#router.navigate(['/explore']);
+    },1200);
+  }
+
 
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable, catchError, pipe, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 import { IUser } from 'app/interfaces/IUser';
@@ -12,6 +13,7 @@ import { ToastService } from './toast.service';
 })
 export class UserService {
 
+  #route = inject(Router);
   #http  = inject(HttpClient);
   #auth  = inject(AuthService);
   #url   = signal<String>(environment.API);
@@ -44,6 +46,10 @@ export class UserService {
       tap((res: any)=>this.#setUserId.set(res.body)),
       catchError((error: HttpErrorResponse)=>{
 
+        if(error.status == 404){
+          this.#route.navigate(['/explore']);
+        }
+        
         this.#setErrorUserId.set(error.error);
         return throwError(()=> error);
       })
