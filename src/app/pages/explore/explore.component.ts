@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +24,7 @@ import { SpinnerService } from '@services/spinner.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export default class ExploreComponent{
+export default class ExploreComponent implements OnInit{
 
   #fb = inject(FormBuilder);  
   #placeService = inject(PlaceService);
@@ -41,6 +41,11 @@ export default class ExploreComponent{
     description: ['']
   })
 
+
+  ngOnInit(){
+    this.spinner.show();
+    this.#placeService.search$("all").subscribe();
+  }
 
   submit(){
     
