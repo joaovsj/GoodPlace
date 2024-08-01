@@ -59,7 +59,6 @@
                 <h4 class="text-center">Veja as postagens mais recentes!</h4>
             </div>
 
-
                 @for(post of posts(); track $index){ 
                     <app-box-post 
                         [idPost]="post.id"
@@ -68,7 +67,10 @@
                         [userName]="post.username"
                         [stars]="post.assessment"
                         [comments]="post.comments"
+                        [public_token]="people[0].public_token" 
                     />    
+
+                    <!-- After all you must ensure the right token is being given -->
                 } @empty{
                     <p class="text-center">Sem postagens até agora...</p>
                 }

@@ -28,6 +28,7 @@ export class BoxPostComponent implements AfterContentInit{
   @Input() public userName  = "";
   @Input() public stars     = 0;
   @Input() public comments  = 0;
+  @Input() public public_token = "";
 
   @Input() public deletePost: any = 0;
 
@@ -37,9 +38,9 @@ export class BoxPostComponent implements AfterContentInit{
 
   ngAfterContentInit(){
 
-    // setTimeout(()=>{
-      // console.log(this.stars);
-    // },4000)
+    setTimeout(()=>{
+      console.log(this.public_token);
+    },4000)
 
     
     this.setNumberStars();

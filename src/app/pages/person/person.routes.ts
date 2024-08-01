@@ -2,7 +2,7 @@ import { Routes } from "@angular/router";
 
 export const personRoutes: Routes = [
     {
-        path: '',
+        path: ':token',
         loadComponent: () => import('./profile/profile.component').then(p => p.ProfileComponent)
     },
     {

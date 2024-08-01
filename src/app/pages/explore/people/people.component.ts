@@ -48,7 +48,8 @@ export default class PeopleComponent {
 
     setTimeout(()=>{
       console.log(this.posts());
-    },4000);
+      console.log(this.people);
+    },400);
   }
 
   

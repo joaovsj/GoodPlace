@@ -36,7 +36,7 @@
 
         <img src="{{ url() }}/{{ imagePost }}" alt="" class="img-fluid h-100 object-fit-cover w-100">
     </div>
-    <div class="details p-0">
-        <p class="p-0 mt-2">Cadastrado por: <strong>{{ userName }}</strong></p>
+    <div class="details p-0 z-1">
+        <p class="p-0 mt-2 ">Cadastrado por: <a [routerLink]="['/profile/', public_token]"><strong>{{ userName }}</strong></a></p>
     </div>
 </div>
