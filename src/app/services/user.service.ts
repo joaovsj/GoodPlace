@@ -56,6 +56,23 @@ export class UserService {
     );
   }
 
+
+  public getUserByToken$(token: string){
+    return this.#http.get<any>(`${this.#url()}/user/token/${token}`, {headers: this.headers }).pipe(
+      tap((res: any)=>this.#setUserId.set(res.body)),
+      catchError((error: HttpErrorResponse)=>{
+
+        if(error.status == 404){
+          this.#route.navigate(['/explore']);
+        }
+        
+        this.#setErrorUserId.set(error.error);
+        return throwError(()=> error);
+      })
+    );
+  }
+
+
   #icons = signal(null);
   public get getIcons(){
     return this.#icons.asReadonly();

@@ -3,7 +3,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { concatMap, tap } from 'rxjs';
+import { concatMap, finalize, tap } from 'rxjs';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
@@ -18,6 +18,7 @@ import { LocalDatePipe } from 'app/shared/pipes/local-date.pipe';
 import { UserService } from '@services/user.service';
 import { ToastService } from '@services/toast.service';
 import { PostService } from '@services/post.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -53,11 +54,12 @@ import { PostService } from '@services/post.service';
 
 export class ProfileComponent implements OnInit{
 
-  #user     = inject(UserService);
-  #Cookies  = inject(CookieService);
-  #fb       = inject(FormBuilder);
-  #toast    = inject(ToastService);
-  #posts    = inject(PostService)
+  #user           = inject(UserService);
+  #fb             = inject(FormBuilder);
+  #toast          = inject(ToastService);
+  #posts          = inject(PostService)
+  #Cookies        = inject(CookieService);
+  #activatedRoute = inject(ActivatedRoute);
 
   public url = signal<string>(environment.API+"/user/image")
 
@@ -85,20 +87,23 @@ export class ProfileComponent implements OnInit{
   // upload
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
-  
+
   public ngOnInit(){   
+
+    const publicToken = this.#activatedRoute.snapshot.params['token'];
     this.formData = new FormData();
-    this.#user.getUser$(this.userId).subscribe(()=>this.setNameImage()); 
+    this.#user.getUserByToken$(publicToken).pipe(finalize(()=> {
+
+      // console.log(this.user()?.id);
+      this.#posts.httpGet$(this.user()?.id).subscribe();
+
+
+    })).subscribe(()=>this.setNameImage());
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
     this.#user.getCategories$().subscribe();
-
-    this.#posts.httpGet$(this.userId).subscribe();
-
-
-    // setTimeout(()=>{
-    //   console.log(this.posts());
-    // },4000)
+ 
+    
   }
 
   // store the social media of user

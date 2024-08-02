@@ -37,12 +37,9 @@ export class BoxPostComponent implements AfterContentInit{
   public countStars: any = "";
 
   ngAfterContentInit(){
-
-    setTimeout(()=>{
-      console.log(this.public_token);
-    },4000)
-
-    
+    // setTimeout(()=>{
+    //   console.log(this.public_token);
+    // },4000)    
     this.setNumberStars();
   }
 

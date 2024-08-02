@@ -39,7 +39,7 @@ export class PostService {
   //   return this.#allPosts.asReadonly();
   // } 
 
-  public httpGet$(id: String | null){
+  public httpGet$(id: String | any){
     return this.#http.get(`${this.#url()}?user_id=${id}`, { headers: this.headers }).pipe(
       tap((res: any) => {
         if(res.status){
