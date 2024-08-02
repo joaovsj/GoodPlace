@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -29,7 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
     ])
   ]
 })
-export default class LoginComponent {
+export default class LoginComponent implements OnInit{
 
   #toast         = inject(ToastService);
   #fb            = inject(FormBuilder);
@@ -48,6 +48,16 @@ export default class LoginComponent {
     password: ["", Validators.required]
   });
     
+
+  ngOnInit(){
+    const cookieExists: boolean = this.#cookies.check('isLogged');
+
+    if(!cookieExists){
+      this.#cookies.set('isLogged', 'false');
+    }
+  }
+
+
   submit(){  
 
     if(this.user.valid){
@@ -64,10 +74,13 @@ export default class LoginComponent {
             
             this.user.reset();
 
+            console.log(result.body.public_token);
+
             this.#toast.success('Logado com sucesso!');
             this.#cookies.set("id", btoa(result.body.id));
+            this.#cookies.set('isLogged', 'true');
             this.#cookies.set("token", result.token);
-            this.#router.navigate(['/profile']);
+            this.#router.navigate(['/profile', result.body.public_token]);
 
             return;
           }  

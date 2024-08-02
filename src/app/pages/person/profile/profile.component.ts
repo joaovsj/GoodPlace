@@ -88,17 +88,24 @@ export class ProfileComponent implements OnInit{
   public statusUpload = this.#user.statusUpload;
   public messageUpload = this.#user.messageUpload;
 
+  public isLogged = signal<any>(false);
+
   public ngOnInit(){   
 
     const publicToken = this.#activatedRoute.snapshot.params['token'];
     this.formData = new FormData();
-    this.#user.getUserByToken$(publicToken).pipe(finalize(()=> {
+    
+    console.log(this.#Cookies.get('isLogged'));
 
-      // console.log(this.user()?.id);
+    this.isLogged.set(this.#Cookies.get('isLogged'));
+    console.log(this.isLogged());
+
+
+    this.#user.getUserByToken$(publicToken).pipe(finalize(()=> {
       this.#posts.httpGet$(this.user()?.id).subscribe();
 
-
     })).subscribe(()=>this.setNameImage());
+
     this.#user.getIcons$().subscribe();
     this.icons$.subscribe();
     this.#user.getCategories$().subscribe();
@@ -219,8 +226,3 @@ export class ProfileComponent implements OnInit{
   }
 
 }
-
-
-
-
-

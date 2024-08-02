@@ -4,7 +4,7 @@
             <div class="col-3">
                 <ul class="list-group">
                     <li class="list-group-item">Lugares Visitados:  {{ user()?.placesVisited }} </li>
-                    <li class="list-group-item">Meus comentários: {{ user()?.comments }} </li>
+                    <li class="list-group-item">Comentários: {{ user()?.comments }} </li>
                     <li class="list-group-item p-0">
                         <ul class="vstack m-0 p-0 ms-3" style="list-style-type: none;">
 
@@ -180,15 +180,20 @@
             </div>
 
             <div class="col d-flex flex-column gap-3">
-                <button class="btnSecondary shadow" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#exampleModal">
-                    Novo Post
-                </button>
-                <button class="" (click)="finalize()">
-                    {{ finalizeRegister() == true ?  'Cancelar' : 'Finalizar Cadastro'}} 
-                </button>
+
+                @if(isLogged() == "true"){
+                    <button class="btnSecondary shadow" 
+                            type="button" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal">
+                        Novo Post
+                    </button>
+
+                    <button class="" (click)="finalize()">
+                        {{ finalizeRegister() == true ?  'Cancelar' : 'Finalizar Cadastro'}} 
+                    </button>
+                }
+
             </div>
         </div>
     </div>

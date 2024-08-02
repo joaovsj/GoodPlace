@@ -27,10 +27,8 @@ export class HeaderComponent{
 
   public logout(){
     this.#cookieService.deleteAll();
-
-    const token = this.#cookieService.get('token')
-    console.log(token)
-    
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+  
     this.#router.navigate(['/login'])
   }
 

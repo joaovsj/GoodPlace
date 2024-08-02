@@ -1,10 +1,14 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 // Components
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
+
+
+// Services
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -15,7 +19,10 @@ import { FooterComponent } from '@components/footer/footer.component';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class HomeComponent {
+export default class HomeComponent implements OnInit{
+
+  #cookieService = inject(CookieService);
+
 
   public comments = signal([
     {
@@ -44,5 +51,14 @@ export default class HomeComponent {
     },
     
   ])
+
+  ngOnInit(){
+    const cookieExists: boolean = this.#cookieService.check('isLogged');
+
+    if(!cookieExists){
+      this.#cookieService.set('isLogged', 'false');
+  
+    }
+  }
 
 }

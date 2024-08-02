@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -29,7 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
     ])
   ]
 })
-export default class SignupComponent{
+export default class SignupComponent implements OnInit{
   
   #fb             = inject(FormBuilder);
   #authService    = inject(AuthService);
@@ -53,8 +53,15 @@ export default class SignupComponent{
   public invalidEmail    = signal<boolean>(false);
   public invalidPassword = signal<boolean>(false);
   public errors          = this.#authService.errorRegister;    
-  
 
+  
+  ngOnInit(){
+    const cookieExists: boolean = this.#cookies.check('isLogged');
+
+    if(!cookieExists){
+      this.#cookies.set('isLogged', 'false');
+    }
+  }
 
   public submit(): void | any{
 
@@ -70,8 +77,9 @@ export default class SignupComponent{
           if(result.status){
             this.#toast.success('Usuário cadastrado com sucesso!');
             this.#cookies.set("id", btoa(result.body.id));
+            this.#cookies.set('isLogged', 'true');
             this.#cookies.set("token", result.token);
-            this.#router.navigate(['/profile']);
+            this.#router.navigate(['/profile', result.body.public_token]);
           }
         
         
