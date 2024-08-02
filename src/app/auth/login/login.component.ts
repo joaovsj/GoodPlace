@@ -79,6 +79,7 @@ export default class LoginComponent implements OnInit{
             this.#toast.success('Logado com sucesso!');
             this.#cookies.set("id", btoa(result.body.id));
             this.#cookies.set('isLogged', 'true');
+            this.#cookies.set('public_token', result.body.public_token);
             this.#cookies.set("token", result.token);
             this.#router.navigate(['/profile', result.body.public_token]);
 

@@ -19,7 +19,7 @@
                 
                 @if(isLogged()){
                     <li>
-                        <a routerLink="/profile">Meu Perfil</a>
+                        <a [routerLink]="['/profile', public_token() ]">Meu Perfil</a>
                     </li>
                     <li>
                         <a role="button" (click)="logout()">Sair</a>

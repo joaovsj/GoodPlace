@@ -4,6 +4,7 @@ export interface IUser {
     email: String,
     email_verified_at: null,
     phone: String,
+    public_token: string,
 
     placesVisited: number,
     comments: number,   

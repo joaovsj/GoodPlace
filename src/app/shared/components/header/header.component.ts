@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -14,14 +14,20 @@ export class HeaderComponent{
 
   #cookieService = inject(CookieService)  
   #router        = inject(Router);
-  public isLogged = signal<boolean>(false)
-
+  public isLogged = signal<boolean>(false);
+  public public_token = signal<any>("");
 
   constructor(){
     const token = this.#cookieService.get('token')
    
+    if(token != ""){
+      this.isLogged.set(true)
+      this.public_token.set(this.#cookieService.get('public_token'));
+    
+    }
 
-    token != "" ? this.isLogged.set(true) : null; 
+
+    // token != "" ? this.isLogged.set(true) : null; 
 
   }
 
