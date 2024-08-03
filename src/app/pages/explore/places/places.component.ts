@@ -50,10 +50,10 @@ export default  class PlacesComponent {
     this.#postService.httpGetId$(event).subscribe();
     this.#commentService.getComments$(event).subscribe();
 
-    // setTimeout(()=>{
-    //   console.log(this.post());
-    //   console.log(this.comments());
-    // },5000)
+    setTimeout(()=>{
+      console.log(this.post());
+      // console.log(this.comments());
+    },5000)
   }
 
 }

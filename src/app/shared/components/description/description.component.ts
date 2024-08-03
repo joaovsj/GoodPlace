@@ -1,11 +1,12 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-description',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './description.component.html',
   styleUrl: './description.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -14,7 +15,6 @@ export class DescriptionComponent implements OnChanges, OnInit{
   
 
   public url = signal(environment.API+"/post/image");
-  
   
   // Post
   @Input() public title: any = "";
@@ -25,6 +25,7 @@ export class DescriptionComponent implements OnChanges, OnInit{
   @Input() public imagePost: string = "";
   @Input() public details: any = [];
   @Input() public category: any = [];
+  @Input() public public_token: string = "";
 
   // Adress
   @Input() public address: string = "";  
@@ -33,6 +34,7 @@ export class DescriptionComponent implements OnChanges, OnInit{
   @Input() public city: string = ""; 
   @Input() public state: string=""; 
   
+
   public countStars: any = "";
   public result: any = [];
 

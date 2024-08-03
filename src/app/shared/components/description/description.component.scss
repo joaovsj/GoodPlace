@@ -59,4 +59,19 @@
 
        
     }
+
+    .link_profile{
+        strong{
+            color: #f26101dd;
+        }
+
+        a{
+            color: #f26101dd;
+            text-decoration: none;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
 }

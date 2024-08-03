@@ -55,6 +55,7 @@ export class PostService {
   public httpGetId$(id: any): Observable<IPost>{
     return this.#http.get(`${this.#url()}/${id}`, { headers: this.headers }).pipe(
       tap((res: any) => {
+        console.log(res.body);
         this.#post.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{ 
