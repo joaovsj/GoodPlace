@@ -64,6 +64,11 @@ export default class ExploreComponent implements OnInit{
     return;
   }
 
+
+  getAllPeople(){
+    this.spinner.show();
+    this.#postService.search$("all").subscribe();
+  }
   
 
 }

@@ -4,7 +4,7 @@
             <form [formGroup]="filterSearch" (ngSubmit)="submit()">
                 <h4>Filtrar por:</h4>
                 <div class="d-flex gap-2 mt-3 pe-5">
-                    <select class="form-select w-50" name="" id="" formControlName="category">
+                    <select class="form-select w-50" name="" id="" formControlName="category" (change)="getAllPeople()">
                         <option selected>Escolha</option>
                         <option value="places">Lugares</option>
                         <option value="people">Pessoas</option>
