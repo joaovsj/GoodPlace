@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -19,7 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class HomeComponent implements OnInit{
+export default class HomeComponent{
 
   #cookieService = inject(CookieService);
 
@@ -51,14 +51,4 @@ export default class HomeComponent implements OnInit{
     },
     
   ])
-
-  ngOnInit(){
-    const cookieExists: boolean = this.#cookieService.check('isLogged');
-
-    if(!cookieExists){
-      this.#cookieService.set('isLogged', 'false');
-  
-    }
-  }
-
 }

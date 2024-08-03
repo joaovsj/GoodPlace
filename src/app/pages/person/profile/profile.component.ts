@@ -94,12 +94,19 @@ export class ProfileComponent implements OnInit{
 
     const publicToken = this.#activatedRoute.snapshot.params['token'];
     this.formData = new FormData();
-    
-    console.log(this.#Cookies.get('isLogged'));
 
-    this.isLogged.set(this.#Cookies.get('isLogged'));
-    console.log(this.isLogged());
 
+
+    console.log(this.#Cookies.check('token'));
+
+    if(this.#Cookies.check('token')){
+      this.isLogged.set(true);
+      console.log(this.isLogged());
+    }
+
+
+    // this.isLogged.set(this.#Cookies.get('isLogged'));
+  
 
     this.#user.getUserByToken$(publicToken).pipe(finalize(()=> {
       this.#posts.httpGet$(this.user()?.id).subscribe();

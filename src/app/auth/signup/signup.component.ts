@@ -29,7 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
     ])
   ]
 })
-export default class SignupComponent implements OnInit{
+export default class SignupComponent{
   
   #fb             = inject(FormBuilder);
   #authService    = inject(AuthService);
@@ -54,15 +54,6 @@ export default class SignupComponent implements OnInit{
   public invalidPassword = signal<boolean>(false);
   public errors          = this.#authService.errorRegister;    
 
-  
-  ngOnInit(){
-    const cookieExists: boolean = this.#cookies.check('isLogged');
-
-    if(!cookieExists){
-      this.#cookies.set('isLogged', 'false');
-    }
-  }
-
   public submit(): void | any{
 
     if(this.user.valid){
@@ -77,7 +68,6 @@ export default class SignupComponent implements OnInit{
           if(result.status){
             this.#toast.success('Usuário cadastrado com sucesso!');
             this.#cookies.set("id", btoa(result.body.id));
-            this.#cookies.set('isLogged', 'true');
             this.#cookies.set("token", result.token);
             this.#router.navigate(['/profile', result.body.public_token]);
           }
