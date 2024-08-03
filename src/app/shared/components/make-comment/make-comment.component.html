@@ -1,6 +1,7 @@
 <section>
     @if(hasComment){
-        <form action="" class="w-100 d-flex flex-column p-3 position-relative gap-2">
+
+        <form [formGroup]="comment" class="w-100 d-flex flex-column p-3 position-relative gap-2" (ngSubmit)="submit()">
             <editor
                 #description
                 formControlName="description"
@@ -15,17 +16,24 @@
             }"></editor>
 
 
+            @if(comment.dirty && comment.get('description')?.errors ){
+                <span class="text-danger">O campo deve possuir pelo pelos 30 caracteres!</span>
+            }
+            
             <div class="align-self-end d-flex gap-2 box_buttons">
                 <button (click)="this.hasComment = false;">Cancelar</button>
-                <button class="btnSecondary">Cadastrar</button>
+                <button 
+                    class="btnSecondary" 
+                    type="submit"
+                    [disabled]="(comment.get('description')?.errors)"    
+                >Cadastrar</button>
             </div>
         </form>
 
     }@else{
-
         <div class="d-flex align-items-center justify-content-between px-2">    
             <p class="ms-5">Nenhum comentáro ainda...😢</p>
-            <button (click)="register()">Cadastrar</button>
+            <button (click)="this.hasComment = true">Cadastrar</button>
         </div>
     }
 </section>

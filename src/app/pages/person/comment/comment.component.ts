@@ -12,6 +12,7 @@ import { MakeCommentComponent } from '@components/make-comment/make-comment.comp
 // Services
 import { PostService }    from '@services/post.service';
 import { CommentService } from '@services/comment.service';
+import { CookieService } from 'ngx-cookie-service';
 
 // Interfaces
 import { IPost } from 'app/interfaces/IPost';
@@ -30,6 +31,7 @@ export class CommentComponent implements OnInit{
   #router         = inject(Router);
   #postService    = inject(PostService);
   #commentService = inject(CommentService);
+  #cookieService  = inject(CookieService);
 
   public post: any = this.#postService.post;
   public details: any = [];
@@ -37,17 +39,16 @@ export class CommentComponent implements OnInit{
   public comments: any = this.#commentService.comments; // list of comments
   public post_id!: string;
 
+  public public_token = ""; // user's public token logged
+
   ngOnInit() {
     
     this.post_id = this.#activedRoute.snapshot.params['idPost'];
+    this.public_token = this.#cookieService.get('public_token'); 
+    
     this.#postService.httpGetId$(this.post_id).subscribe();
     this.#commentService.getComments$(this.post_id).subscribe();
 
-    // setTimeout(()=>{
-    //   console.log(this.post());
-    //   console.log(this.comments());
-    //   console.log(typeof this.comments());
-    // }, 4000)
   }
 
   public redirect(){
