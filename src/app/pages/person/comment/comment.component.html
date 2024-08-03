@@ -59,7 +59,12 @@
                                 [description]="comment.description"
                             />
                         } @empty {
-                            <p class="ms-5">Nenhum comentáro ainda...😢</p>
+
+ 
+                            <app-make-comment 
+                                [hasComment]="true"
+                            />                                        
+
                         }
                     }
 

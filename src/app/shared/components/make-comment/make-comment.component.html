@@ -1,0 +1,31 @@
+<section>
+    @if(hasComment){
+        <form action="" class="w-100 d-flex flex-column p-3 position-relative gap-2">
+            <editor
+                #description
+                formControlName="description"
+                apiKey="t3iwjkh6fkgdcvexigd07xrnn3grpqihr9qlceidfz0bvu8h" 
+                [init]="{
+                    selector: 'textarea',
+                    menubar: '',
+                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify',
+                    statusbar: false,
+                    max_height: 200,
+                    width: '100%',
+            }"></editor>
+
+
+            <div class="align-self-end d-flex gap-2 box_buttons">
+                <button (click)="this.hasComment = false;">Cancelar</button>
+                <button class="btnSecondary">Cadastrar</button>
+            </div>
+        </form>
+
+    }@else{
+
+        <div class="d-flex align-items-center justify-content-between px-2">    
+            <p class="ms-5">Nenhum comentáro ainda...😢</p>
+            <button (click)="register()">Cadastrar</button>
+        </div>
+    }
+</section>

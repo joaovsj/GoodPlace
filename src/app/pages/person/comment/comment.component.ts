@@ -7,6 +7,7 @@ import { HeaderComponent }      from '@components/header/header.component';
 import { FooterComponent }      from '@components/footer/footer.component';
 import { DescriptionComponent } from '@components/description/description.component';
 import { BoxCommentComponent }  from '@components/box-comment/box-comment.component';
+import { MakeCommentComponent } from '@components/make-comment/make-comment.component';
 
 // Services
 import { PostService }    from '@services/post.service';
@@ -18,7 +19,7 @@ import { IPost } from 'app/interfaces/IPost';
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, DescriptionComponent, BoxCommentComponent, CommonModule],
+  imports: [HeaderComponent, FooterComponent, DescriptionComponent, BoxCommentComponent, CommonModule, MakeCommentComponent],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
