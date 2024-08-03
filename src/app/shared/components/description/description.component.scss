@@ -9,7 +9,8 @@
     }
 
     .core{
-        max-height: 80vh;
+        // max-height: 80vh;
+        height: min-content;
 
         p{
             font-size: 0.9rem;

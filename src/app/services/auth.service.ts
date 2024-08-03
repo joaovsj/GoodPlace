@@ -80,11 +80,8 @@ export class AuthService {
         if(error.status === 0){
           this.#serverIsDown.set(true);
         }
-
-        console.log(error.ok);
       
-        this.#errorlogin.set(error.error.errors); 
-        
+        this.#errorlogin.set(error.error.errors);         
         return throwError(()=>error);
       })
     );

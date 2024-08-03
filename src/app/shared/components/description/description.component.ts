@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { environment } from 'environments/environment';
@@ -11,7 +11,7 @@ import { environment } from 'environments/environment';
   styleUrl: './description.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DescriptionComponent implements OnChanges, OnInit{
+export class DescriptionComponent implements OnChanges{
   
 
   public url = signal(environment.API+"/post/image");
@@ -37,12 +37,6 @@ export class DescriptionComponent implements OnChanges, OnInit{
 
   public countStars: any = "";
   public result: any = [];
-
-
-  
-  ngOnInit(): void {
-    console.log(this.comments);  
-  } 
 
   ngOnChanges(changes: SimpleChanges): void {
 

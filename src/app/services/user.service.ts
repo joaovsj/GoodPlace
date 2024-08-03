@@ -127,8 +127,6 @@ export class UserService {
         this.#messageUpload.set(res.body);
       }),
       catchError((error: HttpErrorResponse)=>{
-        console.log(error)
-
         if(error.status == 422){
           this.#toast.error(error.error.message)
         }

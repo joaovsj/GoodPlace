@@ -44,16 +44,14 @@ export default  class PlacesComponent {
   public comments: any = this.#commentService.comments; // list of comments
 
   public searchDetails(event: Event){
-
-    console.log(event);
     
     this.#postService.httpGetId$(event).subscribe();
     this.#commentService.getComments$(event).subscribe();
 
-    setTimeout(()=>{
-      console.log(this.post());
-      // console.log(this.comments());
-    },5000)
+    // setTimeout(()=>{
+    //   console.log(this.post());
+    //   // console.log(this.comments());
+    // },5000)
   }
 
 }

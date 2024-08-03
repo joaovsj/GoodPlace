@@ -46,10 +46,10 @@ export default class PeopleComponent {
   public showDetails(id: any){
     this.#postService.httpGet$(id).subscribe();
 
-    setTimeout(()=>{
-      console.log(this.posts());
-      console.log(this.people);
-    },400);
+    // setTimeout(()=>{
+    //   console.log(this.posts());
+    //   console.log(this.people);
+    // },400);
   }
 
   

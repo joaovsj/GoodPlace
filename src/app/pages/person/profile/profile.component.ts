@@ -95,12 +95,14 @@ export class ProfileComponent implements OnInit{
     const publicToken = this.#activatedRoute.snapshot.params['token'];
     this.formData = new FormData();
 
-    if(this.#Cookies.check('token')){
-      this.isLogged.set(true);
-      console.log(this.isLogged());
+    if(this.#Cookies.check('token')){      
+      const tokenOwner = this.#Cookies.get('public_token');
+
+      if(publicToken == tokenOwner){
+        this.isLogged.set(true);
+      }
     }
   
-
     this.#user.getUserByToken$(publicToken).pipe(finalize(()=> {
       this.#posts.httpGet$(this.user()?.id).subscribe();
 
@@ -144,8 +146,6 @@ export class ProfileComponent implements OnInit{
 
     this.user.update((oldValues)=>{        
         oldValues!.name = name;
-
-        console.log(oldValues);
         return oldValues;
     });
 

@@ -23,7 +23,6 @@ export class HeaderComponent{
     if(token != ""){
       this.isLogged.set(true)
       this.public_token.set(this.#cookieService.get('public_token'));
-    
     }
 
 
