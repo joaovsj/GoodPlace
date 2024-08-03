@@ -54,6 +54,7 @@ export default class LoginComponent{
 
       this.#toast.clear();
       this.spinnerVisible.set(true);
+      
 
       this.#authService.login(this.user.value).subscribe({
         next: (result)  => {

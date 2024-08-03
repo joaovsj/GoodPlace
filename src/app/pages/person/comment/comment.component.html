@@ -51,13 +51,17 @@
                     
                     <h4 class="fw-bold mb-4">Comentários: </h4>
 
+
                     @if(this.comments().length > 0){
 
-                        <app-make-comment 
-                            [hasComment]="true"
-                            [idPost]="post_id"
-                            (registered)="reloadComments($event)"
-                        /> 
+                        <!-- Verify if the user is logged -->
+                        @if(isLogged()){ 
+                            <app-make-comment 
+                                [idPost]="post_id"
+                                (registered)="reloadComments($event)"
+                            /> 
+                        }
+
 
                         @for (comment of comments(); track $index) {
                             <app-box-comment 
@@ -68,11 +72,14 @@
                         }                     
                         
                     } @else {
+
                         <app-make-comment 
-                            [hasComment]="false"
                             [idPost]="post_id"
                             (registered)="reloadComments($event)"
                         /> 
+
+                        <p class="mt-5 ms-5">Nenhum comentáro ainda...😢</p>
+
                     }
 
                 </div>

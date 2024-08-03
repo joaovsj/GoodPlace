@@ -22,7 +22,6 @@ export class MakeCommentComponent{
   #cookieService    = inject(CookieService);
   #commentService   = inject(CommentService);
 
-  @Input() public hasComment    = false;
   @Input() public idPost        = "";
   // @Input() public public_token  = "";
   public userId        = atob(this.#cookieService.get('id'));
@@ -41,7 +40,6 @@ export class MakeCommentComponent{
   public statusComments = this.#commentService.comment; 
 
   submit(){
-    this.hasComment = true;
     this.comment.value.post_id = this.idPost;
 
     this.#commentService.postComment$(this.comment.value).pipe(finalize(()=> {

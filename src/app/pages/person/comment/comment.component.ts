@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -41,6 +41,8 @@ export class CommentComponent implements OnInit{
 
   public public_token = ""; // user's public token logged
 
+  public isLogged = signal(false);
+
   ngOnInit() {
     
     this.post_id = this.#activedRoute.snapshot.params['idPost'];
@@ -48,7 +50,11 @@ export class CommentComponent implements OnInit{
     
     this.#postService.httpGetId$(this.post_id).subscribe();
     this.#commentService.getComments$(this.post_id).subscribe();
-  }
+
+    if(this.#cookieService.check('token')){
+      this.isLogged.set(true);
+    }
+  } 
 
   public redirect(){
     setTimeout(()=>{

@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -49,9 +49,15 @@ export default  class PlacesComponent implements OnInit{
   public post_id: any = "";
   public public_token = ""; // user's public token logged
 
+  public isLogged = signal(false);
 
   ngOnInit(){
     this.public_token = this.#cookieService.get('public_token'); 
+
+    if(this.#cookieService.check('token')){
+      this.isLogged.set(true);
+    }
+
   }
 
   public searchDetails(event: Event){

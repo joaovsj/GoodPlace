@@ -44,11 +44,14 @@
             
             @if(comments()){
 
-                <app-make-comment 
-                    [hasComment]="true"
-                    [idPost]="post()[0].id"
-                    (registered)="reloadComments($event)"
-                /> 
+                <!-- Verify if the user is logged -->
+                @if(isLogged()){
+                    <app-make-comment 
+                        [idPost]="post()[0].id"
+                        (registered)="reloadComments($event)"
+                    /> 
+                }
+
 
                 @for (comment of comments(); track $index) {
                     <app-box-comment 
@@ -57,9 +60,9 @@
                         [description]="comment.description"
                     />
                 } @empty {
-                    <p class="ms-5 mt-5">Nenhum comentáro ainda...😢</p>
+                    <p class="ms-5 mt-1">Nenhum comentáro ainda...😢</p>
                 }
-                } <!-- COMMENTS -->
+            } <!-- COMMENTS -->
         </div>
 
         } @else {
