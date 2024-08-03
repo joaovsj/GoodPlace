@@ -56,7 +56,6 @@
                         <app-make-comment 
                             [hasComment]="true"
                             [idPost]="post_id"
-                            [public_token]="public_token"
                             (registered)="reloadComments($event)"
                         /> 
 
@@ -72,7 +71,6 @@
                         <app-make-comment 
                             [hasComment]="false"
                             [idPost]="post_id"
-                            [public_token]="public_token"
                             (registered)="reloadComments($event)"
                         /> 
                     }

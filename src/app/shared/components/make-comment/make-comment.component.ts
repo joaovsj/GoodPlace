@@ -24,8 +24,8 @@ export class MakeCommentComponent{
 
   @Input() public hasComment    = false;
   @Input() public idPost        = "";
-  @Input() public public_token  = "";
-  @Input() public userId        = atob(this.#cookieService.get('id'));
+  // @Input() public public_token  = "";
+  public userId        = atob(this.#cookieService.get('id'));
 
   @ViewChild('description') public description!: ElementRef | any
   @Output() public registered = new EventEmitter(false);
