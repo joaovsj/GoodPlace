@@ -12,7 +12,10 @@
             <h5 class="mt-1 mb-3 text-muted" style="transform: translateX(-4%); font-size: 1rem;">{{ name }}</h5>
         </div>
         <div class="col-11 offset-1 position-relative p-0">
-            <textarea name="" id="" cols="30" rows="3" class="form-control p-2 text-muted w-100" readonly disabled style="font-size: 0.9rem;"> {{ description }} </textarea>
+
+            <div class="mt-2 bg-body-secondary p-3 rounded box_description" [innerHTML]="description" style="font-size: 0.9rem;"> </div>
+<!-- 
+            <textarea name="" id="" cols="30" rows="3" class="form-control p-2 text-muted w-100" readonly disabled style="font-size: 0.9rem;"  [innerHTML]="description"> </textarea> -->
         </div>
     </div>
 

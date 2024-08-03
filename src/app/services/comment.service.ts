@@ -40,6 +40,22 @@ export class CommentService {
     );
   }
 
+  #comment = signal<any>(null);
+  public comment = this.#comment.asReadonly();
+
+  public postComment$(comment: any){
+    return this.#http.post(`${this.#url()}`, comment, { headers: this.headers }).pipe(
+      tap((res: any)=>{
+          if(res.status){
+            this.#comment.set(res.status);
+            this.#toast.success(res.message);
+          } else{
+            this.#toast.error(res.message);
+          }
+      })
+    );
+  }
+
 
 
 }

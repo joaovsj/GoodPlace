@@ -1,39 +1,40 @@
-<section>
-    @if(hasComment){
+<section class="d-flex flex-column px-5 gap-2">
+    <button class="btnSecondary w-100 mx-auto" (click)="showForm = true">Cadastrar Novo Comentário</button>
 
-        <form [formGroup]="comment" class="w-100 d-flex flex-column p-3 position-relative gap-2" (ngSubmit)="submit()">
-            <editor
-                #description
-                formControlName="description"
-                apiKey="t3iwjkh6fkgdcvexigd07xrnn3grpqihr9qlceidfz0bvu8h" 
-                [init]="{
-                    selector: 'textarea',
-                    menubar: '',
-                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify',
-                    statusbar: false,
-                    max_height: 200,
-                    width: '100%',
-            }"></editor>
+        @if(showForm){
 
+            <form [formGroup]="comment" class="w-100 d-flex flex-column position-relative gap-2" (ngSubmit)="submit()">
+                <editor
+                    #description
+                    formControlName="description"
+                    apiKey="t3iwjkh6fkgdcvexigd07xrnn3grpqihr9qlceidfz0bvu8h" 
+                    [init]="{
+                        selector: 'textarea',
+                        menubar: '',
+                        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify',
+                        statusbar: false,
+                        max_height: 200,
+                        width: '100%',
+                }"></editor>
+    
+    
+                @if(comment.dirty && comment.get('description')?.errors ){
+                    <span class="text-danger">O campo deve possuir pelo pelos 30 caracteres!</span>
+                }
+                
+                <div class="align-self-end d-flex gap-2 box_buttons">
+                    <button (click)="showForm = false">Cancelar</button>
+                    <button 
+                        class="btnSecondary" 
+                        type="submit"
+                        [disabled]="(comment.get('description')?.errors)"
+                        [class.disabled]="(comment.get('description')?.errors)"    
+                    >Cadastrar</button>
+                </div>
+            </form>
+        }
 
-            @if(comment.dirty && comment.get('description')?.errors ){
-                <span class="text-danger">O campo deve possuir pelo pelos 30 caracteres!</span>
-            }
-            
-            <div class="align-self-end d-flex gap-2 box_buttons">
-                <button (click)="this.hasComment = false;">Cancelar</button>
-                <button 
-                    class="btnSecondary" 
-                    type="submit"
-                    [disabled]="(comment.get('description')?.errors)"    
-                >Cadastrar</button>
-            </div>
-        </form>
-
-    }@else{
-        <div class="d-flex align-items-center justify-content-between px-2">    
-            <p class="ms-5">Nenhum comentáro ainda...😢</p>
-            <button (click)="this.hasComment = true">Cadastrar</button>
-        </div>
-    }
+        @if(hasComment == false){   
+            <p class="mt-5">Nenhum comentáro ainda...😢</p>
+        }
 </section>

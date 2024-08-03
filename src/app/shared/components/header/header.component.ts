@@ -31,7 +31,9 @@ export class HeaderComponent{
   }
 
   public logout(){
+  
     this.#cookieService.deleteAll();
+
     document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
   
     this.#router.navigate(['/login'])

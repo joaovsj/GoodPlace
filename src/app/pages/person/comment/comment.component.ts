@@ -48,13 +48,19 @@ export class CommentComponent implements OnInit{
     
     this.#postService.httpGetId$(this.post_id).subscribe();
     this.#commentService.getComments$(this.post_id).subscribe();
-
   }
 
   public redirect(){
     setTimeout(()=>{
       this.#router.navigate(['/explore']);
     },1200);
+  }
+
+
+  public reloadComments(event: Event){
+    if(event){
+      this.#commentService.getComments$(this.post_id).subscribe();
+    }
   }
 
 
