@@ -1,35 +1,46 @@
-<header class="container-fluid text-white">
+<header class="container-fluid text-white position-relative">
     <div class="d-flex align-items-center justify-content-around p-1">
         <p>Tatuí, SP - BR</p>
         <p>15 997444127</p>
     </div>
-    <div class="row bg-white shadow-sm p-3 justify-content-around">
-        <div class="col-4 d-flex align-items-center ps-5">
+
+    
+
+    <div class="row bg-white menu p-4 justify-content-between">
+        <div class="col-4 d-flex align-items-center boxIcon">
             <i class="bi bi-geo-alt-fill"></i>  
             <h2>GoodPlace</h2>
         </div>
-        <div class="col-4 d-flex justify-content-center">
-            <ul class="d-flex gap-4">
+
+        <button class="nav-button" (click)="showMenu = !showMenu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="nav-routes visible"
+        [class.visible-nav]="showMenu"
+        >
+            <ul class="d-flex gap-4 visible"
+                [class.visible]="showMenu"
+            >
                 <li>
                     <a routerLink="/">Home</a>
                 </li>
                 <li>
                     <a routerLink="/explore">Explorar</a>
                 </li>
-                
+            
                 @if(isLogged()){
                     <li>
                         <a [routerLink]="['/profile', public_token() ]">Meu Perfil</a>
                     </li>
                     <li>
                         <a role="button" (click)="logout()">Sair</a>
-                    </li>    
+                    </li>
                 } @else{
                     <li>
                         <a routerLink="/login">Login/Cadastre-se</a>
                     </li>
                 }
-
             </ul>
         </div>
     </div>

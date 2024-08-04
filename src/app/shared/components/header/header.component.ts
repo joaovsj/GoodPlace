@@ -17,6 +17,8 @@ export class HeaderComponent{
   public isLogged = signal<boolean>(false);
   public public_token = signal<any>("");
 
+  public showMenu = false;
+
   constructor(){
     const token = this.#cookieService.get('token')
    
