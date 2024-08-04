@@ -107,7 +107,7 @@
                         width: 40px;
                         border-radius: 50%;
                         position: absolute;
-                        background-color: #f26101b9;
+                        background-color: #f26101b9; 
                         top: 15%;
                         left: -7%;
                         z-index: -1;
@@ -119,10 +119,17 @@
         }
 
 
-        div:last-child{
-            background-color: #f26101b9;
-            border-radius: 12px 0 0 12px;
+        .benefits_items{
+            background-color: #f26101e0;
+            border-radius: 12px 0 0 12px;   
+
+            div:last-child{
+                background-color: #f26101b9;
+                border-radius: 12px 0 0 12px;
+            }
         }
+
+
 
     }
 
