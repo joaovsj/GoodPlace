@@ -36,9 +36,9 @@ export class HeaderComponent{
 
     document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 
+    // this.#router.navigate(['/login'])
     window.location.reload();
-    this.#router.navigate(['/login'])
-
+   
   }
 
 }

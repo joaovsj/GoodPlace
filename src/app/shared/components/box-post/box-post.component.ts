@@ -4,12 +4,16 @@ import { RouterLink } from '@angular/router';
 // Services
 import { PostService } from '@services/post.service';
 
+// Pipes
+import { StarsPipe } from 'app/shared/pipes/stars.pipe';
+
 import { environment } from 'environments/environment';
+
 
 @Component({
   selector: 'app-box-post',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, StarsPipe],
   templateUrl: './box-post.component.html',
   styleUrl: './box-post.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush

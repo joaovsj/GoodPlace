@@ -9,14 +9,11 @@
             </div>
         }
 
-        <h5 class="position-absolute pt-3 ps-4 fs-4 fw-bolder" style="color: #fbff00dd;">{{ namePost }}</h5>
+        <h5 class="position-absolute pt-3 ps-4 fs-4 fw-bolder" style="color: #fbff00dd;">{{ namePost }} </h5>
         
-        <ul class="position-absolute text-warning d-flex end-0 p-3" style="list-style-type: none;" [innerHTML]="countStars">
-            <!-- <li><i class="bi bi-star-fill"></i></li>
-            <li><i class="bi bi-star-fill"></i></li>
-            <li><i class="bi bi-star-fill"></i></li>
-            <li><i class="bi bi-star"></i></li>
-            <li><i class="bi bi-star"></i></li> -->
+        
+        <ul class="position-absolute text-warning d-flex end-0 p-3" style="list-style-type: none;" [innerHTML]=" stars | stars ">
+            
         </ul>
 
         <ul class="position-absolute text-white end-0 bottom-0 p-3 mb-0" style="list-style-type: none;">

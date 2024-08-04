@@ -58,11 +58,14 @@
             <div class="row p-3">
                 <h4 class="text-center">Veja as postagens mais recentes!</h4>
             </div>
+            
+                @for(post of posts(); track $index){
+                    
+                    
 
-                @for(post of posts(); track $index){ 
                     <app-box-post 
                         [idPost]="post.id"
-                        [namePost]="post.name"
+                        [namePost]="post.name" 
                         [imagePost]="post.image"
                         [userName]="post.username"
                         [stars]="post.assessment"
