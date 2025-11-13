@@ -1,6 +1,6 @@
 # 🚀 GoodPlace
 
-Confira um vídeo da apresentação do projeto no [LinkedIn](https://www.linkedin.com/posts/joao-victor-silva-de-jesus_recentemente-fiquei-curioso-em-como-ficou-activity-7227138677804527616-w22t?utm_source=share&utm_medium=member_desktop).
+Confira um vídeo da apresentação do projeto no [LinkedIn.](https://www.linkedin.com/posts/joao-victor-silva-de-jesus_recentemente-fiquei-curioso-em-como-ficou-activity-7227138677804527616-w22t?utm_source=share&utm_medium=member_desktop)
 
 Esse sistema é desenvolvido em Angular 17 seu backend é outro repositório, desenvolvido em Laravel 10. 
 
